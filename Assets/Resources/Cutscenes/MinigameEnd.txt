@@ -1,0 +1,55 @@
+﻿Worm Queen:WormQueenA>Default Left
+Silence in my courtroom! So you've returned. You've kept your word and your
+day, but it remains to be seen whether you will keep your life. Before all the noble wives, maids,
+and widows of my realm, and before me as judge, give your answer: what do women desire
+most?
+
+Choice:2,3>
+Do you respond "$i"?
+
+Check:9,5,S-O-V-E-R-E-N-I-T-E>
+//Check if response was correct
+
+Inventory:Open>
+What is it, friend? Would you like to consult the inventory screen again?
+
+Choice:2,3>
+Do you respond "$i"?
+
+Worm Queen:WormQueenB>Default Left
+Eh, what nonsense is this?
+
+Eagle:GoldenEagleA>Default Left
+Apologies, your highness. My client is merely nervous. Another moment please.
+
+Inventory:Open>
+Chin up, friend! This is no time to be getting cold feet!
+
+Choice:2,3>
+Do you respond "$i"?
+
+Worm Queen:WormQueenC>Default Left
+What? N-no, that's...
+
+Eagle:GoldenEagleC>Default Left
+OBJECTION! Your honour, surely there is no wife, maid, or widow in this courtroom
+that would say the contrary.
+
+King:King>Default Left
+Agreed. Your client's life is saved. Isn't that so, dear?
+
+Worm Queen:WormQueenC>Default Left
+Argh, curses!
+
+King:King>Default Left
+Alas, my queen was but a worm all along!
+
+Eagle:GoldenEagleA>Default Left
+That she was. Now if you'll excuse me, I would have my fill.
+
+Worm Queen:WormQueenC>Default Left
+Ack! No! Run away!
+
+King:King>Default Left
+If you would be so kind as to give me the missing letters, I will restore this realm's tale to
+its proper order.

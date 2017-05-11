@@ -1,0 +1,9 @@
+﻿Eagle:GoldenEagleD-1>Default Left
+You see, manuscript letters hate bright light. And with good reason: if it's the wrong kind
+of light, you risk burning away the ink. Don't be alarmed: this is a special flashlight. We wouldn't
+let you damage the manuscripts, after all. Just shine a spotlight on the letters and you'll make the
+imposters sweat.
+
+Eagle:GoldenEagleD-1>Default Left
+The more you focus the beam, the more the letter will shake. Once you’re sure that you’ve found
+a fake letter, click on it with the center of the flashlight to capture it!

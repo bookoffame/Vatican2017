@@ -1,0 +1,84 @@
+Worm Queen:WormQueenA>Enter from Right
+Who dares trespass upon my realm?!
+
+King:King>Default Left
+Wait, I thought the tale was about the old days in my realm?
+
+Worm Queen:WormQueenA>Default Right
+Oh, it is, sweetheart. But it's 2017. What's yours is mine and mine is yours. Now
+then, as I was saying... Who dares trespass upon my realm?!
+
+Eagle:GoldenEagleA>Enter From Left
+Apologies, your highness. My client and I were trying to read the tale, you see, and it
+seems that you've gone and put up house in a rather unfortunate location.
+
+Worm Queen:WormQueenB>Default Right
+And so you thought to efface my realm with that lens of yours?
+
+Eagle:GoldenEagleA>Default Left
+I suppose you can put it that way, but my client was merely trying to restore things to the
+way they originally -
+
+Worm Queen:WormQueenA>Default Right
+SILENCE! You there, the knight with the lens: you think you have the right to
+decide what belongs where? You have no power here! I hereby charge you with intention to
+mistake, mislead, and misrepresent - the only punishment for which can be death!
+
+Eagle:GoldenEagleB>Default Left
+Now that's absurd.
+
+King:King>Default Left
+This all does seem a bit ridiculous, dear.
+
+Worm Queen:WormQueenA>Default Right
+Ugh, fine then, not death. But don't think you're off the hook just yet! I have a
+game in mind from which there is no escape. Minions: secure the realm!
+
+Lock Book:true>
+//Worms appears on book
+
+Worm Queen:WormQueenA>Default Right
+I will grant you both your freedom and your life if you can tell me what thing it is that women
+most desire.
+
+Eagle:GoldenEagleC>Enter from Left
+Objection! Your honour, that's a loaded question!
+
+King:King>Default Left
+Indeed. Overruled. Continue, my slithery queen.
+
+Worm Queen:WormQueenA>Default Right
+Listen and take heed, for only this will you keep your head attached to your neck. But I am a merciful worm.
+
+Eagle:GoldenEagleB>Pop up from Left
+There, look, she even said she's a worm!
+
+King:King>Default Left
+And what a worm!
+
+Eagle:GoldenEagleB>Default Left
+Ugh. I fear that you may just have to play this one out, my friend.
+
+Worm Queen:WormQueenA>Default Right
+You needn't answer now: I will give you twelve months and a day to scour my
+realm for the word that will buy your freedom, if you return to this courtroom and answer before
+your time is up. Of course, should you fail to find this word, well... I can assure you, your time
+will be up. What sayst thou?
+
+Choice:22,20>
+Will you play the Queen's game?
+
+Eagle:GoldenEagleB>Enter From Left
+Listen: I don't want to waste time on this worm either, but what other option do you have?
+
+Choice:22,20>
+Will you play the Queen's game?
+
+Show Letters:true>
+//Letters fly behind the Queen
+
+Worm Queen:WormQueenA>Default Right
+Good. Perhaps there is hope for you yet. Let the game begin!
+
+Worm Queen:WormQueenB>Default Right
+Court dismissed!

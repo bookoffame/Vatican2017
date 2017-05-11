@@ -1,0 +1,135 @@
+fileFormatVersion: 2
+guid: fee08ed7d7a894aee8969f3bab137c73
+timeCreated: 1462738906
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Back
+    100002: BookCoverFront
+    100004: BookCoverFront1
+    100006: //RootNode
+    100008: BTMbind
+    100010: BTMbkString
+    100012: BTMbndString
+    100014: BTMfrtString
+    100016: FTbind
+    100018: SIDEbind
+    100020: TPbkString
+    100022: TPbndString
+    100024: TPfrtString
+    400000: Back
+    400002: BookCoverFront
+    400004: BookCoverFront1
+    400006: //RootNode
+    400008: BTMbind
+    400010: BTMbkString
+    400012: BTMbndString
+    400014: BTMfrtString
+    400016: FTbind
+    400018: SIDEbind
+    400020: TPbkString
+    400022: TPbndString
+    400024: TPfrtString
+    2300000: Back
+    2300002: BookCoverFront
+    2300004: BookCoverFront1
+    2300006: BTMbind
+    2300008: BTMbkString
+    2300010: BTMbndString
+    2300012: BTMfrtString
+    2300014: FTbind
+    2300016: SIDEbind
+    2300018: TPbkString
+    2300020: TPbndString
+    2300022: TPfrtString
+    3300000: Back
+    3300002: BookCoverFront
+    3300004: BookCoverFront1
+    3300006: BTMbind
+    3300008: BTMbkString
+    3300010: BTMbndString
+    3300012: BTMfrtString
+    3300014: FTbind
+    3300016: SIDEbind
+    3300018: TPbkString
+    3300020: TPbndString
+    3300022: TPfrtString
+    4300000: Back
+    4300002: BookCoverFront
+    4300004: BookCoverFront1
+    4300006: TPfrtString
+    4300008: TPbndString
+    4300010: TPbkString
+    4300012: BTMfrtString
+    4300014: BTMbndString
+    4300016: BTMbkString
+    4300018: SIDEbind
+    4300020: FTbind
+    4300022: BTMbind
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

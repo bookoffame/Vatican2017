@@ -1,0 +1,13 @@
+XML Code for sample book:
+http://manifests.ydc2.yale.edu/manifest/BeineckeMS310
+
+sample Chaucer
+http://www.e-codices.unifr.ch/metadata/iiif/fmb-cb-0048/manifest.json
+
+sample manifest with Annotation:
+dms-data.stanford.edu/data/manifests/BnF/jr903ng8662/manifest.json
+dms-data.stanford.edu/data/manifests/BnF/jr903ng8662/list/text-Av.json
+
+Note:
+Regex for parser:
+{"@id":"(.*?)","@type":"dctypes:Image"

@@ -1,0 +1,155 @@
+\section{Annotation Class Reference}
+\label{class_annotation}\index{Annotation@{Annotation}}
+
+
+Creates and retrieves annotations.  
+
+
+Inheritance diagram for Annotation\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_annotation}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf Annotation\+Box}
+\begin{DoxyCompactList}\small\item\em Contains data needed to display an annotation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf Update\+Web\+Address} (string new\+Address)
+\begin{DoxyCompactList}\small\item\em Updates the web address used for writting annotations. \end{DoxyCompactList}\item 
+Array\+List {\bf Get\+Annotations} (string data, string url)
+\begin{DoxyCompactList}\small\item\em Get all the annotations corresponding to a specific I\+I\+IF image. \end{DoxyCompactList}\item 
+string {\bf Local\+Annotation\+File} ()
+\begin{DoxyCompactList}\small\item\em Get the path to the local annotation file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int {\bf page\+Width}
+\begin{DoxyCompactList}\small\item\em The width of the image. \end{DoxyCompactList}\item 
+int {\bf page\+Height}
+\begin{DoxyCompactList}\small\item\em The height of the image. \end{DoxyCompactList}\item 
+Collider {\bf page}
+\begin{DoxyCompactList}\small\item\em The Collider used to calculate where on the page the user clicked. \end{DoxyCompactList}\item 
+{\bf Page\+Images} {\bfseries webdata}\label{class_annotation_a349cea2640123c51730779a08eaaf8e1}
+
+\item 
+Transform {\bf top\+Left}
+\begin{DoxyCompactList}\small\item\em The location of the top left corner of the page. \end{DoxyCompactList}\item 
+Transform {\bf bottom\+Right}
+\begin{DoxyCompactList}\small\item\em The location of the bottom right corner of the page. \end{DoxyCompactList}\item 
+string {\bf web\+Address}
+\begin{DoxyCompactList}\small\item\em The web address to write to the annotation file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Creates and retrieves annotations. 
+
+
+
+\subsection{Member Function Documentation}
+\index{Annotation@{Annotation}!Get\+Annotations@{Get\+Annotations}}
+\index{Get\+Annotations@{Get\+Annotations}!Annotation@{Annotation}}
+\subsubsection[{Get\+Annotations(string data, string url)}]{\setlength{\rightskip}{0pt plus 5cm}Array\+List Annotation.\+Get\+Annotations (
+\begin{DoxyParamCaption}
+\item[{string}]{data, }
+\item[{string}]{url}
+\end{DoxyParamCaption}
+)}\label{class_annotation_a6f51b2747ec2eae72f61bd83fd9d47a7}
+
+
+Get all the annotations corresponding to a specific I\+I\+IF image. 
+
+\begin{DoxyReturn}{Returns}
+An Array\+List of all the annotations corresponding to a webpage (each annotation is an \doxyref{Annotation\+Box}{p.}{struct_annotation_1_1_annotation_box}).
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em data} & The source annotation file to parse as a String.\\
+\hline
+{\em url} & The U\+RL that represents the I\+I\+IF image to look for annotations for.\\
+\hline
+\end{DoxyParams}
+\index{Annotation@{Annotation}!Local\+Annotation\+File@{Local\+Annotation\+File}}
+\index{Local\+Annotation\+File@{Local\+Annotation\+File}!Annotation@{Annotation}}
+\subsubsection[{Local\+Annotation\+File()}]{\setlength{\rightskip}{0pt plus 5cm}string Annotation.\+Local\+Annotation\+File (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_annotation_ad60e0259e6a6a490d7e2e250e7a121a6}
+
+
+Get the path to the local annotation file. 
+
+\begin{DoxyReturn}{Returns}
+The path to the local annotation file.
+\end{DoxyReturn}
+\index{Annotation@{Annotation}!Update\+Web\+Address@{Update\+Web\+Address}}
+\index{Update\+Web\+Address@{Update\+Web\+Address}!Annotation@{Annotation}}
+\subsubsection[{Update\+Web\+Address(string new\+Address)}]{\setlength{\rightskip}{0pt plus 5cm}void Annotation.\+Update\+Web\+Address (
+\begin{DoxyParamCaption}
+\item[{string}]{new\+Address}
+\end{DoxyParamCaption}
+)}\label{class_annotation_aec2adf7ea1bf592d75c43133df56d33d}
+
+
+Updates the web address used for writting annotations. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Address} & The new web address to write for new annotations.\\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\index{Annotation@{Annotation}!bottom\+Right@{bottom\+Right}}
+\index{bottom\+Right@{bottom\+Right}!Annotation@{Annotation}}
+\subsubsection[{bottom\+Right}]{\setlength{\rightskip}{0pt plus 5cm}Transform Annotation.\+bottom\+Right}\label{class_annotation_a784e68c2876b721c7332ad8c4d19d4b4}
+
+
+The location of the bottom right corner of the page. 
+
+\index{Annotation@{Annotation}!page@{page}}
+\index{page@{page}!Annotation@{Annotation}}
+\subsubsection[{page}]{\setlength{\rightskip}{0pt plus 5cm}Collider Annotation.\+page}\label{class_annotation_a89356eeb4c128231a7542016d61fe35c}
+
+
+The Collider used to calculate where on the page the user clicked. 
+
+\index{Annotation@{Annotation}!page\+Height@{page\+Height}}
+\index{page\+Height@{page\+Height}!Annotation@{Annotation}}
+\subsubsection[{page\+Height}]{\setlength{\rightskip}{0pt plus 5cm}int Annotation.\+page\+Height}\label{class_annotation_a6ed1263c99626c3db9c3af44d7853761}
+
+
+The height of the image. 
+
+The height used to calculate annotation coordinates \index{Annotation@{Annotation}!page\+Width@{page\+Width}}
+\index{page\+Width@{page\+Width}!Annotation@{Annotation}}
+\subsubsection[{page\+Width}]{\setlength{\rightskip}{0pt plus 5cm}int Annotation.\+page\+Width}\label{class_annotation_a3eeea869dfc405c3ed8b3556cf4181b7}
+
+
+The width of the image. 
+
+The width used to calculate annotation coordinates \index{Annotation@{Annotation}!top\+Left@{top\+Left}}
+\index{top\+Left@{top\+Left}!Annotation@{Annotation}}
+\subsubsection[{top\+Left}]{\setlength{\rightskip}{0pt plus 5cm}Transform Annotation.\+top\+Left}\label{class_annotation_a6701449aed12538b4be40a9d2f1a9898}
+
+
+The location of the top left corner of the page. 
+
+\index{Annotation@{Annotation}!web\+Address@{web\+Address}}
+\index{web\+Address@{web\+Address}!Annotation@{Annotation}}
+\subsubsection[{web\+Address}]{\setlength{\rightskip}{0pt plus 5cm}string Annotation.\+web\+Address}\label{class_annotation_adb6d8fefb4974f1ff1d0f0a031455f37}
+
+
+The web address to write to the annotation file. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Annotation.\+cs\end{DoxyCompactItemize}

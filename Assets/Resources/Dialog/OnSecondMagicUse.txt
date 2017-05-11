@@ -1,0 +1,8 @@
+﻿Worm:WormA>Pop Up From Left
+WHAT? You again?! Can't you just leave well enough alone? Why I oughtta...
+
+Worm Queen:WormQueenB>Come From Right
+SILENCE IN MY COURTROOM!
+
+Worm:WormB>Default Left
+Oh jeez, now youz gone upset the Queen. Don't say I din't warn ya!

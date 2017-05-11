@@ -1,0 +1,374 @@
+\section{Button\+Controls Class Reference}
+\label{class_button_controls}\index{Button\+Controls@{Button\+Controls}}
+
+
+Stores infomation about the current tool.  
+
+
+Inheritance diagram for Button\+Controls\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_button_controls}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+I\+Enumerator {\bf Pop\+Up} ()
+\begin{DoxyCompactList}\small\item\em Causes a popup window to be display, prompting the user for input. \end{DoxyCompactList}\item 
+string {\bf get\+Popup\+Text} ()
+\begin{DoxyCompactList}\small\item\em Gets the text from the popup window. \end{DoxyCompactList}\item 
+int {\bf get\+Selected} ()
+\begin{DoxyCompactList}\small\item\em Gets the currently selected tool. \end{DoxyCompactList}\item 
+void {\bf change\+Selected} (int new\+Selected)
+\begin{DoxyCompactList}\small\item\em Changes the currently selected tool. \end{DoxyCompactList}\item 
+void {\bf clear\+Selected} ()
+\begin{DoxyCompactList}\small\item\em Makes no tool be selected. \end{DoxyCompactList}\item 
+void {\bf Show\+Latest\+Tweet} ()
+\begin{DoxyCompactList}\small\item\em Shows the latest tweet from our twitter account. \end{DoxyCompactList}\item 
+I\+Enumerator {\bf Hide\+Tweet\+Box} ()
+\begin{DoxyCompactList}\small\item\em Hides the tweet box. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Button[$\,$] {\bf buttons}
+\begin{DoxyCompactList}\small\item\em The buttons for the tools. \end{DoxyCompactList}\item 
+Image[$\,$] {\bf images}
+\begin{DoxyCompactList}\small\item\em The images for the tools. \end{DoxyCompactList}\item 
+{\bf Pop\+Up\+Box} {\bf popup}
+\begin{DoxyCompactList}\small\item\em The Popup window to use to get text input from the user. \end{DoxyCompactList}\item 
+{\bf Move} {\bf book\+Cam}
+\begin{DoxyCompactList}\small\item\em The camera for book mode \end{DoxyCompactList}\item 
+{\bf Camera\+Switch} {\bf switcher}
+\begin{DoxyCompactList}\small\item\em The switcher between navigation mode and book mode cameras. \end{DoxyCompactList}\item 
+{\bf Page\+Images} {\bf presenter}
+\begin{DoxyCompactList}\small\item\em The presenter of the I\+I\+IF images. \end{DoxyCompactList}\item 
+Game\+Object {\bf tweet\+Box}
+\begin{DoxyCompactList}\small\item\em The box used to display tweets. \end{DoxyCompactList}\item 
+Text {\bf tweet\+Text}
+\begin{DoxyCompactList}\small\item\em The text in the tweet\+Box containing the text of the tweet. \end{DoxyCompactList}\item 
+bool {\bf is\+Spotlight} = false
+\begin{DoxyCompactList}\small\item\em Is the spotlight on? \end{DoxyCompactList}\item 
+{\bf Move\+Spotlight} {\bf spotlight}
+\begin{DoxyCompactList}\small\item\em The spotlight. \end{DoxyCompactList}\item 
+Game\+Object {\bf twitter\+Bird\+Obj}
+\begin{DoxyCompactList}\small\item\em The twitter bird. \end{DoxyCompactList}\item 
+Image {\bf twitter\+Bird}
+\begin{DoxyCompactList}\small\item\em The twitter bird\textquotesingle{}s image. \end{DoxyCompactList}\item 
+Sprite {\bf twitter\+Bird\+Closed}
+\begin{DoxyCompactList}\small\item\em The twitter bird\textquotesingle{}s idle image. \end{DoxyCompactList}\item 
+Sprite {\bf twitter\+Bird\+Open}
+\begin{DoxyCompactList}\small\item\em The twitter bird\textquotesingle{}s talking image. \end{DoxyCompactList}\item 
+Audio\+Source {\bf twitter\+Sound}
+\begin{DoxyCompactList}\small\item\em The sound to play when the twitter bird is talking. \end{DoxyCompactList}\item 
+{\bf Dialog\+Box} {\bf dialog}
+\begin{DoxyCompactList}\small\item\em The dialog box to use to display text to the user. \end{DoxyCompactList}\item 
+const int {\bf L\+I\+G\+H\+T\+\_\+\+T\+O\+OL} = 0
+\begin{DoxyCompactList}\small\item\em The ID for the Light Tool. \end{DoxyCompactList}\item 
+const int {\bf A\+N\+N\+O\+T\+A\+T\+I\+O\+N\+\_\+\+T\+O\+OL} = 1
+\begin{DoxyCompactList}\small\item\em The ID for the \doxyref{Annotation}{p.}{class_annotation} Tool. \end{DoxyCompactList}\item 
+const int {\bf H\+A\+N\+D\+\_\+\+T\+O\+OL} = 2
+\begin{DoxyCompactList}\small\item\em The ID for the Hand Tool. \end{DoxyCompactList}\item 
+const int {\bf D\+I\+R\+E\+C\+T\+O\+R\+Y\+\_\+\+T\+O\+OL} = 3
+\begin{DoxyCompactList}\small\item\em The ID for the Directory Tool. \end{DoxyCompactList}\item 
+const int {\bf R\+E\+A\+D\+E\+R\+\_\+\+T\+O\+OL} = 4
+\begin{DoxyCompactList}\small\item\em The ID for the Display Annotations Tool. \end{DoxyCompactList}\item 
+const int {\bf S\+E\+L\+E\+C\+T\+I\+O\+N\+\_\+\+T\+O\+OL} = 6
+\begin{DoxyCompactList}\small\item\em The ID for the Open/\+Close Book Tool. \end{DoxyCompactList}\item 
+const int {\bf Z\+O\+O\+M\+\_\+\+T\+O\+OL} = 5
+\begin{DoxyCompactList}\small\item\em The ID for the Zoom Tool (currently not used). \end{DoxyCompactList}\item 
+const int {\bf L\+E\+N\+S\+\_\+\+T\+O\+OL} = 8
+\begin{DoxyCompactList}\small\item\em The ID for the Transcription Tool. \end{DoxyCompactList}\item 
+const int {\bf T\+W\+I\+T\+T\+E\+R\+\_\+\+T\+O\+OL} = 9
+\begin{DoxyCompactList}\small\item\em The ID for the Twitter Tool. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static {\bf Button\+Controls} {\bf current}
+\begin{DoxyCompactList}\small\item\em The current \doxyref{Button\+Controls}{p.}{class_button_controls} instance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Stores infomation about the current tool. 
+
+
+
+\subsection{Member Function Documentation}
+\index{Button\+Controls@{Button\+Controls}!change\+Selected@{change\+Selected}}
+\index{change\+Selected@{change\+Selected}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{change\+Selected(int new\+Selected)}]{\setlength{\rightskip}{0pt plus 5cm}void Button\+Controls.\+change\+Selected (
+\begin{DoxyParamCaption}
+\item[{int}]{new\+Selected}
+\end{DoxyParamCaption}
+)}\label{class_button_controls_a5b0bee37e9fd14beb3d5ab43afe6213c}
+
+
+Changes the currently selected tool. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Selected} & The tool to select.\\
+\hline
+\end{DoxyParams}
+\index{Button\+Controls@{Button\+Controls}!clear\+Selected@{clear\+Selected}}
+\index{clear\+Selected@{clear\+Selected}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{clear\+Selected()}]{\setlength{\rightskip}{0pt plus 5cm}void Button\+Controls.\+clear\+Selected (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_button_controls_a0850e47668086c4311eb6edcc40ecc8a}
+
+
+Makes no tool be selected. 
+
+\index{Button\+Controls@{Button\+Controls}!get\+Popup\+Text@{get\+Popup\+Text}}
+\index{get\+Popup\+Text@{get\+Popup\+Text}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{get\+Popup\+Text()}]{\setlength{\rightskip}{0pt plus 5cm}string Button\+Controls.\+get\+Popup\+Text (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_button_controls_af54ecb5ed2899a6a9302431f8df94833}
+
+
+Gets the text from the popup window. 
+
+\begin{DoxyReturn}{Returns}
+The text inputed into the popup window.
+\end{DoxyReturn}
+\index{Button\+Controls@{Button\+Controls}!get\+Selected@{get\+Selected}}
+\index{get\+Selected@{get\+Selected}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{get\+Selected()}]{\setlength{\rightskip}{0pt plus 5cm}int Button\+Controls.\+get\+Selected (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_button_controls_a1610d1a14723fdf450ded1e8818ce425}
+
+
+Gets the currently selected tool. 
+
+\begin{DoxyReturn}{Returns}
+The integer id of the currently selected tool.
+\end{DoxyReturn}
+\index{Button\+Controls@{Button\+Controls}!Hide\+Tweet\+Box@{Hide\+Tweet\+Box}}
+\index{Hide\+Tweet\+Box@{Hide\+Tweet\+Box}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{Hide\+Tweet\+Box()}]{\setlength{\rightskip}{0pt plus 5cm}I\+Enumerator Button\+Controls.\+Hide\+Tweet\+Box (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_button_controls_a5f598b3dda96d7e9c50e00730e744482}
+
+
+Hides the tweet box. 
+
+\index{Button\+Controls@{Button\+Controls}!Pop\+Up@{Pop\+Up}}
+\index{Pop\+Up@{Pop\+Up}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{Pop\+Up()}]{\setlength{\rightskip}{0pt plus 5cm}I\+Enumerator Button\+Controls.\+Pop\+Up (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_button_controls_a02c9477eba81f169ed58199b6aac5f34}
+
+
+Causes a popup window to be display, prompting the user for input. 
+
+\index{Button\+Controls@{Button\+Controls}!Show\+Latest\+Tweet@{Show\+Latest\+Tweet}}
+\index{Show\+Latest\+Tweet@{Show\+Latest\+Tweet}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{Show\+Latest\+Tweet()}]{\setlength{\rightskip}{0pt plus 5cm}void Button\+Controls.\+Show\+Latest\+Tweet (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_button_controls_a3a2f044c63295b78c205415070768e38}
+
+
+Shows the latest tweet from our twitter account. 
+
+
+
+\subsection{Member Data Documentation}
+\index{Button\+Controls@{Button\+Controls}!A\+N\+N\+O\+T\+A\+T\+I\+O\+N\+\_\+\+T\+O\+OL@{A\+N\+N\+O\+T\+A\+T\+I\+O\+N\+\_\+\+T\+O\+OL}}
+\index{A\+N\+N\+O\+T\+A\+T\+I\+O\+N\+\_\+\+T\+O\+OL@{A\+N\+N\+O\+T\+A\+T\+I\+O\+N\+\_\+\+T\+O\+OL}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{A\+N\+N\+O\+T\+A\+T\+I\+O\+N\+\_\+\+T\+O\+OL}]{\setlength{\rightskip}{0pt plus 5cm}const int Button\+Controls.\+A\+N\+N\+O\+T\+A\+T\+I\+O\+N\+\_\+\+T\+O\+OL = 1}\label{class_button_controls_a5b464828976bb242314a92890e0a0818}
+
+
+The ID for the \doxyref{Annotation}{p.}{class_annotation} Tool. 
+
+\index{Button\+Controls@{Button\+Controls}!book\+Cam@{book\+Cam}}
+\index{book\+Cam@{book\+Cam}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{book\+Cam}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Move} Button\+Controls.\+book\+Cam}\label{class_button_controls_a01ede77b80cc6e1b032a20710384e2be}
+
+
+The camera for book mode 
+
+\index{Button\+Controls@{Button\+Controls}!buttons@{buttons}}
+\index{buttons@{buttons}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{buttons}]{\setlength{\rightskip}{0pt plus 5cm}Button [$\,$] Button\+Controls.\+buttons}\label{class_button_controls_a6d8481d8d10b1764500df5ebff2754c3}
+
+
+The buttons for the tools. 
+
+\index{Button\+Controls@{Button\+Controls}!current@{current}}
+\index{current@{current}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{current}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Button\+Controls} Button\+Controls.\+current\hspace{0.3cm}{\ttfamily [static]}}\label{class_button_controls_a8104ade53ad756b5a0c70f282b614aa1}
+
+
+The current \doxyref{Button\+Controls}{p.}{class_button_controls} instance. 
+
+\index{Button\+Controls@{Button\+Controls}!dialog@{dialog}}
+\index{dialog@{dialog}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{dialog}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Dialog\+Box} Button\+Controls.\+dialog}\label{class_button_controls_ad0ce254085aa49db69c0a1422849cc84}
+
+
+The dialog box to use to display text to the user. 
+
+\index{Button\+Controls@{Button\+Controls}!D\+I\+R\+E\+C\+T\+O\+R\+Y\+\_\+\+T\+O\+OL@{D\+I\+R\+E\+C\+T\+O\+R\+Y\+\_\+\+T\+O\+OL}}
+\index{D\+I\+R\+E\+C\+T\+O\+R\+Y\+\_\+\+T\+O\+OL@{D\+I\+R\+E\+C\+T\+O\+R\+Y\+\_\+\+T\+O\+OL}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{D\+I\+R\+E\+C\+T\+O\+R\+Y\+\_\+\+T\+O\+OL}]{\setlength{\rightskip}{0pt plus 5cm}const int Button\+Controls.\+D\+I\+R\+E\+C\+T\+O\+R\+Y\+\_\+\+T\+O\+OL = 3}\label{class_button_controls_af863f78b5d287a50df76c65a31942ef7}
+
+
+The ID for the Directory Tool. 
+
+\index{Button\+Controls@{Button\+Controls}!H\+A\+N\+D\+\_\+\+T\+O\+OL@{H\+A\+N\+D\+\_\+\+T\+O\+OL}}
+\index{H\+A\+N\+D\+\_\+\+T\+O\+OL@{H\+A\+N\+D\+\_\+\+T\+O\+OL}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{H\+A\+N\+D\+\_\+\+T\+O\+OL}]{\setlength{\rightskip}{0pt plus 5cm}const int Button\+Controls.\+H\+A\+N\+D\+\_\+\+T\+O\+OL = 2}\label{class_button_controls_af773f1e77c187f3b4f4200b54ed94ca3}
+
+
+The ID for the Hand Tool. 
+
+\index{Button\+Controls@{Button\+Controls}!images@{images}}
+\index{images@{images}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{images}]{\setlength{\rightskip}{0pt plus 5cm}Image [$\,$] Button\+Controls.\+images}\label{class_button_controls_a4e95044b881d63cd2a1e593467ee0287}
+
+
+The images for the tools. 
+
+\index{Button\+Controls@{Button\+Controls}!is\+Spotlight@{is\+Spotlight}}
+\index{is\+Spotlight@{is\+Spotlight}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{is\+Spotlight}]{\setlength{\rightskip}{0pt plus 5cm}bool Button\+Controls.\+is\+Spotlight = false}\label{class_button_controls_ae537b21797d71dc696c80cba3e2ba061}
+
+
+Is the spotlight on? 
+
+\index{Button\+Controls@{Button\+Controls}!L\+E\+N\+S\+\_\+\+T\+O\+OL@{L\+E\+N\+S\+\_\+\+T\+O\+OL}}
+\index{L\+E\+N\+S\+\_\+\+T\+O\+OL@{L\+E\+N\+S\+\_\+\+T\+O\+OL}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{L\+E\+N\+S\+\_\+\+T\+O\+OL}]{\setlength{\rightskip}{0pt plus 5cm}const int Button\+Controls.\+L\+E\+N\+S\+\_\+\+T\+O\+OL = 8}\label{class_button_controls_a0832c77868b3b2084d282bdd06309fd7}
+
+
+The ID for the Transcription Tool. 
+
+\index{Button\+Controls@{Button\+Controls}!L\+I\+G\+H\+T\+\_\+\+T\+O\+OL@{L\+I\+G\+H\+T\+\_\+\+T\+O\+OL}}
+\index{L\+I\+G\+H\+T\+\_\+\+T\+O\+OL@{L\+I\+G\+H\+T\+\_\+\+T\+O\+OL}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{L\+I\+G\+H\+T\+\_\+\+T\+O\+OL}]{\setlength{\rightskip}{0pt plus 5cm}const int Button\+Controls.\+L\+I\+G\+H\+T\+\_\+\+T\+O\+OL = 0}\label{class_button_controls_a12957783dbbfb938853778c29c9f0d60}
+
+
+The ID for the Light Tool. 
+
+\index{Button\+Controls@{Button\+Controls}!popup@{popup}}
+\index{popup@{popup}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{popup}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Pop\+Up\+Box} Button\+Controls.\+popup}\label{class_button_controls_a01a5f62a3985cbea7f08821c39beaa39}
+
+
+The Popup window to use to get text input from the user. 
+
+\index{Button\+Controls@{Button\+Controls}!presenter@{presenter}}
+\index{presenter@{presenter}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{presenter}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Page\+Images} Button\+Controls.\+presenter}\label{class_button_controls_a37e94945a8c9614569aa2b089f449609}
+
+
+The presenter of the I\+I\+IF images. 
+
+\index{Button\+Controls@{Button\+Controls}!R\+E\+A\+D\+E\+R\+\_\+\+T\+O\+OL@{R\+E\+A\+D\+E\+R\+\_\+\+T\+O\+OL}}
+\index{R\+E\+A\+D\+E\+R\+\_\+\+T\+O\+OL@{R\+E\+A\+D\+E\+R\+\_\+\+T\+O\+OL}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{R\+E\+A\+D\+E\+R\+\_\+\+T\+O\+OL}]{\setlength{\rightskip}{0pt plus 5cm}const int Button\+Controls.\+R\+E\+A\+D\+E\+R\+\_\+\+T\+O\+OL = 4}\label{class_button_controls_a45bd648b6f9269a063939e3e5ce487a0}
+
+
+The ID for the Display Annotations Tool. 
+
+\index{Button\+Controls@{Button\+Controls}!S\+E\+L\+E\+C\+T\+I\+O\+N\+\_\+\+T\+O\+OL@{S\+E\+L\+E\+C\+T\+I\+O\+N\+\_\+\+T\+O\+OL}}
+\index{S\+E\+L\+E\+C\+T\+I\+O\+N\+\_\+\+T\+O\+OL@{S\+E\+L\+E\+C\+T\+I\+O\+N\+\_\+\+T\+O\+OL}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{S\+E\+L\+E\+C\+T\+I\+O\+N\+\_\+\+T\+O\+OL}]{\setlength{\rightskip}{0pt plus 5cm}const int Button\+Controls.\+S\+E\+L\+E\+C\+T\+I\+O\+N\+\_\+\+T\+O\+OL = 6}\label{class_button_controls_acfa8075ce363581c665d643e1cd2a1f5}
+
+
+The ID for the Open/\+Close Book Tool. 
+
+\index{Button\+Controls@{Button\+Controls}!spotlight@{spotlight}}
+\index{spotlight@{spotlight}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{spotlight}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Move\+Spotlight} Button\+Controls.\+spotlight}\label{class_button_controls_aaf795798730a8acb3765b1f8c03e5e7b}
+
+
+The spotlight. 
+
+\index{Button\+Controls@{Button\+Controls}!switcher@{switcher}}
+\index{switcher@{switcher}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{switcher}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Camera\+Switch} Button\+Controls.\+switcher}\label{class_button_controls_a8f473bdad9552060fe27ecd37ad5e573}
+
+
+The switcher between navigation mode and book mode cameras. 
+
+\index{Button\+Controls@{Button\+Controls}!tweet\+Box@{tweet\+Box}}
+\index{tweet\+Box@{tweet\+Box}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{tweet\+Box}]{\setlength{\rightskip}{0pt plus 5cm}Game\+Object Button\+Controls.\+tweet\+Box}\label{class_button_controls_afa3096e052a7483a01d74dd25ce55941}
+
+
+The box used to display tweets. 
+
+\index{Button\+Controls@{Button\+Controls}!tweet\+Text@{tweet\+Text}}
+\index{tweet\+Text@{tweet\+Text}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{tweet\+Text}]{\setlength{\rightskip}{0pt plus 5cm}Text Button\+Controls.\+tweet\+Text}\label{class_button_controls_aa18893c5233e5fb021f9ca7dddd22c3b}
+
+
+The text in the tweet\+Box containing the text of the tweet. 
+
+\index{Button\+Controls@{Button\+Controls}!T\+W\+I\+T\+T\+E\+R\+\_\+\+T\+O\+OL@{T\+W\+I\+T\+T\+E\+R\+\_\+\+T\+O\+OL}}
+\index{T\+W\+I\+T\+T\+E\+R\+\_\+\+T\+O\+OL@{T\+W\+I\+T\+T\+E\+R\+\_\+\+T\+O\+OL}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{T\+W\+I\+T\+T\+E\+R\+\_\+\+T\+O\+OL}]{\setlength{\rightskip}{0pt plus 5cm}const int Button\+Controls.\+T\+W\+I\+T\+T\+E\+R\+\_\+\+T\+O\+OL = 9}\label{class_button_controls_a7c37ceab26948e379ed703daab8b4046}
+
+
+The ID for the Twitter Tool. 
+
+\index{Button\+Controls@{Button\+Controls}!twitter\+Bird@{twitter\+Bird}}
+\index{twitter\+Bird@{twitter\+Bird}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{twitter\+Bird}]{\setlength{\rightskip}{0pt plus 5cm}Image Button\+Controls.\+twitter\+Bird}\label{class_button_controls_ad1a93855fb9dfc7f93f2ba635558a8eb}
+
+
+The twitter bird\textquotesingle{}s image. 
+
+\index{Button\+Controls@{Button\+Controls}!twitter\+Bird\+Closed@{twitter\+Bird\+Closed}}
+\index{twitter\+Bird\+Closed@{twitter\+Bird\+Closed}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{twitter\+Bird\+Closed}]{\setlength{\rightskip}{0pt plus 5cm}Sprite Button\+Controls.\+twitter\+Bird\+Closed}\label{class_button_controls_af5b7db66d7e12459215994f28cf8b10d}
+
+
+The twitter bird\textquotesingle{}s idle image. 
+
+\index{Button\+Controls@{Button\+Controls}!twitter\+Bird\+Obj@{twitter\+Bird\+Obj}}
+\index{twitter\+Bird\+Obj@{twitter\+Bird\+Obj}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{twitter\+Bird\+Obj}]{\setlength{\rightskip}{0pt plus 5cm}Game\+Object Button\+Controls.\+twitter\+Bird\+Obj}\label{class_button_controls_ac765e8ce56a53ab49931b21bc5d20083}
+
+
+The twitter bird. 
+
+\index{Button\+Controls@{Button\+Controls}!twitter\+Bird\+Open@{twitter\+Bird\+Open}}
+\index{twitter\+Bird\+Open@{twitter\+Bird\+Open}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{twitter\+Bird\+Open}]{\setlength{\rightskip}{0pt plus 5cm}Sprite Button\+Controls.\+twitter\+Bird\+Open}\label{class_button_controls_a51f7c83d58220a5f8ecb5ffbb31c9eb7}
+
+
+The twitter bird\textquotesingle{}s talking image. 
+
+\index{Button\+Controls@{Button\+Controls}!twitter\+Sound@{twitter\+Sound}}
+\index{twitter\+Sound@{twitter\+Sound}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{twitter\+Sound}]{\setlength{\rightskip}{0pt plus 5cm}Audio\+Source Button\+Controls.\+twitter\+Sound}\label{class_button_controls_aca201bf52f1b0290d3c69e450f1978fb}
+
+
+The sound to play when the twitter bird is talking. 
+
+\index{Button\+Controls@{Button\+Controls}!Z\+O\+O\+M\+\_\+\+T\+O\+OL@{Z\+O\+O\+M\+\_\+\+T\+O\+OL}}
+\index{Z\+O\+O\+M\+\_\+\+T\+O\+OL@{Z\+O\+O\+M\+\_\+\+T\+O\+OL}!Button\+Controls@{Button\+Controls}}
+\subsubsection[{Z\+O\+O\+M\+\_\+\+T\+O\+OL}]{\setlength{\rightskip}{0pt plus 5cm}const int Button\+Controls.\+Z\+O\+O\+M\+\_\+\+T\+O\+OL = 5}\label{class_button_controls_a4c4a3cb66d3bca032986166a818ae28e}
+
+
+The ID for the Zoom Tool (currently not used). 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Button\+Controls.\+cs\end{DoxyCompactItemize}

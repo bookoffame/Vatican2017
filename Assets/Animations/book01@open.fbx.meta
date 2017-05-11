@@ -1,0 +1,373 @@
+fileFormatVersion: 2
+guid: 7b138854964a04dfca7e305f6a2d6e76
+timeCreated: 1468433211
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: btm_01
+    100004: btmED
+    100006: CTRLgrp
+    100008: Geo
+    100010: p01
+    100012: p01ed
+    100014: p01geo
+    100016: p01m
+    100018: p02
+    100020: p02ed
+    100022: p02geo
+    100024: p02m
+    100026: p03
+    100028: p03ed
+    100030: p03geo
+    100032: p03m
+    100034: Root
+    100036: tp_01
+    100038: tpED
+    100040: BookRigged_reference:btm_01
+    100042: BookRigged_reference:btmED
+    100044: BookRigged_reference:CTRLgrp
+    100046: BookRigged_reference:Geo
+    100048: BookRigged_reference:p01
+    100050: BookRigged_reference:p01ed
+    100052: BookRigged_reference:p01geo
+    100054: BookRigged_reference:p01m
+    100056: BookRigged_reference:p02
+    100058: BookRigged_reference:p02ed
+    100060: BookRigged_reference:p02geo
+    100062: BookRigged_reference:p02m
+    100064: BookRigged_reference:p03
+    100066: BookRigged_reference:p03ed
+    100068: BookRigged_reference:p03geo
+    100070: BookRigged_reference:p03m
+    100072: BookRigged_reference:Root
+    100074: BookRigged_reference:tp_01
+    100076: BookRigged_reference:tpED
+    400000: //RootNode
+    400002: btm_01
+    400004: btmED
+    400006: CTRLgrp
+    400008: Geo
+    400010: p01
+    400012: p01ed
+    400014: p01geo
+    400016: p01m
+    400018: p02
+    400020: p02ed
+    400022: p02geo
+    400024: p02m
+    400026: p03
+    400028: p03ed
+    400030: p03geo
+    400032: p03m
+    400034: Root
+    400036: tp_01
+    400038: tpED
+    400040: BookRigged_reference:btm_01
+    400042: BookRigged_reference:btmED
+    400044: BookRigged_reference:CTRLgrp
+    400046: BookRigged_reference:Geo
+    400048: BookRigged_reference:p01
+    400050: BookRigged_reference:p01ed
+    400052: BookRigged_reference:p01geo
+    400054: BookRigged_reference:p01m
+    400056: BookRigged_reference:p02
+    400058: BookRigged_reference:p02ed
+    400060: BookRigged_reference:p02geo
+    400062: BookRigged_reference:p02m
+    400064: BookRigged_reference:p03
+    400066: BookRigged_reference:p03ed
+    400068: BookRigged_reference:p03geo
+    400070: BookRigged_reference:p03m
+    400072: BookRigged_reference:Root
+    400074: BookRigged_reference:tp_01
+    400076: BookRigged_reference:tpED
+    4300000: Geo
+    4300002: p02geo
+    4300004: p03geo
+    4300006: p01geo
+    4300008: BookRigged_reference:Geo
+    4300010: BookRigged_reference:p02geo
+    4300012: BookRigged_reference:p03geo
+    4300014: BookRigged_reference:p01geo
+    7400000: openBook
+    7400002: closeBook
+    7400004: demo
+    9500000: //RootNode
+    13700000: Geo
+    13700002: p01geo
+    13700004: p02geo
+    13700006: p03geo
+    13700008: BookRigged_reference:Geo
+    13700010: BookRigged_reference:p01geo
+    13700012: BookRigged_reference:p02geo
+    13700014: BookRigged_reference:p03geo
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: openBook
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 12
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:btm_01
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:btm_01/BookRigged_reference:btmED
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p01
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p01/BookRigged_reference:p01m
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p01/BookRigged_reference:p01m/BookRigged_reference:p01ed
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p02
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p02/BookRigged_reference:p02m
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p02/BookRigged_reference:p02m/BookRigged_reference:p02ed
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p03
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p03/BookRigged_reference:p03m
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p03/BookRigged_reference:p03m/BookRigged_reference:p03ed
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:tp_01
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:tp_01/BookRigged_reference:tpED
+        weight: 1
+      - path: BookRigged_reference:Geo
+        weight: 1
+      - path: BookRigged_reference:p01geo
+        weight: 1
+      - path: BookRigged_reference:p02geo
+        weight: 1
+      - path: BookRigged_reference:p03geo
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: closeBook
+      takeName: Take 001
+      firstFrame: 49
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:btm_01
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:btm_01/BookRigged_reference:btmED
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p01
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p01/BookRigged_reference:p01m
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p01/BookRigged_reference:p01m/BookRigged_reference:p01ed
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p02
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p02/BookRigged_reference:p02m
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p02/BookRigged_reference:p02m/BookRigged_reference:p02ed
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p03
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p03/BookRigged_reference:p03m
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p03/BookRigged_reference:p03m/BookRigged_reference:p03ed
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:tp_01
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:tp_01/BookRigged_reference:tpED
+        weight: 1
+      - path: BookRigged_reference:Geo
+        weight: 1
+      - path: BookRigged_reference:p01geo
+        weight: 1
+      - path: BookRigged_reference:p02geo
+        weight: 1
+      - path: BookRigged_reference:p03geo
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: demo
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:btm_01
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:btm_01/BookRigged_reference:btmED
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p01
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p01/BookRigged_reference:p01m
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p01/BookRigged_reference:p01m/BookRigged_reference:p01ed
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p02
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p02/BookRigged_reference:p02m
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p02/BookRigged_reference:p02m/BookRigged_reference:p02ed
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p03
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p03/BookRigged_reference:p03m
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:p03/BookRigged_reference:p03m/BookRigged_reference:p03ed
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:tp_01
+        weight: 1
+      - path: BookRigged_reference:CTRLgrp/BookRigged_reference:Root/BookRigged_reference:tp_01/BookRigged_reference:tpED
+        weight: 1
+      - path: BookRigged_reference:Geo
+        weight: 1
+      - path: BookRigged_reference:p01geo
+        weight: 1
+      - path: BookRigged_reference:p02geo
+        weight: 1
+      - path: BookRigged_reference:p03geo
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 180
+    normalImportMode: 1
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,4604 @@
+{
+"@context": "http://www.shared-canvas.org/ns/context.json",
+"@id": "anno_list",
+"@type": "sc:AnnotationList",
+"resources": [
+{
+"id": "wbt00001",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00001",
+"@type": "cnt:ContentAsText",
+"chars": "The Tale of the Wife of Bathe",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_081v.jp2#xywh=900,3325,1400,150"
+},
+{
+"id": "wbt00002",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00002",
+"@type": "cnt:ContentAsText",
+"chars": "In tholde dayes of the Kyng Arthour,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_081v.jp2#xywh=900,3450,1325,100"
+},
+{
+"id": "wbt00003",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00003",
+"@type": "cnt:ContentAsText",
+"chars": "Of which that Britons speken greet honour,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_081v.jp2#xywh=900,3550,1600,100"
+},
+{
+"id": "wbt00004",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00004",
+"@type": "cnt:ContentAsText",
+"chars": "wife of bathes tale",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=1100,575,625,100"
+},
+{
+"id": "wbt00005",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00005",
+"@type": "cnt:ContentAsText",
+"chars": "All was this land fulfild of Fayerye.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,700,1350,100"
+},
+{
+"id": "wbt00006",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00006",
+"@type": "cnt:ContentAsText",
+"chars": "The elf-queene, with hir joly compaignye,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,800,1300,75"
+},
+{
+"id": "wbt00007",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00007",
+"@type": "cnt:ContentAsText",
+"chars": "Daunced ful ofte in many a grene mede;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,875,1400,75"
+},
+{
+"id": "wbt00008",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00008",
+"@type": "cnt:ContentAsText",
+"chars": "This was the olde opinion, as I rede.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,950,1300,75"
+},
+{
+"id": "wbt00009",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00009",
+"@type": "cnt:ContentAsText",
+"chars": "I speke of manye hundred yeres ago;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,1025,1375,75"
+},
+{
+"id": "wbt00010",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00010",
+"@type": "cnt:ContentAsText",
+"chars": "But now kan no man se none elves mo,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,1100,1300,75"
+},
+{
+"id": "wbt00011",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00011",
+"@type": "cnt:ContentAsText",
+"chars": "For now the grete charitee and prayeres",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,1175,1300,75"
+},
+{
+"id": "wbt00012",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00012",
+"@type": "cnt:ContentAsText",
+"chars": "Of lymytours, and othere hooly freres,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,1250,1350,75"
+},
+{
+"id": "wbt00013",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00013",
+"@type": "cnt:ContentAsText",
+"chars": "That serchen every lond and every streem",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,1325,1350,75"
+},
+{
+"id": "wbt00014",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00014",
+"@type": "cnt:ContentAsText",
+"chars": "As thikke as motes in the sonne-beem,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,1400,1400,75"
+},
+{
+"id": "wbt00015",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00015",
+"@type": "cnt:ContentAsText",
+"chars": "Blessynge halles, chambres, kichenes, boures,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,1475,1450,75"
+},
+{
+"id": "wbt00016",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00016",
+"@type": "cnt:ContentAsText",
+"chars": "Citees, burghes, castels, hye toures,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,1575,1400,75"
+},
+{
+"id": "wbt00017",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00017",
+"@type": "cnt:ContentAsText",
+"chars": "Thropes, bernes, shipnes, dayeryes,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,1650,1350,75"
+},
+{
+"id": "wbt00018",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00018",
+"@type": "cnt:ContentAsText",
+"chars": "This maketh that ther been no Fayeryes.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,1725,1400,75"
+},
+{
+"id": "wbt00019",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00019",
+"@type": "cnt:ContentAsText",
+"chars": "For ther as wont to walken was an elf,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,1800,1400,75"
+},
+{
+"id": "wbt00020",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00020",
+"@type": "cnt:ContentAsText",
+"chars": "Ther walketh now the lymytour hymself",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,1875,1425,75"
+},
+{
+"id": "wbt00021",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00021",
+"@type": "cnt:ContentAsText",
+"chars": "In undermeles and in morwenynges,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,1950,1325,75"
+},
+{
+"id": "wbt00022",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00022",
+"@type": "cnt:ContentAsText",
+"chars": "And seyth his matyns and his hooly thynges",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,2025,1425,75"
+},
+{
+"id": "wbt00023",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00023",
+"@type": "cnt:ContentAsText",
+"chars": "As he gooth in his lymytacioun.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,2100,1150,75"
+},
+{
+"id": "wbt00024",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00024",
+"@type": "cnt:ContentAsText",
+"chars": "Wommen may go saufly up and doun;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,2200,1175,75"
+},
+{
+"id": "wbt00025",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00025",
+"@type": "cnt:ContentAsText",
+"chars": "In every bussh or under every tree",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,2275,1275,75"
+},
+{
+"id": "wbt00026",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00026",
+"@type": "cnt:ContentAsText",
+"chars": "Ther is noon oother incubus but he,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,2350,1250,75"
+},
+{
+"id": "wbt00027",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00027",
+"@type": "cnt:ContentAsText",
+"chars": "And he ne wol doon hem but dishonour.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,2425,1250,75"
+},
+{
+"id": "wbt00028",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00028",
+"@type": "cnt:ContentAsText",
+"chars": "And so bifel it that this kyng Arthour",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,2500,1375,75"
+},
+{
+"id": "wbt00029",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00029",
+"@type": "cnt:ContentAsText",
+"chars": "Hadde in his hous a lusty bachelor,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,2575,1225,75"
+},
+{
+"id": "wbt00030",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00030",
+"@type": "cnt:ContentAsText",
+"chars": "That on a day cam ridynge fro ryver;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,2675,1225,75"
+},
+{
+"id": "wbt00031",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00031",
+"@type": "cnt:ContentAsText",
+"chars": "And happed that, allone as she was born,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,2725,1300,75"
+},
+{
+"id": "wbt00032",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00032",
+"@type": "cnt:ContentAsText",
+"chars": "He saugh a mayde walkynge hym biforn,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,2825,1325,75"
+},
+{
+"id": "wbt00033",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00033",
+"@type": "cnt:ContentAsText",
+"chars": "Of whiche mayde anon, maugree hir heed,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,2900,1375,75"
+},
+{
+"id": "wbt00034",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00034",
+"@type": "cnt:ContentAsText",
+"chars": "By verray force he rafte hir maydenhed;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,2975,1450,75"
+},
+{
+"id": "wbt00035",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00035",
+"@type": "cnt:ContentAsText",
+"chars": "For which oppressioun was swich clamour",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,3050,1450,75"
+},
+{
+"id": "wbt00036",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00036",
+"@type": "cnt:ContentAsText",
+"chars": "And swich pursute unto the kyng Arthour,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,3125,1450,75"
+},
+{
+"id": "wbt00037",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00037",
+"@type": "cnt:ContentAsText",
+"chars": "That dampned was this knyght for to be dede",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,3200,1450,75"
+},
+{
+"id": "wbt00038",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00038",
+"@type": "cnt:ContentAsText",
+"chars": "By cours of lawe, and sholde han lost his heed,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,3300,1500,75"
+},
+{
+"id": "wbt00039",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00039",
+"@type": "cnt:ContentAsText",
+"chars": "Paraventure, swich was the statut tho,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,3375,1375,75"
+},
+{
+"id": "wbt00040",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00040",
+"@type": "cnt:ContentAsText",
+"chars": "But that the queene and othere ladyes mo",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,3450,1500,75"
+},
+{
+"id": "wbt00041",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00041",
+"@type": "cnt:ContentAsText",
+"chars": "So longe preyeden the kyng of grace,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,3525,1250,75"
+},
+{
+"id": "wbt00042",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00042",
+"@type": "cnt:ContentAsText",
+"chars": "Til he his lyf hym graunted in the place,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082r.jp2#xywh=600,3600,1425,75"
+},
+{
+"id": "wbt00043",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00043",
+"@type": "cnt:ContentAsText",
+"chars": "And yaf hym to the queene al at hir wille,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,725,1475,75"
+},
+{
+"id": "wbt00044",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00044",
+"@type": "cnt:ContentAsText",
+"chars": "To chese, wheither she wolde hym save or spille.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,800,1650,75"
+},
+{
+"id": "wbt00045",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00045",
+"@type": "cnt:ContentAsText",
+"chars": "The queene thanketh the kyng with al hir myght,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,875,1500,75"
+},
+{
+"id": "wbt00046",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00046",
+"@type": "cnt:ContentAsText",
+"chars": "And after this thus spak she to the knyght,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,950,1600,75"
+},
+{
+"id": "wbt00047",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00047",
+"@type": "cnt:ContentAsText",
+"chars": "Whan that she saugh hir tyme, upon a day,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,1025,1375,75"
+},
+{
+"id": "wbt00048",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00048",
+"@type": "cnt:ContentAsText",
+"chars": "Thou standest yet, quod she, in swich array",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,1100,1400,75"
+},
+{
+"id": "wbt00049",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00049",
+"@type": "cnt:ContentAsText",
+"chars": "That of thy lyf yet hastow no suretee.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,1185,1275,75"
+},
+{
+"id": "wbt00050",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00050",
+"@type": "cnt:ContentAsText",
+"chars": "I grante thee lyf, if thou kanst tellen me",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,1260,1450,75"
+},
+{
+"id": "wbt00051",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00051",
+"@type": "cnt:ContentAsText",
+"chars": "What thyng is it that wommen moost desiren.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,1325,1575,75"
+},
+{
+"id": "wbt00052",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00052",
+"@type": "cnt:ContentAsText",
+"chars": "Be war and keep thy nekke-boon from iren,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,1400,1625,75"
+},
+{
+"id": "wbt00053",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00053",
+"@type": "cnt:ContentAsText",
+"chars": "And if thou kanst nat tellen it anon,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,1475,1450,75"
+},
+{
+"id": "wbt00054",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00054",
+"@type": "cnt:ContentAsText",
+"chars": "Yet shal I yeve thee leve for to gon",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,1550,1350,75"
+},
+{
+"id": "wbt00055",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00055",
+"@type": "cnt:ContentAsText",
+"chars": "A twelf-month and a day to seche and leere",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,1625,1325,75"
+},
+{
+"id": "wbt00056",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00056",
+"@type": "cnt:ContentAsText",
+"chars": "An answere suffisant in this mateere;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,1700,1450,75"
+},
+{
+"id": "wbt00057",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00057",
+"@type": "cnt:ContentAsText",
+"chars": "And suretee wol I han, er that thou pace,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,1775,1450,75"
+},
+{
+"id": "wbt00058",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00058",
+"@type": "cnt:ContentAsText",
+"chars": "Thy body for to yelden in this place.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,1850,1400,75"
+},
+{
+"id": "wbt00059",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00059",
+"@type": "cnt:ContentAsText",
+"chars": "Wo was this knyght, and sorwefully he siketh,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,1940,1600,75"
+},
+{
+"id": "wbt00060",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00060",
+"@type": "cnt:ContentAsText",
+"chars": "But what! he may nat do al as hym liketh;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,2025,1500,75"
+},
+{
+"id": "wbt00061",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00061",
+"@type": "cnt:ContentAsText",
+"chars": "And at the laste he chees hym for to wende,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,2090,1600,75"
+},
+{
+"id": "wbt00062",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00062",
+"@type": "cnt:ContentAsText",
+"chars": "And come agayn right at the yeres ende,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,2165,1600,75"
+},
+{
+"id": "wbt00063",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00063",
+"@type": "cnt:ContentAsText",
+"chars": "With swich answere as God wolde hym purveye;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,2250,1675,75"
+},
+{
+"id": "wbt00064",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00064",
+"@type": "cnt:ContentAsText",
+"chars": "And taketh his leve, and wendeth forth his weye.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,2325,1775,75"
+},
+{
+"id": "wbt00065",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00065",
+"@type": "cnt:ContentAsText",
+"chars": "He seketh every hous and every place,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,2400,1625,75"
+},
+{
+"id": "wbt00066",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00066",
+"@type": "cnt:ContentAsText",
+"chars": "Where as he hopeth for to fynde grace",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,2485,1625,75"
+},
+{
+"id": "wbt00067",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00067",
+"@type": "cnt:ContentAsText",
+"chars": "To lerne what thyng wommen loven moost;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,2560,1625,75"
+},
+{
+"id": "wbt00068",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00068",
+"@type": "cnt:ContentAsText",
+"chars": "But he ne koude arryven in no coost",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,2640,1300,75"
+},
+{
+"id": "wbt00069",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00069",
+"@type": "cnt:ContentAsText",
+"chars": "Wher as he myghte fynde in this mateere",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,2715,1550,75"
+},
+{
+"id": "wbt00070",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00070",
+"@type": "cnt:ContentAsText",
+"chars": "Two creatures accordynge in feere.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,2790,1325,75"
+},
+{
+"id": "wbt00071",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00071",
+"@type": "cnt:ContentAsText",
+"chars": "Somme seyde, wommen loven best richesse,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,2865,1450,75"
+},
+{
+"id": "wbt00072",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00072",
+"@type": "cnt:ContentAsText",
+"chars": "Somme seyde honour, somme seyde jolynesse,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,2940,1450,75"
+},
+{
+"id": "wbt00073",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00073",
+"@type": "cnt:ContentAsText",
+"chars": "Somme riche array, somme seyden lust abedde,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,3015,1625,75"
+},
+{
+"id": "wbt00074",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00074",
+"@type": "cnt:ContentAsText",
+"chars": "And oftetyme to be wydwe and wedde.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,3100,1600,75"
+},
+{
+"id": "wbt00075",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00075",
+"@type": "cnt:ContentAsText",
+"chars": "Somme seyde, that oure hertes been moost esed",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,3175,1500,75"
+},
+{
+"id": "wbt00076",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00076",
+"@type": "cnt:ContentAsText",
+"chars": "Whan that we been yflatered and yplesed-",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,3250,1550,75"
+},
+{
+"id": "wbt00077",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00077",
+"@type": "cnt:ContentAsText",
+"chars": "He gooth ful ny the sothe, I wol nat lye,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,3335,1550,75"
+},
+{
+"id": "wbt00078",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00078",
+"@type": "cnt:ContentAsText",
+"chars": "A man shal wynne us best with flaterye;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,3415,1600,75"
+},
+{
+"id": "wbt00079",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00079",
+"@type": "cnt:ContentAsText",
+"chars": "And with attendance and with bisynesse",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,3475,1550,75"
+},
+{
+"id": "wbt00080",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00080",
+"@type": "cnt:ContentAsText",
+"chars": "Been we ylymed, bothe moore and lesse.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=900,3575,1575,75"
+},
+{
+"id": "wbt00081",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00081",
+"@type": "cnt:ContentAsText",
+"chars": "What woemen love",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=240,3000,650,65"
+},
+{
+"id": "wbt00082",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00082",
+"@type": "cnt:ContentAsText",
+"chars": "best",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_082v.jp2#xywh=375,3060,175,125"
+},
+{
+"id": "wbt00083",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00083",
+"@type": "cnt:ContentAsText",
+"chars": "wife of bathes tale",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=1100,625,625,100"
+},
+{
+"id": "wbt00084",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00084",
+"@type": "cnt:ContentAsText",
+"chars": "And somme seyn, how that we loven best",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,765,1500,100"
+},
+{
+"id": "wbt00085",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00085",
+"@type": "cnt:ContentAsText",
+"chars": "For to be free, and do right as us lest,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,875,1450,75"
+},
+{
+"id": "wbt00086",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00086",
+"@type": "cnt:ContentAsText",
+"chars": "And that no man repreve us of oure vice,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,950,1600,75"
+},
+{
+"id": "wbt00087",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00087",
+"@type": "cnt:ContentAsText",
+"chars": "But seye that we be wise, and nothyng nyce.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,1025,1575,75"
+},
+{
+"id": "wbt00088",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00088",
+"@type": "cnt:ContentAsText",
+"chars": "For trewely, ther is noon of us alle,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,1100,1300,75"
+},
+{
+"id": "wbt00089",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00089",
+"@type": "cnt:ContentAsText",
+"chars": "If any wight wol clawe us on the galle,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,1175,1575,75"
+},
+{
+"id": "wbt00090",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00090",
+"@type": "cnt:ContentAsText",
+"chars": "That we nel kike; for he seith us sooth;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,1250,1525,75"
+},
+{
+"id": "wbt00091",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00091",
+"@type": "cnt:ContentAsText",
+"chars": "Assay, and he shal fynde it that so dooth.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,1325,1525,75"
+},
+{
+"id": "wbt00092",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00092",
+"@type": "cnt:ContentAsText",
+"chars": "For be we never so vicious withinne,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,1400,1475,75"
+},
+{
+"id": "wbt00093",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00093",
+"@type": "cnt:ContentAsText",
+"chars": "We sol been holden wise, and clene of synne.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,1475,1525,75"
+},
+{
+"id": "wbt00094",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00094",
+"@type": "cnt:ContentAsText",
+"chars": "And somme seyn, that greet delit han we",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,1575,1400,75"
+},
+{
+"id": "wbt00095",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00095",
+"@type": "cnt:ContentAsText",
+"chars": "For to been holden stable and eke secree,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,1650,1250,75"
+},
+{
+"id": "wbt00096",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00096",
+"@type": "cnt:ContentAsText",
+"chars": "And in o purpos stedefastly to dwelle,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,1725,1450,75"
+},
+{
+"id": "wbt00097",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00097",
+"@type": "cnt:ContentAsText",
+"chars": "And nat biwerye thyng that men us telle.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,1800,1450,75"
+},
+{
+"id": "wbt00098",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00098",
+"@type": "cnt:ContentAsText",
+"chars": "But that tale is nat worth a rake-stele,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,1885,1475,75"
+},
+{
+"id": "wbt00099",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00099",
+"@type": "cnt:ContentAsText",
+"chars": "Pardee, we wommen konne no thyng hele.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,1965,1475,75"
+},
+{
+"id": "wbt00100",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00100",
+"@type": "cnt:ContentAsText",
+"chars": "Witnesse on Myda-wol ye heere the tale?",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,2050,1450,75"
+},
+{
+"id": "wbt00101",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00101",
+"@type": "cnt:ContentAsText",
+"chars": "Ovyde, amonges othere thynges smale,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,2125,1325,75"
+},
+{
+"id": "wbt00102",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00102",
+"@type": "cnt:ContentAsText",
+"chars": "Seyde, Myda hadde under his longe heres",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,2200,1400,75"
+},
+{
+"id": "wbt00103",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00103",
+"@type": "cnt:ContentAsText",
+"chars": "Growynge upon his heed two asses eres,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,2275,1350,75"
+},
+{
+"id": "wbt00104",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00104",
+"@type": "cnt:ContentAsText",
+"chars": "The whiche vice he hydde, as he best myghte,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,2365,1400,75"
+},
+{
+"id": "wbt00105",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00105",
+"@type": "cnt:ContentAsText",
+"chars": "Ful subtilly from every mannes sighte;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,2450,1400,75"
+},
+{
+"id": "wbt00106",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00106",
+"@type": "cnt:ContentAsText",
+"chars": "That, save his wyf, ther wiste of it namo,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,2525,1400,75"
+},
+{
+"id": "wbt00107",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00107",
+"@type": "cnt:ContentAsText",
+"chars": "He loved hir moost and trusted hir also.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,2610,1400,75"
+},
+{
+"id": "wbt00108",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00108",
+"@type": "cnt:ContentAsText",
+"chars": "He preyede hir, that to no creature",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,2690,1325,75"
+},
+{
+"id": "wbt00109",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00109",
+"@type": "cnt:ContentAsText",
+"chars": "She sholde tellen of his disfigure.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,2765,1360,75"
+},
+{
+"id": "wbt00110",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00110",
+"@type": "cnt:ContentAsText",
+"chars": "She swoor him nay, for al this world to wynne,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,2850,1450,75"
+},
+{
+"id": "wbt00111",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00111",
+"@type": "cnt:ContentAsText",
+"chars": "She nolde do that vileynye or synne,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,2925,1375,100"
+},
+{
+"id": "wbt00112",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00112",
+"@type": "cnt:ContentAsText",
+"chars": "To make hir housbonde han so foul a name,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,3020,1550,75"
+},
+{
+"id": "wbt00113",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00113",
+"@type": "cnt:ContentAsText",
+"chars": "She nolde nat telle it for hir owene shame!",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,3100,1350,75"
+},
+{
+"id": "wbt00114",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00114",
+"@type": "cnt:ContentAsText",
+"chars": "But nathelees, hir thoughte that she dyde,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,3175,1325,75"
+},
+{
+"id": "wbt00115",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00115",
+"@type": "cnt:ContentAsText",
+"chars": "That she so longe sholde a conseil hyde,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,3265,1325,75"
+},
+{
+"id": "wbt00116",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00116",
+"@type": "cnt:ContentAsText",
+"chars": "Hir thoughte it swal so soore aboute hir herte",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,3340,1500,75"
+},
+{
+"id": "wbt00117",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00117",
+"@type": "cnt:ContentAsText",
+"chars": "That nedely som word hir moste asterte.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,3425,1200,75"
+},
+{
+"id": "wbt00118",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00118",
+"@type": "cnt:ContentAsText",
+"chars": "And sith she dorste telle it to no man,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,3485,1400,75"
+},
+{
+"id": "wbt00119",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00119",
+"@type": "cnt:ContentAsText",
+"chars": "Doun to a mareys faste by she ran,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=675,3575,1425,75"
+},
+{
+"id": "wbt00120",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00120",
+"@type": "cnt:ContentAsText",
+"chars": "Women canne keepe no counsell",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=2375,1525,815,75"
+},
+{
+"id": "wbt00121",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00121",
+"@type": "cnt:ContentAsText",
+"chars": "The history of midas",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083r.jp2#xywh=2490,1625,325,50"
+},
+{
+"id": "wbt00122",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00122",
+"@type": "cnt:ContentAsText",
+"chars": "Til she came there, hir herte was afyre,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,750,1500,100"
+},
+{
+"id": "wbt00123",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00123",
+"@type": "cnt:ContentAsText",
+"chars": "And as a bitore bombleth in the myre,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,850,1350,75"
+},
+{
+"id": "wbt00124",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00124",
+"@type": "cnt:ContentAsText",
+"chars": "She leyde hir mouth unto the water doun;-",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,925,1400,75"
+},
+{
+"id": "wbt00125",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00125",
+"@type": "cnt:ContentAsText",
+"chars": "Biwreye me nat, thou water, with thy soun,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,1000,1425,75"
+},
+{
+"id": "wbt00126",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00126",
+"@type": "cnt:ContentAsText",
+"chars": "Quod she, to thee I telle it and namo,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,1085,1250,75"
+},
+{
+"id": "wbt00127",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00127",
+"@type": "cnt:ContentAsText",
+"chars": "Myn housbonde hath longe asses erys two!",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,1165,1400,75"
+},
+{
+"id": "wbt00128",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00128",
+"@type": "cnt:ContentAsText",
+"chars": "Now is myn herte al hool, now is it oute,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,1235,1400,75"
+},
+{
+"id": "wbt00129",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00129",
+"@type": "cnt:ContentAsText",
+"chars": "I myghte no lenger kepe it, out of doute.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,1300,1400,75"
+},
+{
+"id": "wbt00130",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00130",
+"@type": "cnt:ContentAsText",
+"chars": "Heere may ye se, thogh we a tyme abyde,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,1375,1475,75"
+},
+{
+"id": "wbt00131",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00131",
+"@type": "cnt:ContentAsText",
+"chars": "Yet out it moot, we kan no conseil hyde.-",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,1460,1475,75"
+},
+{
+"id": "wbt00132",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00132",
+"@type": "cnt:ContentAsText",
+"chars": "The remenant of the tale, if ye wol heere,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,1540,1500,75"
+},
+{
+"id": "wbt00133",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00133",
+"@type": "cnt:ContentAsText",
+"chars": "Redeth Ovyde, and ther ye may it leere.-",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,1615,1375,75"
+},
+{
+"id": "wbt00134",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00134",
+"@type": "cnt:ContentAsText",
+"chars": "This knyght, of which my tale is specially,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,1700,1625,75"
+},
+{
+"id": "wbt00135",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00135",
+"@type": "cnt:ContentAsText",
+"chars": "Whan that he saugh he myghte nat come therby,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,1775,1550,75"
+},
+{
+"id": "wbt00136",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00136",
+"@type": "cnt:ContentAsText",
+"chars": "This is to seye, what wommen love moost,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,1860,1350,75"
+},
+{
+"id": "wbt00137",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00137",
+"@type": "cnt:ContentAsText",
+"chars": "Withinne his brest ful sorweful was the goost.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,1935,1500,75"
+},
+{
+"id": "wbt00138",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00138",
+"@type": "cnt:ContentAsText",
+"chars": "But hoom he gooth, he myghte nat sojourne;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,2025,1500,75"
+},
+{
+"id": "wbt00139",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00139",
+"@type": "cnt:ContentAsText",
+"chars": "The day was come that homward moste he tourne,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,2100,1650,75"
+},
+{
+"id": "wbt00140",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00140",
+"@type": "cnt:ContentAsText",
+"chars": "And in his wey it happed hym to ryde",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,2175,1450,75"
+},
+{
+"id": "wbt00141",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00141",
+"@type": "cnt:ContentAsText",
+"chars": "In al this care under a forest syde,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,2255,1450,75"
+},
+{
+"id": "wbt00142",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00142",
+"@type": "cnt:ContentAsText",
+"chars": "Wher as he saugh upon a daunce go",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,2350,1325,75"
+},
+{
+"id": "wbt00143",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00143",
+"@type": "cnt:ContentAsText",
+"chars": "Of ladyes foure and twenty, and yet mo;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,2435,1225,75"
+},
+{
+"id": "wbt00144",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00144",
+"@type": "cnt:ContentAsText",
+"chars": "Toward the whiche daunce he drow ful yerne,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,2515,1400,75"
+},
+{
+"id": "wbt00145",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00145",
+"@type": "cnt:ContentAsText",
+"chars": "In hope that som wysdom sholde he lerne.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,2585,1475,75"
+},
+{
+"id": "wbt00146",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00146",
+"@type": "cnt:ContentAsText",
+"chars": "But certeinly, er he came fully there,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,2675,1300,75"
+},
+{
+"id": "wbt00147",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00147",
+"@type": "cnt:ContentAsText",
+"chars": "Vanysshed was this daunce, he nyste where;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,2750,1450,75"
+},
+{
+"id": "wbt00148",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00148",
+"@type": "cnt:ContentAsText",
+"chars": "No creature saugh he that bar lyf,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,2825,1350,75"
+},
+{
+"id": "wbt00149",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00149",
+"@type": "cnt:ContentAsText",
+"chars": "Save on the grene he saugh sittynge a wyf,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,2915,1500,75"
+},
+{
+"id": "wbt00150",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00150",
+"@type": "cnt:ContentAsText",
+"chars": "A fouler wight ther may no man devyse.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,3000,1325,75"
+},
+{
+"id": "wbt00151",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00151",
+"@type": "cnt:ContentAsText",
+"chars": "Agayn the knyght this olde wyf gan ryse,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,3075,1500,75"
+},
+{
+"id": "wbt00152",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00152",
+"@type": "cnt:ContentAsText",
+"chars": "And seyde, Sire knyght, heer-forth ne lith no wey;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,3150,1550,75"
+},
+{
+"id": "wbt00153",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00153",
+"@type": "cnt:ContentAsText",
+"chars": "Tel me what that ye seken, by your fey.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,3225,1450,75"
+},
+{
+"id": "wbt00154",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00154",
+"@type": "cnt:ContentAsText",
+"chars": "Paraventure it may the bettre be,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,3300,1250,75"
+},
+{
+"id": "wbt00155",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00155",
+"@type": "cnt:ContentAsText",
+"chars": "Thise olde folk kan muchel thyng, quod she.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,3375,1475,75"
+},
+{
+"id": "wbt00156",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00156",
+"@type": "cnt:ContentAsText",
+"chars": "My leeve mooder, quod this knyght, certeyn,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,3460,1500,75"
+},
+{
+"id": "wbt00157",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00157",
+"@type": "cnt:ContentAsText",
+"chars": "I nam but deed, but if that I kan seyn",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_083v.jp2#xywh=800,3540,1500,75"
+},
+{
+"id": "wbt00158",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00158",
+"@type": "cnt:ContentAsText",
+"chars": "wife of bathes tale",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=1000,690,650,100"
+},
+{
+"id": "wbt00159",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00159",
+"@type": "cnt:ContentAsText",
+"chars": "What thyng it is, that wommen moost desire.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,800,1375,75"
+},
+{
+"id": "wbt00160",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00160",
+"@type": "cnt:ContentAsText",
+"chars": "Koude ye me wisse, I wolde wel quite youre hire.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,875,1375,75"
+},
+{
+"id": "wbt00161",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00161",
+"@type": "cnt:ContentAsText",
+"chars": "Plight me thy trouthe, heere in myn hand, quod she,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,960,1450,75"
+},
+{
+"id": "wbt00162",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00162",
+"@type": "cnt:ContentAsText",
+"chars": "The nexte thyng that I requere thee,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,1035,1275,75"
+},
+{
+"id": "wbt00163",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00163",
+"@type": "cnt:ContentAsText",
+"chars": "Thou shalt it do, if it lye in thy myght,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,1110,1325,75"
+},
+{
+"id": "wbt00164",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00164",
+"@type": "cnt:ContentAsText",
+"chars": "And I wol telle it yow, er it be nyght.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,1175,1325,75"
+},
+{
+"id": "wbt00165",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00165",
+"@type": "cnt:ContentAsText",
+"chars": "Have heer my trouthe, quod the knyght, I grante.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,1250,1400,75"
+},
+{
+"id": "wbt00166",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00166",
+"@type": "cnt:ContentAsText",
+"chars": "Thanne, quod she, I dar me wel avante,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,1335,1300,75"
+},
+{
+"id": "wbt00167",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00167",
+"@type": "cnt:ContentAsText",
+"chars": "Thy lyf is sauf, for I wol stonde therby",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,1400,1350,75"
+},
+{
+"id": "wbt00168",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00168",
+"@type": "cnt:ContentAsText",
+"chars": "Upon my lyf, the queene wol seye as I.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,1485,1350,75"
+},
+{
+"id": "wbt00169",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00169",
+"@type": "cnt:ContentAsText",
+"chars": "Lat se which is the proudeste of hem alle,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,1575,1450,75"
+},
+{
+"id": "wbt00170",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00170",
+"@type": "cnt:ContentAsText",
+"chars": "That wereth on a coverchief or a calle,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,1650,1350,75"
+},
+{
+"id": "wbt00171",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00171",
+"@type": "cnt:ContentAsText",
+"chars": "That dar seye nay of that I shal thee teche.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,1725,1450,75"
+},
+{
+"id": "wbt00172",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00172",
+"@type": "cnt:ContentAsText",
+"chars": "Lat us go forth withouten lenger speche.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,1800,1475,75"
+},
+{
+"id": "wbt00173",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00173",
+"@type": "cnt:ContentAsText",
+"chars": "Tho rowned she a pistel in his ere,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,1875,1275,75"
+},
+{
+"id": "wbt00174",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00174",
+"@type": "cnt:ContentAsText",
+"chars": "And bad hym to be glad and have no fere.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,1950,1475,75"
+},
+{
+"id": "wbt00175",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00175",
+"@type": "cnt:ContentAsText",
+"chars": "Whan they be comen to the court, this knyght",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,2050,1500,75"
+},
+{
+"id": "wbt00176",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00176",
+"@type": "cnt:ContentAsText",
+"chars": "Seyde he had holde his day, as he hadde hight,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,2125,1425,75"
+},
+{
+"id": "wbt00177",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00177",
+"@type": "cnt:ContentAsText",
+"chars": "And redy was his answere, as he sayde.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,2200,1375,75"
+},
+{
+"id": "wbt00178",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00178",
+"@type": "cnt:ContentAsText",
+"chars": "Ful many a noble wyf, and many a mayde,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,2285,1250,75"
+},
+{
+"id": "wbt00179",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00179",
+"@type": "cnt:ContentAsText",
+"chars": "And many a wydwe, for that they been wise,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,2360,1375,75"
+},
+{
+"id": "wbt00180",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00180",
+"@type": "cnt:ContentAsText",
+"chars": "The wueene hirself sittynge as a justise,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,2440,1375,75"
+},
+{
+"id": "wbt00181",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00181",
+"@type": "cnt:ContentAsText",
+"chars": "Assembled been, his answere for to heere;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,2515,1325,75"
+},
+{
+"id": "wbt00182",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00182",
+"@type": "cnt:ContentAsText",
+"chars": "And afterward this knyght was bode appeere.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,2590,1325,75"
+},
+{
+"id": "wbt00183",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00183",
+"@type": "cnt:ContentAsText",
+"chars": "To every wight comanded was silence,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,2685,1400,75"
+},
+{
+"id": "wbt00184",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00184",
+"@type": "cnt:ContentAsText",
+"chars": "What thyng that worldly wommen loven best.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,2765,1500,75"
+},
+{
+"id": "wbt00185",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00185",
+"@type": "cnt:ContentAsText",
+"chars": "This knyght ne stood nat stille, as doth a best,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,2850,1275,75"
+},
+{
+"id": "wbt00186",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00186",
+"@type": "cnt:ContentAsText",
+"chars": "But to his questioun anon answerde",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,2920,1200,75"
+},
+{
+"id": "wbt00187",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00187",
+"@type": "cnt:ContentAsText",
+"chars": "With manly voys, that al the court it herde:",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,3000,1400,75"
+},
+{
+"id": "wbt00188",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00188",
+"@type": "cnt:ContentAsText",
+"chars": "My lige lady, generally, quod he,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,3100,1300,75"
+},
+{
+"id": "wbt00189",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00189",
+"@type": "cnt:ContentAsText",
+"chars": "Wommen desiren to have sovereynetee",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,3175,1325,75"
+},
+{
+"id": "wbt00190",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00190",
+"@type": "cnt:ContentAsText",
+"chars": "As wel over hir housbond as hir love,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,3240,1450,75"
+},
+{
+"id": "wbt00191",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00191",
+"@type": "cnt:ContentAsText",
+"chars": "And for to been in maistrie hym above.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,3325,1250,75"
+},
+{
+"id": "wbt00192",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00192",
+"@type": "cnt:ContentAsText",
+"chars": "This is youre mooste desir, thogh ye me kille,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,3410,1400,75"
+},
+{
+"id": "wbt00193",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00193",
+"@type": "cnt:ContentAsText",
+"chars": "Dooth as yow list, I am heer at youre wille.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,3500,1275,75"
+},
+{
+"id": "wbt00194",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00194",
+"@type": "cnt:ContentAsText",
+"chars": "In al the court ne was ther wyf ne mayde",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,3575,1500,75"
+},
+{
+"id": "wbt00195",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00195",
+"@type": "cnt:ContentAsText",
+"chars": "Ne wydwe that contraried that he sayde,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084r.jp2#xywh=600,3660,1300,75"
+},
+{
+"id": "wbt00196",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00196",
+"@type": "cnt:ContentAsText",
+"chars": "But seyden he was worthy han his lyf.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,770,1475,75"
+},
+{
+"id": "wbt00197",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00197",
+"@type": "cnt:ContentAsText",
+"chars": "And with that word up stirte the olde wyf,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,840,1475,75"
+},
+{
+"id": "wbt00198",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00198",
+"@type": "cnt:ContentAsText",
+"chars": "Which that the knyght saugh sittynge in the grene.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,925,1550,75"
+},
+{
+"id": "wbt00199",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00199",
+"@type": "cnt:ContentAsText",
+"chars": "Mercy, quod she, my sovereyn lady queene,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,1000,1425,75"
+},
+{
+"id": "wbt00200",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00200",
+"@type": "cnt:ContentAsText",
+"chars": "Er that youre court departe, do me right.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,1085,1425,75"
+},
+{
+"id": "wbt00201",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00201",
+"@type": "cnt:ContentAsText",
+"chars": "I taughte this answere unto the knyght,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,1160,1325,75"
+},
+{
+"id": "wbt00202",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00202",
+"@type": "cnt:ContentAsText",
+"chars": "For which he plighte me his trouthe there,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,1240,1450,75"
+},
+{
+"id": "wbt00203",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00203",
+"@type": "cnt:ContentAsText",
+"chars": "The firste thyng I wolde of hym requere,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,1325,1450,75"
+},
+{
+"id": "wbt00204",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00204",
+"@type": "cnt:ContentAsText",
+"chars": "He wolde it do, if it lay in his myght.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,1400,1225,75"
+},
+{
+"id": "wbt00205",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00205",
+"@type": "cnt:ContentAsText",
+"chars": "Bifor the court thanne preye I thee, sir knyght,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,1475,1450,75"
+},
+{
+"id": "wbt00206",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00206",
+"@type": "cnt:ContentAsText",
+"chars": "Quod she, that thou me take unto thy wyf,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,1550,1275,75"
+},
+{
+"id": "wbt00207",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00207",
+"@type": "cnt:ContentAsText",
+"chars": "For wel thou woost that I have kept thy lyf.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,1635,1500,75"
+},
+{
+"id": "wbt00208",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00208",
+"@type": "cnt:ContentAsText",
+"chars": "If I seye fals, sey nay, upon thy fey!",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,1715,1300,75"
+},
+{
+"id": "wbt00209",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00209",
+"@type": "cnt:ContentAsText",
+"chars": "This knyght answerde, Allas and weylawey!",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,1800,1425,75"
+},
+{
+"id": "wbt00210",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00210",
+"@type": "cnt:ContentAsText",
+"chars": "I woot right wel that swich was my biheste!",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,1865,1600,75"
+},
+{
+"id": "wbt00211",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00211",
+"@type": "cnt:ContentAsText",
+"chars": "For Goddes love, as chees a newe requeste,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,1950,1600,75"
+},
+{
+"id": "wbt00212",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00212",
+"@type": "cnt:ContentAsText",
+"chars": "Taak al my good, and lat my body go!",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,2025,1400,75"
+},
+{
+"id": "wbt00213",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00213",
+"@type": "cnt:ContentAsText",
+"chars": "Nay, thanne, quod she, I shrewe us bothe two,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,2100,1425,75"
+},
+{
+"id": "wbt00214",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00214",
+"@type": "cnt:ContentAsText",
+"chars": "For thogh that I be foul, and oold, and poore,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,2175,1350,75"
+},
+{
+"id": "wbt00215",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00215",
+"@type": "cnt:ContentAsText",
+"chars": "I nolde for al the metal, ne for oore,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,2250,1425,75"
+},
+{
+"id": "wbt00216",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00216",
+"@type": "cnt:ContentAsText",
+"chars": "That under erthe is grave, or lith above,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,2335,1375,75"
+},
+{
+"id": "wbt00217",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00217",
+"@type": "cnt:ContentAsText",
+"chars": "But if thy wyf I were, and eek thy love.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,2425,1425,75"
+},
+{
+"id": "wbt00218",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00218",
+"@type": "cnt:ContentAsText",
+"chars": "My love? quod he, nay, my dampnacioun!",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,2500,1400,100"
+},
+{
+"id": "wbt00219",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00219",
+"@type": "cnt:ContentAsText",
+"chars": "Allas, that any of my nacioun",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,2585,1400,75"
+},
+{
+"id": "wbt00220",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00220",
+"@type": "cnt:ContentAsText",
+"chars": "Sholde evere so foule disparaged be!",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,2675,1275,75"
+},
+{
+"id": "wbt00221",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00221",
+"@type": "cnt:ContentAsText",
+"chars": "But al for noght, the ende is this, that he",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,2750,1350,75"
+},
+{
+"id": "wbt00222",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00222",
+"@type": "cnt:ContentAsText",
+"chars": "Constreyned was, he nedes moste hir wedde,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,2840,1550,75"
+},
+{
+"id": "wbt00223",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00223",
+"@type": "cnt:ContentAsText",
+"chars": "And taketh his olde wyf, and gooth to bedde.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,2925,1500,75"
+},
+{
+"id": "wbt00224",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00224",
+"@type": "cnt:ContentAsText",
+"chars": "Now wolden som men seye, paraventure,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,3000,1325,75"
+},
+{
+"id": "wbt00225",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00225",
+"@type": "cnt:ContentAsText",
+"chars": "That for my necligence I do no cure",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,3090,1325,75"
+},
+{
+"id": "wbt00226",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00226",
+"@type": "cnt:ContentAsText",
+"chars": "To tellen yow the joye and al tharray,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,3165,1350,75"
+},
+{
+"id": "wbt00227",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00227",
+"@type": "cnt:ContentAsText",
+"chars": "That at the feeste was that ilke day;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,3230,1350,75"
+},
+{
+"id": "wbt00228",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00228",
+"@type": "cnt:ContentAsText",
+"chars": "To whiche thyng shortly answere I shal.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,3310,1500,75"
+},
+{
+"id": "wbt00229",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00229",
+"@type": "cnt:ContentAsText",
+"chars": "I seye, ther nas no joye ne feeste at al,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,3385,1500,75"
+},
+{
+"id": "wbt00230",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00230",
+"@type": "cnt:ContentAsText",
+"chars": "Ther nas but hevynesse and muche sorwe,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,3465,1500,75"
+},
+{
+"id": "wbt00231",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00231",
+"@type": "cnt:ContentAsText",
+"chars": "For prively he wedde hir on a morwe,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,3550,1500,75"
+},
+{
+"id": "wbt00232",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00232",
+"@type": "cnt:ContentAsText",
+"chars": "And al day after hidde hym as an owle,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_084v.jp2#xywh=825,3625,1425,75"
+},
+{
+"id": "wbt00233",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00233",
+"@type": "cnt:ContentAsText",
+"chars": "wife of bathes tale",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=1075,565,650,100"
+},
+{
+"id": "wbt00234",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00234",
+"@type": "cnt:ContentAsText",
+"chars": "So wo was hym, his wyf looked so foule.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=625,690,1425,100"
+},
+{
+"id": "wbt00235",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00235",
+"@type": "cnt:ContentAsText",
+"chars": "Greet was the wo the knyght hadde in his thoght,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,800,1575,75"
+},
+{
+"id": "wbt00236",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00236",
+"@type": "cnt:ContentAsText",
+"chars": "Whan he was with his wyf abedde ybroght,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,875,1550,75"
+},
+{
+"id": "wbt00237",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00237",
+"@type": "cnt:ContentAsText",
+"chars": "He walweth and he turneth to and fro.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,950,1350,75"
+},
+{
+"id": "wbt00238",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00238",
+"@type": "cnt:ContentAsText",
+"chars": "His olde wyf lay smylynge everemo,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,1025,1250,75"
+},
+{
+"id": "wbt00239",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00239",
+"@type": "cnt:ContentAsText",
+"chars": "And seyde, O deere housbonde, benedicitee,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,1100,1250,75"
+},
+{
+"id": "wbt00240",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00240",
+"@type": "cnt:ContentAsText",
+"chars": "Fareth every knyght thus with his wyf, as ye?",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,1185,1350,75"
+},
+{
+"id": "wbt00241",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00241",
+"@type": "cnt:ContentAsText",
+"chars": "Is this the lawe of Kyng Arthures hous?",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,1265,1400,75"
+},
+{
+"id": "wbt00242",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00242",
+"@type": "cnt:ContentAsText",
+"chars": "Is every knyght of his so dangerous?",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,1350,1400,75"
+},
+{
+"id": "wbt00243",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00243",
+"@type": "cnt:ContentAsText",
+"chars": "I am youre owene love, and eek your wyf;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,1425,1350,75"
+},
+{
+"id": "wbt00244",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00244",
+"@type": "cnt:ContentAsText",
+"chars": "I am she which that saved hath youre lyf.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,1510,1300,75"
+},
+{
+"id": "wbt00245",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00245",
+"@type": "cnt:ContentAsText",
+"chars": "And certes, yet dide I yow nevere unright;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,1590,1325,75"
+},
+{
+"id": "wbt00246",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00246",
+"@type": "cnt:ContentAsText",
+"chars": "Why fare ye thus with me this firste nyght?",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,1665,1425,75"
+},
+{
+"id": "wbt00247",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00247",
+"@type": "cnt:ContentAsText",
+"chars": "Ye faren lyk a man had lost his wit.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,1740,1425,75"
+},
+{
+"id": "wbt00248",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00248",
+"@type": "cnt:ContentAsText",
+"chars": "What is my gilt? for Goddes love, tel it,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,1815,1350,75"
+},
+{
+"id": "wbt00249",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00249",
+"@type": "cnt:ContentAsText",
+"chars": "And it shal been amended, if I may.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,1885,1275,75"
+},
+{
+"id": "wbt00250",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00250",
+"@type": "cnt:ContentAsText",
+"chars": "Amended, quod this knyght, allas! nay! nay!",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,1965,1275,75"
+},
+{
+"id": "wbt00251",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00251",
+"@type": "cnt:ContentAsText",
+"chars": "It wol nat been amended nevere mo;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,2040,1200,75"
+},
+{
+"id": "wbt00252",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00252",
+"@type": "cnt:ContentAsText",
+"chars": "Thou art so loothly and so oold also",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,2115,1250,75"
+},
+{
+"id": "wbt00253",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00253",
+"@type": "cnt:ContentAsText",
+"chars": "And therto comen of so lough a kynde,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,2185,1250,75"
+},
+{
+"id": "wbt00254",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00254",
+"@type": "cnt:ContentAsText",
+"chars": "That litel wonder is thogh I walwe and wynde.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,2260,1425,75"
+},
+{
+"id": "wbt00255",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00255",
+"@type": "cnt:ContentAsText",
+"chars": "So wolde God, myn herte wolde breste!",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,2335,1275,75"
+},
+{
+"id": "wbt00256",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00256",
+"@type": "cnt:ContentAsText",
+"chars": "Is this, quod she, the cause of youre unreste?",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,2415,1400,75"
+},
+{
+"id": "wbt00257",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00257",
+"@type": "cnt:ContentAsText",
+"chars": "Ye certeinly, quod he, no wonder is!",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,2495,1100,75"
+},
+{
+"id": "wbt00258",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00258",
+"@type": "cnt:ContentAsText",
+"chars": "Now, sire, quod she, I koude amende al this,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,2565,1300,75"
+},
+{
+"id": "wbt00259",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00259",
+"@type": "cnt:ContentAsText",
+"chars": "If that me liste, er it were dayes thre,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,2650,1350,75"
+},
+{
+"id": "wbt00260",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00260",
+"@type": "cnt:ContentAsText",
+"chars": "So wel ye myghte bere yow unto me.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,2725,1275,75"
+},
+{
+"id": "wbt00261",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00261",
+"@type": "cnt:ContentAsText",
+"chars": "But for ye speken of swich gentillesse",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,2800,1275,75"
+},
+{
+"id": "wbt00262",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00262",
+"@type": "cnt:ContentAsText",
+"chars": "As is descended out of old richesse,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,2875,1275,75"
+},
+{
+"id": "wbt00263",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00263",
+"@type": "cnt:ContentAsText",
+"chars": "That therfore sholden ye be gentil men,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,2960,1425,75"
+},
+{
+"id": "wbt00264",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00264",
+"@type": "cnt:ContentAsText",
+"chars": "Swich arrogance nis nat worth an hen.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,3035,1400,75"
+},
+{
+"id": "wbt00265",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00265",
+"@type": "cnt:ContentAsText",
+"chars": "Looke who that is moost vertuous alway,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,3115,1350,75"
+},
+{
+"id": "wbt00266",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00266",
+"@type": "cnt:ContentAsText",
+"chars": "Pryvee and apert, and moost entendeth ay",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,3200,1425,75"
+},
+{
+"id": "wbt00267",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00267",
+"@type": "cnt:ContentAsText",
+"chars": "To do the gentil dedes that he kan,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,3275,1225,75"
+},
+{
+"id": "wbt00268",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00268",
+"@type": "cnt:ContentAsText",
+"chars": "Taak hym for the grettest gentil-man.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,3350,1300,75"
+},
+{
+"id": "wbt00269",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00269",
+"@type": "cnt:ContentAsText",
+"chars": "Crist wole, we clayme of hym oure gentillesse,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,3425,1375,75"
+},
+{
+"id": "wbt00270",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00270",
+"@type": "cnt:ContentAsText",
+"chars": "Nat of oure eldres for hire old richesse.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,3510,1475,75"
+},
+{
+"id": "wbt00271",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00271",
+"@type": "cnt:ContentAsText",
+"chars": "For thogh they yeve us al hir heritage,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,3600,1450,75"
+},
+{
+"id": "wbt00272",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00272",
+"@type": "cnt:ContentAsText",
+"chars": "For which we clayme to been of heigh parage,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085r.jp2#xywh=625,3675,1525,75"
+},
+{
+"id": "wbt00273",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00273",
+"@type": "cnt:ContentAsText",
+"chars": "Yet may they nat biquethe for no thyng",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,725,1375,75"
+},
+{
+"id": "wbt00274",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00274",
+"@type": "cnt:ContentAsText",
+"chars": "To noon of us hir vertuous lyvyng,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,815,1250,75"
+},
+{
+"id": "wbt00275",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00275",
+"@type": "cnt:ContentAsText",
+"chars": "That made hem gentil men ycalled be,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,890,1300,75"
+},
+{
+"id": "wbt00276",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00276",
+"@type": "cnt:ContentAsText",
+"chars": "And bad us folwen hem in swich degree.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,965,1325,75"
+},
+{
+"id": "wbt00277",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00277",
+"@type": "cnt:ContentAsText",
+"chars": "Wel kan the wise poete of Florence,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,1040,1350,75"
+},
+{
+"id": "wbt00278",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00278",
+"@type": "cnt:ContentAsText",
+"chars": "That highte Dant, speken in this sentence.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,1125,1450,75"
+},
+{
+"id": "wbt00279",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00279",
+"@type": "cnt:ContentAsText",
+"chars": "Lo in swich maner rym is Dantes tale:",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,1200,1425,75"
+},
+{
+"id": "wbt00280",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00280",
+"@type": "cnt:ContentAsText",
+"chars": "`Ful selde upriseth by his branches smale",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,1275,1475,75"
+},
+{
+"id": "wbt00281",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00281",
+"@type": "cnt:ContentAsText",
+"chars": "Prowesse of man, for God of his goodnesse",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,1355,1525,75"
+},
+{
+"id": "wbt00282",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00282",
+"@type": "cnt:ContentAsText",
+"chars": "Wole, that of hym we clayme oure gentillesse.'",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,1425,1550,75"
+},
+{
+"id": "wbt00283",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00283",
+"@type": "cnt:ContentAsText",
+"chars": "For of oure eldres may we no thyng clayme",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,1500,1525,75"
+},
+{
+"id": "wbt00284",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00284",
+"@type": "cnt:ContentAsText",
+"chars": "But temporel thyng, that man may hurte and mayme.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,1585,1650,75"
+},
+{
+"id": "wbt00285",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00285",
+"@type": "cnt:ContentAsText",
+"chars": "Eek every wight woot this as wel as I,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,1660,1425,75"
+},
+{
+"id": "wbt00286",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00286",
+"@type": "cnt:ContentAsText",
+"chars": "If gentillesse were planted natureelly",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,1740,1400,75"
+},
+{
+"id": "wbt00287",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00287",
+"@type": "cnt:ContentAsText",
+"chars": "Unto a certeyn lynage doun the lyne,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,1815,1275,75"
+},
+{
+"id": "wbt00288",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00288",
+"@type": "cnt:ContentAsText",
+"chars": "Pryvee nor apert, thanne wolde they nevere fyne",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,1885,1475,75"
+},
+{
+"id": "wbt00289",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00289",
+"@type": "cnt:ContentAsText",
+"chars": "To doon of gentillesse the faire office,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,1955,1300,75"
+},
+{
+"id": "wbt00290",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00290",
+"@type": "cnt:ContentAsText",
+"chars": "They myghte do no vileynye or vice.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,2035,1300,75"
+},
+{
+"id": "wbt00291",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00291",
+"@type": "cnt:ContentAsText",
+"chars": "Taak fyr, and ber it in the derkeste hous",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,2100,1550,75"
+},
+{
+"id": "wbt00292",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00292",
+"@type": "cnt:ContentAsText",
+"chars": "Bitwix this and the mount of Kaukasous,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,2175,1550,75"
+},
+{
+"id": "wbt00293",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00293",
+"@type": "cnt:ContentAsText",
+"chars": "And lat men shette the dores and go thenne,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,2245,1500,75"
+},
+{
+"id": "wbt00294",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00294",
+"@type": "cnt:ContentAsText",
+"chars": "Yet wole the fyr as faire lye and brenne",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,2325,1500,75"
+},
+{
+"id": "wbt00295",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00295",
+"@type": "cnt:ContentAsText",
+"chars": "As twenty thousand men myghte it biholde;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,2390,1350,75"
+},
+{
+"id": "wbt00296",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00296",
+"@type": "cnt:ContentAsText",
+"chars": "His office natureel ay wol it holde,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,2475,1350,75"
+},
+{
+"id": "wbt00297",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00297",
+"@type": "cnt:ContentAsText",
+"chars": "Up peril of my lyf, til that it dye.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,2550,1325,75"
+},
+{
+"id": "wbt00298",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00298",
+"@type": "cnt:ContentAsText",
+"chars": "Heere may ye se wel, how that genterye",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,2625,1400,75"
+},
+{
+"id": "wbt00299",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00299",
+"@type": "cnt:ContentAsText",
+"chars": "Is nat annexed to possessioun,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,2700,1225,75"
+},
+{
+"id": "wbt00300",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00300",
+"@type": "cnt:ContentAsText",
+"chars": "Sith folk ne doon hir operacioun",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,2775,1300,75"
+},
+{
+"id": "wbt00301",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00301",
+"@type": "cnt:ContentAsText",
+"chars": "Alwey, as dooth the fyr, lo, in his kynde.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,2850,1350,75"
+},
+{
+"id": "wbt00302",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00302",
+"@type": "cnt:ContentAsText",
+"chars": "For God it woot, men may wel often fynde",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,2925,1400,75"
+},
+{
+"id": "wbt00303",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00303",
+"@type": "cnt:ContentAsText",
+"chars": "A lordes sone do shame and vileynye,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,3000,1300,75"
+},
+{
+"id": "wbt00304",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00304",
+"@type": "cnt:ContentAsText",
+"chars": "And he that wole han pris of his gentrye,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,3075,1450,75"
+},
+{
+"id": "wbt00305",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00305",
+"@type": "cnt:ContentAsText",
+"chars": "For he was boren of a gentil hous,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,3150,1300,75"
+},
+{
+"id": "wbt00306",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00306",
+"@type": "cnt:ContentAsText",
+"chars": "And hadde hise eldres noble and vertuous,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,3225,1325,75"
+},
+{
+"id": "wbt00307",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00307",
+"@type": "cnt:ContentAsText",
+"chars": "And nel hym-selven do no gentil dedis,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,3300,1325,75"
+},
+{
+"id": "wbt00308",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00308",
+"@type": "cnt:ContentAsText",
+"chars": "Ne folwen his gentil auncestre that deed is,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,3375,1400,75"
+},
+{
+"id": "wbt00309",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00309",
+"@type": "cnt:ContentAsText",
+"chars": "He nys nat gentil, be he duc or erl;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,3450,1400,75"
+},
+{
+"id": "wbt00310",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00310",
+"@type": "cnt:ContentAsText",
+"chars": "For vileyns synful dedes make a cherl.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,3525,1500,75"
+},
+{
+"id": "wbt00311",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00311",
+"@type": "cnt:ContentAsText",
+"chars": "For gentillesse nys but renomee",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_085v.jp2#xywh=850,3600,1300,75"
+},
+{
+"id": "wbt00312",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00312",
+"@type": "cnt:ContentAsText",
+"chars": "wife of bathes tale",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=1050,500,700,125"
+},
+{
+"id": "wbt00313",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00313",
+"@type": "cnt:ContentAsText",
+"chars": "Of thyne auncestres for hire heigh bountee,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,685,1500,100"
+},
+{
+"id": "wbt00314",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00314",
+"@type": "cnt:ContentAsText",
+"chars": "Which is a strange thyng to thy persone.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,775,1400,75"
+},
+{
+"id": "wbt00315",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00315",
+"@type": "cnt:ContentAsText",
+"chars": "Thy gentillesse cometh fro God allone,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,855,1375,75"
+},
+{
+"id": "wbt00316",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00316",
+"@type": "cnt:ContentAsText",
+"chars": "Thanne comth oure verray gentillesse of grace,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,925,1500,75"
+},
+{
+"id": "wbt00317",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00317",
+"@type": "cnt:ContentAsText",
+"chars": "It was no thyng biquethe us with oure place.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,995,1475,75"
+},
+{
+"id": "wbt00318",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00318",
+"@type": "cnt:ContentAsText",
+"chars": "Thenketh hou noble, as seith Valerius,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,1065,1450,75"
+},
+{
+"id": "wbt00319",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00319",
+"@type": "cnt:ContentAsText",
+"chars": "Was thilke Tullius Hostillius,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,1145,1350,75"
+},
+{
+"id": "wbt00320",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00320",
+"@type": "cnt:ContentAsText",
+"chars": "That out of poverte roos to heigh noblesse.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,1215,1350,75"
+},
+{
+"id": "wbt00321",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00321",
+"@type": "cnt:ContentAsText",
+"chars": "Reedeth Senek, and redeth eek Boece,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,1290,1400,75"
+},
+{
+"id": "wbt00322",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00322",
+"@type": "cnt:ContentAsText",
+"chars": "Ther shul ye seen expres that it no drede is,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,1365,1450,75"
+},
+{
+"id": "wbt00323",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00323",
+"@type": "cnt:ContentAsText",
+"chars": "That he is gentil that dooth gentil dedis.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,1435,1425,75"
+},
+{
+"id": "wbt00324",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00324",
+"@type": "cnt:ContentAsText",
+"chars": "And therfore, leeve housbonde, I thus conclude,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,1500,1550,75"
+},
+{
+"id": "wbt00325",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00325",
+"@type": "cnt:ContentAsText",
+"chars": "Al were it that myne auncestres weren rude,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,1580,1625,75"
+},
+{
+"id": "wbt00326",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00326",
+"@type": "cnt:ContentAsText",
+"chars": "Yet may the hye God-and so hope I,-",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,1650,1350,75"
+},
+{
+"id": "wbt00327",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00327",
+"@type": "cnt:ContentAsText",
+"chars": "Grante me grace to lyven vertuously.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,1730,1300,75"
+},
+{
+"id": "wbt00328",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00328",
+"@type": "cnt:ContentAsText",
+"chars": "Thanne am I gentil whan that I bigynne",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,1800,1400,75"
+},
+{
+"id": "wbt00329",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00329",
+"@type": "cnt:ContentAsText",
+"chars": "To lyven vertuously, and weyve synne.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,1880,1350,75"
+},
+{
+"id": "wbt00330",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00330",
+"@type": "cnt:ContentAsText",
+"chars": "And ther as ye of poverte me repreeve,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,1960,1475,75"
+},
+{
+"id": "wbt00331",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00331",
+"@type": "cnt:ContentAsText",
+"chars": "The hye God, on whom that we bileeve",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,2025,1450,75"
+},
+{
+"id": "wbt00332",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00332",
+"@type": "cnt:ContentAsText",
+"chars": "In wilful poverte chees to lyve his lyf.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,2100,1425,75"
+},
+{
+"id": "wbt00333",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00333",
+"@type": "cnt:ContentAsText",
+"chars": "And certes every man, mayden or wyf,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,2175,1400,75"
+},
+{
+"id": "wbt00334",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00334",
+"@type": "cnt:ContentAsText",
+"chars": "May understonde that Jesus, hevene kyng,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,2250,1400,75"
+},
+{
+"id": "wbt00335",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00335",
+"@type": "cnt:ContentAsText",
+"chars": "Ne wolde nat chesen vicious lyvyng.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,2325,1400,75"
+},
+{
+"id": "wbt00336",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00336",
+"@type": "cnt:ContentAsText",
+"chars": "Glad poverte is an honeste thyng, certeyn,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,2410,1400,75"
+},
+{
+"id": "wbt00337",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00337",
+"@type": "cnt:ContentAsText",
+"chars": "This wole Senec and othere clerkes seyn.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,2485,1425,75"
+},
+{
+"id": "wbt00338",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00338",
+"@type": "cnt:ContentAsText",
+"chars": "Who so that halt hym payd of his poverte,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,2560,1300,75"
+},
+{
+"id": "wbt00339",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00339",
+"@type": "cnt:ContentAsText",
+"chars": "I holde hym riche, al hadde he nat a sherte;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,2645,1350,75"
+},
+{
+"id": "wbt00340",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00340",
+"@type": "cnt:ContentAsText",
+"chars": "He that coveiteth is a povre wight,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,2720,1325,75"
+},
+{
+"id": "wbt00341",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00341",
+"@type": "cnt:ContentAsText",
+"chars": "For he wolde han that is nat in his myght,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,2800,1425,75"
+},
+{
+"id": "wbt00342",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00342",
+"@type": "cnt:ContentAsText",
+"chars": "But he that noght hath, ne coveiteth have,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,2875,1500,75"
+},
+{
+"id": "wbt00343",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00343",
+"@type": "cnt:ContentAsText",
+"chars": "Is riche, although ye holde hym but a knave.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,2950,1600,75"
+},
+{
+"id": "wbt00344",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00344",
+"@type": "cnt:ContentAsText",
+"chars": "Verray poverte, it syngeth proprely.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,3025,1225,75"
+},
+{
+"id": "wbt00345",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00345",
+"@type": "cnt:ContentAsText",
+"chars": "Juvenal seith of poverte myrily,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,3100,1250,75"
+},
+{
+"id": "wbt00346",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00346",
+"@type": "cnt:ContentAsText",
+"chars": "`The povre man, whan he goth by the weye,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,3175,1400,75"
+},
+{
+"id": "wbt00347",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00347",
+"@type": "cnt:ContentAsText",
+"chars": "Bifore the theves he may synge and pleye.'",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,3250,1400,75"
+},
+{
+"id": "wbt00348",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00348",
+"@type": "cnt:ContentAsText",
+"chars": "Poverte is hateful good, and, as I gesse,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,3335,1200,75"
+},
+{
+"id": "wbt00349",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00349",
+"@type": "cnt:ContentAsText",
+"chars": "A ful greet bryngere out of bisynesse;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,3410,1265,75"
+},
+{
+"id": "wbt00350",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00350",
+"@type": "cnt:ContentAsText",
+"chars": "A greet amender eek of sapience",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,3500,1265,75"
+},
+{
+"id": "wbt00351",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00351",
+"@type": "cnt:ContentAsText",
+"chars": "To hym that taketh it in pacience.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086r.jp2#xywh=600,3585,1200,75"
+},
+{
+"id": "wbt00352",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00352",
+"@type": "cnt:ContentAsText",
+"chars": "Poverte is this, although it seme elenge;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,650,1300,100"
+},
+{
+"id": "wbt00353",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00353",
+"@type": "cnt:ContentAsText",
+"chars": "Possessioun, that no wight wol chalenge.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,760,1400,75"
+},
+{
+"id": "wbt00354",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00354",
+"@type": "cnt:ContentAsText",
+"chars": "Poverte ful ofte, whan a man is lowe,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,825,1425,75"
+},
+{
+"id": "wbt00355",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00355",
+"@type": "cnt:ContentAsText",
+"chars": "Maketh his God and eek hymself to knowe;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,900,1375,75"
+},
+{
+"id": "wbt00356",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00356",
+"@type": "cnt:ContentAsText",
+"chars": "Poverte a spectacle is, as thynketh me,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,975,1250,75"
+},
+{
+"id": "wbt00357",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00357",
+"@type": "cnt:ContentAsText",
+"chars": "Thurgh which he may hise verray freendes see.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,1050,1450,75"
+},
+{
+"id": "wbt00358",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00358",
+"@type": "cnt:ContentAsText",
+"chars": "And therfore, sire, syn that I noght yow greve,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,1125,1600,75"
+},
+{
+"id": "wbt00359",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00359",
+"@type": "cnt:ContentAsText",
+"chars": "Of my poverte namoore ye me repreve.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,1200,1475,75"
+},
+{
+"id": "wbt00360",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00360",
+"@type": "cnt:ContentAsText",
+"chars": "Now sire, of elde ye repreve me,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,1265,1350,75"
+},
+{
+"id": "wbt00361",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00361",
+"@type": "cnt:ContentAsText",
+"chars": "And certes, sire, thogh noon auctoritee",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,1340,1425,75"
+},
+{
+"id": "wbt00362",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00362",
+"@type": "cnt:ContentAsText",
+"chars": "Were in no book, ye gentils of honour",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,1425,1500,75"
+},
+{
+"id": "wbt00363",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00363",
+"@type": "cnt:ContentAsText",
+"chars": "Seyn, that men sholde an oold wight doon favour,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,1500,1575,75"
+},
+{
+"id": "wbt00364",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00364",
+"@type": "cnt:ContentAsText",
+"chars": "And clepe hym fader for youre gentillesse,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,1575,1550,75"
+},
+{
+"id": "wbt00365",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00365",
+"@type": "cnt:ContentAsText",
+"chars": "And auctours shal I fynden, as I gesse.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,1650,1425,75"
+},
+{
+"id": "wbt00366",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00366",
+"@type": "cnt:ContentAsText",
+"chars": "Now, ther ye seye that I am foul and old,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,1730,1500,75"
+},
+{
+"id": "wbt00367",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00367",
+"@type": "cnt:ContentAsText",
+"chars": "Than drede you noght to been a cokewold;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,1810,1325,75"
+},
+{
+"id": "wbt00368",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00368",
+"@type": "cnt:ContentAsText",
+"chars": "For filthe and eelde, al so moot I thee,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,1900,1325,75"
+},
+{
+"id": "wbt00369",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00369",
+"@type": "cnt:ContentAsText",
+"chars": "Been grete wardeyns upon chastitee;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,1975,1375,75"
+},
+{
+"id": "wbt00370",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00370",
+"@type": "cnt:ContentAsText",
+"chars": "But nathelees, syn I knowe youre delit,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,2050,1450,75"
+},
+{
+"id": "wbt00371",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00371",
+"@type": "cnt:ContentAsText",
+"chars": "I shal fulfille youre worldly appetit.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,2135,1375,75"
+},
+{
+"id": "wbt00372",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00372",
+"@type": "cnt:ContentAsText",
+"chars": "Chese now, quod she, oon of thise thynges tweye:",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,2215,1450,75"
+},
+{
+"id": "wbt00373",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00373",
+"@type": "cnt:ContentAsText",
+"chars": "To han me foul and old til that I deye,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,2295,1475,75"
+},
+{
+"id": "wbt00374",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00374",
+"@type": "cnt:ContentAsText",
+"chars": "And be to yow a trewe humble wyf,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,2365,1250,75"
+},
+{
+"id": "wbt00375",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00375",
+"@type": "cnt:ContentAsText",
+"chars": "And nevere yow displese in al my lyf;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,2440,1400,75"
+},
+{
+"id": "wbt00376",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00376",
+"@type": "cnt:ContentAsText",
+"chars": "Or elles ye wol han me yong and fair,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,2525,1450,75"
+},
+{
+"id": "wbt00377",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00377",
+"@type": "cnt:ContentAsText",
+"chars": "And take youre aventure of the repair",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,2610,1475,75"
+},
+{
+"id": "wbt00378",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00378",
+"@type": "cnt:ContentAsText",
+"chars": "That shal be to youre hous, by cause of me,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,2685,1450,75"
+},
+{
+"id": "wbt00379",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00379",
+"@type": "cnt:ContentAsText",
+"chars": "Or in som oother place may wel be.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,2760,1300,75"
+},
+{
+"id": "wbt00380",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00380",
+"@type": "cnt:ContentAsText",
+"chars": "Now chese yourselven wheither that yow liketh.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,2840,1500,75"
+},
+{
+"id": "wbt00381",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00381",
+"@type": "cnt:ContentAsText",
+"chars": "This knyght avyseth hym and sore siketh,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,2915,1475,75"
+},
+{
+"id": "wbt00382",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00382",
+"@type": "cnt:ContentAsText",
+"chars": "But atte laste, he seyde in this manere:",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,2990,1350,75"
+},
+{
+"id": "wbt00383",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00383",
+"@type": "cnt:ContentAsText",
+"chars": "My lady and my love, and wyf so deere,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,3065,1475,75"
+},
+{
+"id": "wbt00384",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00384",
+"@type": "cnt:ContentAsText",
+"chars": "I put me in youre wise governance.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,3150,1375,75"
+},
+{
+"id": "wbt00385",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00385",
+"@type": "cnt:ContentAsText",
+"chars": "Cheseth yourself, which may be moost plesance",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,3225,1675,75"
+},
+{
+"id": "wbt00386",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00386",
+"@type": "cnt:ContentAsText",
+"chars": "And moost honour to yow and me also.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,3300,1350,75"
+},
+{
+"id": "wbt00387",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00387",
+"@type": "cnt:ContentAsText",
+"chars": "I do no fors the wheither of the two,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,3385,1275,75"
+},
+{
+"id": "wbt00388",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00388",
+"@type": "cnt:ContentAsText",
+"chars": "For, as yow liketh, it suffiseth me.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,3460,1350,75"
+},
+{
+"id": "wbt00389",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00389",
+"@type": "cnt:ContentAsText",
+"chars": "Thanne have I gete of yow maistrie, quod she,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_086v.jp2#xywh=900,3535,1575,75"
+},
+{
+"id": "wbt00390",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00390",
+"@type": "cnt:ContentAsText",
+"chars": "frere's prologue",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=1075,530,450,100"
+},
+{
+"id": "wbt00391",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00391",
+"@type": "cnt:ContentAsText",
+"chars": "Syn I may chese and governe as me lest?",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,700,1350,75"
+},
+{
+"id": "wbt00392",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00392",
+"@type": "cnt:ContentAsText",
+"chars": "Ye, certes, wyf, quod he, I holde it best.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,785,1300,75"
+},
+{
+"id": "wbt00393",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00393",
+"@type": "cnt:ContentAsText",
+"chars": "Kys me, quod she, we be no lenger wrothe,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,865,1325,75"
+},
+{
+"id": "wbt00394",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00394",
+"@type": "cnt:ContentAsText",
+"chars": "For, by my trouthe, I wol be to yow bothe!",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,950,1400,75"
+},
+{
+"id": "wbt00395",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00395",
+"@type": "cnt:ContentAsText",
+"chars": "This is to seyn, ye, bothe fair and good.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,1025,1250,75"
+},
+{
+"id": "wbt00396",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00396",
+"@type": "cnt:ContentAsText",
+"chars": "I prey to God that I moote sterven wood",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,1110,1300,75"
+},
+{
+"id": "wbt00397",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00397",
+"@type": "cnt:ContentAsText",
+"chars": "But I to yow be al so good and trewe",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,1185,1250,75"
+},
+{
+"id": "wbt00398",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00398",
+"@type": "cnt:ContentAsText",
+"chars": "As evere was wyf, syn that the world was newe.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,1260,1500,75"
+},
+{
+"id": "wbt00399",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00399",
+"@type": "cnt:ContentAsText",
+"chars": "And but I be tomorn as fair to seene",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,1340,1350,75"
+},
+{
+"id": "wbt00400",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00400",
+"@type": "cnt:ContentAsText",
+"chars": "As any lady, emperice or queene,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,1415,1200,75"
+},
+{
+"id": "wbt00401",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00401",
+"@type": "cnt:ContentAsText",
+"chars": "That is bitwixe the est and eke the west,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,1500,1350,75"
+},
+{
+"id": "wbt00402",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00402",
+"@type": "cnt:ContentAsText",
+"chars": "Dooth with my lyf and deth right as yow lest.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,1575,1450,75"
+},
+{
+"id": "wbt00403",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00403",
+"@type": "cnt:ContentAsText",
+"chars": "Cast up the curtyn, looke how that it is.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,1650,1425,75"
+},
+{
+"id": "wbt00404",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00404",
+"@type": "cnt:ContentAsText",
+"chars": "And whan the knyght saugh verraily al this,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,1725,1425,75"
+},
+{
+"id": "wbt00405",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00405",
+"@type": "cnt:ContentAsText",
+"chars": "That she so fair was, and so yong therto,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,1810,1425,75"
+},
+{
+"id": "wbt00406",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00406",
+"@type": "cnt:ContentAsText",
+"chars": "For joye he hente hire in hise armes two.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,1885,1400,75"
+},
+{
+"id": "wbt00407",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00407",
+"@type": "cnt:ContentAsText",
+"chars": "His herte bathed in a bath of blisse,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,1960,1250,75"
+},
+{
+"id": "wbt00408",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00408",
+"@type": "cnt:ContentAsText",
+"chars": "A thousand tyme arewe he gan hir kisse,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,2035,1375,75"
+},
+{
+"id": "wbt00409",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00409",
+"@type": "cnt:ContentAsText",
+"chars": "And she obeyed hym in every thyng",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,2115,1325,75"
+},
+{
+"id": "wbt00410",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00410",
+"@type": "cnt:ContentAsText",
+"chars": "That myghte doon hym plesance or likyng.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,2190,1325,75"
+},
+{
+"id": "wbt00411",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00411",
+"@type": "cnt:ContentAsText",
+"chars": "And thus they lyve unto hir lyves ende",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,2260,1500,75"
+},
+{
+"id": "wbt00412",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00412",
+"@type": "cnt:ContentAsText",
+"chars": "In parfit joye;-and Jesu Crist us sende",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,2335,1325,75"
+},
+{
+"id": "wbt00413",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00413",
+"@type": "cnt:ContentAsText",
+"chars": "Housbondes meeke, yonge, fressh abedde,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,2405,1425,75"
+},
+{
+"id": "wbt00414",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00414",
+"@type": "cnt:ContentAsText",
+"chars": "And grace toverbyde hem that we wedde.",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,2475,1500,75"
+},
+{
+"id": "wbt00415",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00415",
+"@type": "cnt:ContentAsText",
+"chars": "And eek I praye Jesu shorte hir lyves,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,2550,1400,75"
+},
+{
+"id": "wbt00416",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00416",
+"@type": "cnt:ContentAsText",
+"chars": "That nat wol be governed by hir wyves;",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,2635,1550,75"
+},
+{
+"id": "wbt00417",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00417",
+"@type": "cnt:ContentAsText",
+"chars": "And olde and angry nygardes of dispence,",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,2700,1500,75"
+},
+{
+"id": "wbt00418",
+"@type": "oa:Annotation",
+"resource": {
+"id": "_wbt00418",
+"@type": "cnt:ContentAsText",
+"chars": "God sende hem soone verray pestilence!",
+"language": "en",
+}
+"on": "http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_087r.jp2#xywh=600,2785,1400,75"
+}]
+}

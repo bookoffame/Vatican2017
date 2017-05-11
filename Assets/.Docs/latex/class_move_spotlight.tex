@@ -1,0 +1,287 @@
+\section{Move\+Spotlight Class Reference}
+\label{class_move_spotlight}\index{Move\+Spotlight@{Move\+Spotlight}}
+
+
+The controls logic for the spotlight tool.  
+
+
+Inheritance diagram for Move\+Spotlight\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_move_spotlight}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf update\+Hue} (float hue)
+\begin{DoxyCompactList}\small\item\em Updates the hue of the spotlight. \end{DoxyCompactList}\item 
+void {\bf update\+Sat} (float sat)
+\begin{DoxyCompactList}\small\item\em Updates the saturation of the spotlight. \end{DoxyCompactList}\item 
+void {\bf update\+Value} (float value)
+\begin{DoxyCompactList}\small\item\em Updates the value of the spotlight. \end{DoxyCompactList}\item 
+void {\bf update\+Size} (float new\+Size)
+\begin{DoxyCompactList}\small\item\em Updates the size of the spotlight. \end{DoxyCompactList}\item 
+void {\bf update\+Brightness} (float brightness)
+\begin{DoxyCompactList}\small\item\em Updates the brightness of the spotlight. \end{DoxyCompactList}\item 
+void {\bf freeze\+Position} (bool is\+Freeze)
+\begin{DoxyCompactList}\small\item\em Freezes/\+Unfreezes the position of the spotlight. \end{DoxyCompactList}\item 
+void {\bf hide\+Properties} (bool is\+Hiding)
+\begin{DoxyCompactList}\small\item\em Hides/\+Shows the settings of the spotlight. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float {\bf minX}
+\begin{DoxyCompactList}\small\item\em The minimum x position. \end{DoxyCompactList}\item 
+float {\bf minY}
+\begin{DoxyCompactList}\small\item\em The minimum y position. \end{DoxyCompactList}\item 
+float {\bf maxX}
+\begin{DoxyCompactList}\small\item\em The max x position. \end{DoxyCompactList}\item 
+float {\bf maxY}
+\begin{DoxyCompactList}\small\item\em The max y position. \end{DoxyCompactList}\item 
+Camera {\bf cam}
+\begin{DoxyCompactList}\small\item\em The book mode camera \end{DoxyCompactList}\item 
+Light {\bf spot\+Light}
+\begin{DoxyCompactList}\small\item\em The spot light. \end{DoxyCompactList}\item 
+Light {\bf world\+Light}
+\begin{DoxyCompactList}\small\item\em The world lighting. \end{DoxyCompactList}\item 
+Light {\bf ceiling\+Light}
+\begin{DoxyCompactList}\small\item\em The ceiling light. \end{DoxyCompactList}\item 
+Image {\bf preview}
+\begin{DoxyCompactList}\small\item\em The preview color of the spotlight. \end{DoxyCompactList}\item 
+Toggle {\bf frozen\+Toggle}
+\begin{DoxyCompactList}\small\item\em The Toggle that controls if this spotlight is frozen. \end{DoxyCompactList}\item 
+Toggle {\bf hide\+Toggle}
+\begin{DoxyCompactList}\small\item\em The Toggle that controls hiding/showing the settings of this spotlight. \end{DoxyCompactList}\item 
+bool {\bf frozen} = false
+\begin{DoxyCompactList}\small\item\em Is the spotlight frozen in position? \end{DoxyCompactList}\item 
+bool {\bf hiding\+Properties} = false
+\begin{DoxyCompactList}\small\item\em Are the settings of this spotlight hidden? \end{DoxyCompactList}\item 
+Transform {\bf properties}
+\begin{DoxyCompactList}\small\item\em The settings of this spotlight. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The controls logic for the spotlight tool. 
+
+
+
+\subsection{Member Function Documentation}
+\index{Move\+Spotlight@{Move\+Spotlight}!freeze\+Position@{freeze\+Position}}
+\index{freeze\+Position@{freeze\+Position}!Move\+Spotlight@{Move\+Spotlight}}
+\subsubsection[{freeze\+Position(bool is\+Freeze)}]{\setlength{\rightskip}{0pt plus 5cm}void Move\+Spotlight.\+freeze\+Position (
+\begin{DoxyParamCaption}
+\item[{bool}]{is\+Freeze}
+\end{DoxyParamCaption}
+)}\label{class_move_spotlight_a46b925b55f919f6e86eaa22710d106c1}
+
+
+Freezes/\+Unfreezes the position of the spotlight. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em is\+Freeze} & If set to {\ttfamily true} freezes the position. Otherwises, unfreezes the position.\\
+\hline
+\end{DoxyParams}
+\index{Move\+Spotlight@{Move\+Spotlight}!hide\+Properties@{hide\+Properties}}
+\index{hide\+Properties@{hide\+Properties}!Move\+Spotlight@{Move\+Spotlight}}
+\subsubsection[{hide\+Properties(bool is\+Hiding)}]{\setlength{\rightskip}{0pt plus 5cm}void Move\+Spotlight.\+hide\+Properties (
+\begin{DoxyParamCaption}
+\item[{bool}]{is\+Hiding}
+\end{DoxyParamCaption}
+)}\label{class_move_spotlight_a62ae8a749a406c3b689063828e6b74e3}
+
+
+Hides/\+Shows the settings of the spotlight. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em is\+Hiding} & If set to {\ttfamily true} hides the settings. Otherwise, show the settings.\\
+\hline
+\end{DoxyParams}
+\index{Move\+Spotlight@{Move\+Spotlight}!update\+Brightness@{update\+Brightness}}
+\index{update\+Brightness@{update\+Brightness}!Move\+Spotlight@{Move\+Spotlight}}
+\subsubsection[{update\+Brightness(float brightness)}]{\setlength{\rightskip}{0pt plus 5cm}void Move\+Spotlight.\+update\+Brightness (
+\begin{DoxyParamCaption}
+\item[{float}]{brightness}
+\end{DoxyParamCaption}
+)}\label{class_move_spotlight_a52ac982a0b20d11ab96e1c264f40b437}
+
+
+Updates the brightness of the spotlight. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em brightness} & The new brightness of the spotlight (between 0.\+0f and 1.\+0f).\\
+\hline
+\end{DoxyParams}
+\index{Move\+Spotlight@{Move\+Spotlight}!update\+Hue@{update\+Hue}}
+\index{update\+Hue@{update\+Hue}!Move\+Spotlight@{Move\+Spotlight}}
+\subsubsection[{update\+Hue(float hue)}]{\setlength{\rightskip}{0pt plus 5cm}void Move\+Spotlight.\+update\+Hue (
+\begin{DoxyParamCaption}
+\item[{float}]{hue}
+\end{DoxyParamCaption}
+)}\label{class_move_spotlight_a42e2980f29dbb07819cf8bda8695095b}
+
+
+Updates the hue of the spotlight. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em hue} & The new hue (between 0.\+0f and 1.\+0f).\\
+\hline
+\end{DoxyParams}
+\index{Move\+Spotlight@{Move\+Spotlight}!update\+Sat@{update\+Sat}}
+\index{update\+Sat@{update\+Sat}!Move\+Spotlight@{Move\+Spotlight}}
+\subsubsection[{update\+Sat(float sat)}]{\setlength{\rightskip}{0pt plus 5cm}void Move\+Spotlight.\+update\+Sat (
+\begin{DoxyParamCaption}
+\item[{float}]{sat}
+\end{DoxyParamCaption}
+)}\label{class_move_spotlight_ac1aa13c1e6ab166fc6eac65216f4f4cb}
+
+
+Updates the saturation of the spotlight. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sat} & The new saturation (between 0.\+0f and 1.\+0f).\\
+\hline
+\end{DoxyParams}
+\index{Move\+Spotlight@{Move\+Spotlight}!update\+Size@{update\+Size}}
+\index{update\+Size@{update\+Size}!Move\+Spotlight@{Move\+Spotlight}}
+\subsubsection[{update\+Size(float new\+Size)}]{\setlength{\rightskip}{0pt plus 5cm}void Move\+Spotlight.\+update\+Size (
+\begin{DoxyParamCaption}
+\item[{float}]{new\+Size}
+\end{DoxyParamCaption}
+)}\label{class_move_spotlight_a1a2a859b51a4cc2651127b4ce7f23c69}
+
+
+Updates the size of the spotlight. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Size} & New size of the spotlight (between 0.\+0f and 1.\+0f).\\
+\hline
+\end{DoxyParams}
+\index{Move\+Spotlight@{Move\+Spotlight}!update\+Value@{update\+Value}}
+\index{update\+Value@{update\+Value}!Move\+Spotlight@{Move\+Spotlight}}
+\subsubsection[{update\+Value(float value)}]{\setlength{\rightskip}{0pt plus 5cm}void Move\+Spotlight.\+update\+Value (
+\begin{DoxyParamCaption}
+\item[{float}]{value}
+\end{DoxyParamCaption}
+)}\label{class_move_spotlight_acec837332b344a64454afe71bd08eed9}
+
+
+Updates the value of the spotlight. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & The new value (between 0.\+0f and 1.\+0f).\\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\index{Move\+Spotlight@{Move\+Spotlight}!cam@{cam}}
+\index{cam@{cam}!Move\+Spotlight@{Move\+Spotlight}}
+\subsubsection[{cam}]{\setlength{\rightskip}{0pt plus 5cm}Camera Move\+Spotlight.\+cam}\label{class_move_spotlight_a0074ba44a6e80eaf5ff4030bc7bd2199}
+
+
+The book mode camera 
+
+\index{Move\+Spotlight@{Move\+Spotlight}!ceiling\+Light@{ceiling\+Light}}
+\index{ceiling\+Light@{ceiling\+Light}!Move\+Spotlight@{Move\+Spotlight}}
+\subsubsection[{ceiling\+Light}]{\setlength{\rightskip}{0pt plus 5cm}Light Move\+Spotlight.\+ceiling\+Light}\label{class_move_spotlight_a0db93502d6482412f36571b5a4b99be7}
+
+
+The ceiling light. 
+
+\index{Move\+Spotlight@{Move\+Spotlight}!frozen@{frozen}}
+\index{frozen@{frozen}!Move\+Spotlight@{Move\+Spotlight}}
+\subsubsection[{frozen}]{\setlength{\rightskip}{0pt plus 5cm}bool Move\+Spotlight.\+frozen = false}\label{class_move_spotlight_aa22de39a7cf399688b5632b0fa632fa6}
+
+
+Is the spotlight frozen in position? 
+
+\index{Move\+Spotlight@{Move\+Spotlight}!frozen\+Toggle@{frozen\+Toggle}}
+\index{frozen\+Toggle@{frozen\+Toggle}!Move\+Spotlight@{Move\+Spotlight}}
+\subsubsection[{frozen\+Toggle}]{\setlength{\rightskip}{0pt plus 5cm}Toggle Move\+Spotlight.\+frozen\+Toggle}\label{class_move_spotlight_ac09eea20cd14e6b07b6097dc7d289acf}
+
+
+The Toggle that controls if this spotlight is frozen. 
+
+\index{Move\+Spotlight@{Move\+Spotlight}!hide\+Toggle@{hide\+Toggle}}
+\index{hide\+Toggle@{hide\+Toggle}!Move\+Spotlight@{Move\+Spotlight}}
+\subsubsection[{hide\+Toggle}]{\setlength{\rightskip}{0pt plus 5cm}Toggle Move\+Spotlight.\+hide\+Toggle}\label{class_move_spotlight_a5f4d11791aa7a41bf3742465409469c3}
+
+
+The Toggle that controls hiding/showing the settings of this spotlight. 
+
+\index{Move\+Spotlight@{Move\+Spotlight}!hiding\+Properties@{hiding\+Properties}}
+\index{hiding\+Properties@{hiding\+Properties}!Move\+Spotlight@{Move\+Spotlight}}
+\subsubsection[{hiding\+Properties}]{\setlength{\rightskip}{0pt plus 5cm}bool Move\+Spotlight.\+hiding\+Properties = false}\label{class_move_spotlight_a722fb5b9e8a719242a968d730e7341fa}
+
+
+Are the settings of this spotlight hidden? 
+
+\index{Move\+Spotlight@{Move\+Spotlight}!maxX@{maxX}}
+\index{maxX@{maxX}!Move\+Spotlight@{Move\+Spotlight}}
+\subsubsection[{maxX}]{\setlength{\rightskip}{0pt plus 5cm}float Move\+Spotlight.\+maxX}\label{class_move_spotlight_affbf3080d9cf95a56d80f1b30b4ee415}
+
+
+The max x position. 
+
+\index{Move\+Spotlight@{Move\+Spotlight}!maxY@{maxY}}
+\index{maxY@{maxY}!Move\+Spotlight@{Move\+Spotlight}}
+\subsubsection[{maxY}]{\setlength{\rightskip}{0pt plus 5cm}float Move\+Spotlight.\+maxY}\label{class_move_spotlight_a255c1781f89cb8048d3346d8ed17ee24}
+
+
+The max y position. 
+
+\index{Move\+Spotlight@{Move\+Spotlight}!minX@{minX}}
+\index{minX@{minX}!Move\+Spotlight@{Move\+Spotlight}}
+\subsubsection[{minX}]{\setlength{\rightskip}{0pt plus 5cm}float Move\+Spotlight.\+minX}\label{class_move_spotlight_ab6bdcf35eef7c30ed2f43fe359636c06}
+
+
+The minimum x position. 
+
+\index{Move\+Spotlight@{Move\+Spotlight}!minY@{minY}}
+\index{minY@{minY}!Move\+Spotlight@{Move\+Spotlight}}
+\subsubsection[{minY}]{\setlength{\rightskip}{0pt plus 5cm}float Move\+Spotlight.\+minY}\label{class_move_spotlight_a791cb5fd988708314ded26cddd7381de}
+
+
+The minimum y position. 
+
+\index{Move\+Spotlight@{Move\+Spotlight}!preview@{preview}}
+\index{preview@{preview}!Move\+Spotlight@{Move\+Spotlight}}
+\subsubsection[{preview}]{\setlength{\rightskip}{0pt plus 5cm}Image Move\+Spotlight.\+preview}\label{class_move_spotlight_a4663676f87804903d44b90cfad77909e}
+
+
+The preview color of the spotlight. 
+
+\index{Move\+Spotlight@{Move\+Spotlight}!properties@{properties}}
+\index{properties@{properties}!Move\+Spotlight@{Move\+Spotlight}}
+\subsubsection[{properties}]{\setlength{\rightskip}{0pt plus 5cm}Transform Move\+Spotlight.\+properties}\label{class_move_spotlight_a309108521eb846b653863a82aa0e9c84}
+
+
+The settings of this spotlight. 
+
+\index{Move\+Spotlight@{Move\+Spotlight}!spot\+Light@{spot\+Light}}
+\index{spot\+Light@{spot\+Light}!Move\+Spotlight@{Move\+Spotlight}}
+\subsubsection[{spot\+Light}]{\setlength{\rightskip}{0pt plus 5cm}Light Move\+Spotlight.\+spot\+Light}\label{class_move_spotlight_a9acaa3e6e3abe611b2212cd2b378fb64}
+
+
+The spot light. 
+
+\index{Move\+Spotlight@{Move\+Spotlight}!world\+Light@{world\+Light}}
+\index{world\+Light@{world\+Light}!Move\+Spotlight@{Move\+Spotlight}}
+\subsubsection[{world\+Light}]{\setlength{\rightskip}{0pt plus 5cm}Light Move\+Spotlight.\+world\+Light}\label{class_move_spotlight_aa255c740ef3a0745b43b027e007bcb62}
+
+
+The world lighting. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Move\+Spotlight.\+cs\end{DoxyCompactItemize}

@@ -1,0 +1,7 @@
+﻿Worm:WormA>Pop Up From Left
+Oi, you der'! Knock it off! Can't you see weez got a courtroom runnin' here?
+
+Eagle:GoldenEagleD-1>Default Left
+At least we know it is a bug after all. Why are you looking at me like that? Nature takes
+many forms, even in the digital world. Now, we can't let the bug stay there. Release the magic
+again!

@@ -1,0 +1,543 @@
+\begin{theindex}
+
+  \item {A\+N\+N\+O\+T\+A\+T\+I\+O\+N\+\_\+\+T\+O\+OL}
+    \subitem {Button\+Controls}, 19
+  \item {animator}
+    \subitem {Book\+Handler}, 15
+    \subitem {Hand\+On\+Page}, 25
+  \item {anno\+Obj}
+    \subitem {Annotation\+Drawer}, 14
+  \item {Annotation}, 9
+    \subitem {bottom\+Right}, 11
+    \subitem {Get\+Annotations}, 10
+    \subitem {Local\+Annotation\+File}, 10
+    \subitem {page}, 11
+    \subitem {page\+Height}, 11
+    \subitem {page\+Width}, 11
+    \subitem {top\+Left}, 11
+    \subitem {Update\+Web\+Address}, 10
+    \subitem {web\+Address}, 11
+  \item {annotation}
+    \subitem {Page\+Images}, 40
+  \item {Annotation.\+Annotation\+Box}, 11
+  \item {Annotation\+::\+Annotation\+Box}
+    \subitem {contents}, 12
+    \subitem {h}, 12
+    \subitem {w}, 12
+    \subitem {x}, 12
+    \subitem {y}, 12
+  \item {Annotation\+Drawer}, 13
+    \subitem {anno\+Obj}, 14
+    \subitem {bottom\+Right}, 14
+    \subitem {canvas}, 14
+    \subitem {Show\+Annotations}, 13
+    \subitem {top\+Left}, 14
+    \subitem {Updates\+Annotations}, 13
+  \item {Annotation\+UI}, 14
+  \item {annotations}
+    \subitem {Transcription\+Tool}, 44
+  \item {Assembly\+C\+Sharp}, 7
+  \item {Assembly\+C\+Sharp.\+I\+I\+I\+F\+Get\+Manifest}, 25
+  \item {Assembly\+C\+Sharp\+::\+I\+I\+I\+F\+Get\+Manifest}
+    \subitem {download}, 25
+    \subitem {get\+Num\+Of\+Pages}, 26
+    \subitem {get\+Page}, 26
+
+  \indexspace
+
+  \item {back}
+    \subitem {I\+I\+I\+F\+Image\+Loading\+Bar}, 30
+  \item {book}
+    \subitem {Camera\+Switch}, 22
+  \item {book\+Cam}
+    \subitem {Button\+Controls}, 19
+    \subitem {Camera\+Switch}, 22
+  \item {Book\+Handler}, 15
+    \subitem {animator}, 15
+    \subitem {models}, 15
+    \subitem {my\+UI}, 15
+    \subitem {pages}, 16
+  \item {bottom\+Right}
+    \subitem {Annotation}, 11
+    \subitem {Annotation\+Drawer}, 14
+    \subitem {Transcription\+Tool}, 44
+  \item {Button\+Controls}, 16
+    \subitem {A\+N\+N\+O\+T\+A\+T\+I\+O\+N\+\_\+\+T\+O\+OL}, 19
+    \subitem {book\+Cam}, 19
+    \subitem {buttons}, 19
+    \subitem {change\+Selected}, 18
+    \subitem {clear\+Selected}, 18
+    \subitem {current}, 19
+    \subitem {D\+I\+R\+E\+C\+T\+O\+R\+Y\+\_\+\+T\+O\+OL}, 19
+    \subitem {dialog}, 19
+    \subitem {get\+Popup\+Text}, 18
+    \subitem {get\+Selected}, 18
+    \subitem {H\+A\+N\+D\+\_\+\+T\+O\+OL}, 19
+    \subitem {Hide\+Tweet\+Box}, 18
+    \subitem {images}, 19
+    \subitem {is\+Spotlight}, 19
+    \subitem {L\+E\+N\+S\+\_\+\+T\+O\+OL}, 20
+    \subitem {L\+I\+G\+H\+T\+\_\+\+T\+O\+OL}, 20
+    \subitem {Pop\+Up}, 18
+    \subitem {popup}, 20
+    \subitem {presenter}, 20
+    \subitem {R\+E\+A\+D\+E\+R\+\_\+\+T\+O\+OL}, 20
+    \subitem {S\+E\+L\+E\+C\+T\+I\+O\+N\+\_\+\+T\+O\+OL}, 20
+    \subitem {Show\+Latest\+Tweet}, 19
+    \subitem {spotlight}, 20
+    \subitem {switcher}, 20
+    \subitem {T\+W\+I\+T\+T\+E\+R\+\_\+\+T\+O\+OL}, 21
+    \subitem {tweet\+Box}, 20
+    \subitem {tweet\+Text}, 20
+    \subitem {twitter\+Bird}, 21
+    \subitem {twitter\+Bird\+Closed}, 21
+    \subitem {twitter\+Bird\+Obj}, 21
+    \subitem {twitter\+Bird\+Open}, 21
+    \subitem {twitter\+Sound}, 21
+    \subitem {Z\+O\+O\+M\+\_\+\+T\+O\+OL}, 21
+  \item {buttons}
+    \subitem {Button\+Controls}, 19
+
+  \indexspace
+
+  \item {cam}
+    \subitem {Move\+Spotlight}, 36
+  \item {Camera\+Switch}, 21
+    \subitem {book}, 22
+    \subitem {book\+Cam}, 22
+    \subitem {canvas}, 22
+    \subitem {fpc}, 22
+    \subitem {player}, 22
+    \subitem {player\+Cam}, 22
+  \item {Cancel}
+    \subitem {Pop\+Up\+Box}, 42
+  \item {canvas}
+    \subitem {Annotation\+Drawer}, 14
+    \subitem {Camera\+Switch}, 22
+    \subitem {Transcription\+Tool}, 44
+  \item {ceiling\+Light}
+    \subitem {Move\+Spotlight}, 36
+  \item {change\+Address}
+    \subitem {I\+I\+I\+F\+Image\+Get}, 27
+  \item {Change\+Control}
+    \subitem {Move\+Player}, 32
+  \item {change\+Selected}
+    \subitem {Button\+Controls}, 18
+  \item {clear\+Selected}
+    \subitem {Button\+Controls}, 18
+  \item {contents}
+    \subitem {Annotation\+::\+Annotation\+Box}, 12
+  \item {crop\+Height}
+    \subitem {I\+I\+I\+F\+Image\+Get}, 28
+  \item {crop\+OffsetX}
+    \subitem {I\+I\+I\+F\+Image\+Get}, 28
+  \item {crop\+OffsetY}
+    \subitem {I\+I\+I\+F\+Image\+Get}, 29
+  \item {crop\+Width}
+    \subitem {I\+I\+I\+F\+Image\+Get}, 29
+  \item {current}
+    \subitem {Button\+Controls}, 19
+
+  \indexspace
+
+  \item {D\+I\+R\+E\+C\+T\+O\+R\+Y\+\_\+\+T\+O\+OL}
+    \subitem {Button\+Controls}, 19
+  \item {dialog}
+    \subitem {Button\+Controls}, 19
+  \item {Dialog\+Box}, 23
+    \subitem {my\+Text}, 24
+    \subitem {On\+Okay}, 23
+    \subitem {Show}, 23
+  \item {download}
+    \subitem {Assembly\+C\+Sharp\+::\+I\+I\+I\+F\+Get\+Manifest}, 25
+  \item {drawers}
+    \subitem {Page\+Images}, 40
+
+  \indexspace
+
+  \item {format}
+    \subitem {I\+I\+I\+F\+Image\+Get}, 29
+  \item {fpc}
+    \subitem {Camera\+Switch}, 22
+  \item {freeze\+Position}
+    \subitem {Move\+Spotlight}, 34
+  \item {frozen}
+    \subitem {Move\+Spotlight}, 36
+  \item {frozen\+Toggle}
+    \subitem {Move\+Spotlight}, 36
+
+  \indexspace
+
+  \item {get\+Address}
+    \subitem {I\+I\+I\+F\+Image\+Get}, 28
+  \item {Get\+Annotations}
+    \subitem {Annotation}, 10
+    \subitem {Page\+Images}, 39
+  \item {get\+Num\+Of\+Pages}
+    \subitem {Assembly\+C\+Sharp\+::\+I\+I\+I\+F\+Get\+Manifest}, 26
+  \item {get\+Page}
+    \subitem {Assembly\+C\+Sharp\+::\+I\+I\+I\+F\+Get\+Manifest}, 26
+  \item {get\+Popup\+Text}
+    \subitem {Button\+Controls}, 18
+  \item {Get\+Progress}
+    \subitem {I\+I\+I\+F\+Image\+Get}, 28
+  \item {get\+Selected}
+    \subitem {Button\+Controls}, 18
+  \item {get\+Text}
+    \subitem {Pop\+Up\+Box}, 42
+
+  \indexspace
+
+  \item {h}
+    \subitem {Annotation\+::\+Annotation\+Box}, 12
+  \item {H\+A\+N\+D\+\_\+\+T\+O\+OL}
+    \subitem {Button\+Controls}, 19
+  \item {Hand\+On\+Page}, 24
+    \subitem {animator}, 25
+    \subitem {is\+Right}, 25
+    \subitem {others}, 25
+    \subitem {page}, 25
+    \subitem {page\+Images}, 25
+    \subitem {page\+Width}, 25
+  \item {hide\+Above}
+    \subitem {U\+I\+Pop\+Up}, 45
+  \item {hide\+Properties}
+    \subitem {Move\+Spotlight}, 34
+  \item {hide\+Toggle}
+    \subitem {Move\+Spotlight}, 36
+  \item {Hide\+Tweet\+Box}
+    \subitem {Button\+Controls}, 18
+  \item {hideY}
+    \subitem {U\+I\+Pop\+Up}, 45
+  \item {hiding\+Properties}
+    \subitem {Move\+Spotlight}, 36
+
+  \indexspace
+
+  \item {I\+I\+I\+F\+Image\+Get}, 26
+    \subitem {change\+Address}, 27
+    \subitem {crop\+Height}, 28
+    \subitem {crop\+OffsetX}, 28
+    \subitem {crop\+OffsetY}, 29
+    \subitem {crop\+Width}, 29
+    \subitem {format}, 29
+    \subitem {get\+Address}, 28
+    \subitem {Get\+Progress}, 28
+    \subitem {mirrored}, 29
+    \subitem {quality}, 29
+    \subitem {remove\+Tail}, 28
+    \subitem {rotation}, 29
+    \subitem {target\+Height}, 29
+    \subitem {target\+Width}, 29
+    \subitem {texture}, 29
+    \subitem {Update\+Image}, 28
+    \subitem {web\+Address}, 29
+  \item {I\+I\+I\+F\+Image\+Loading\+Bar}, 30
+    \subitem {back}, 30
+    \subitem {image}, 30
+    \subitem {progress\+Bar}, 30
+  \item {iiif\+Image}
+    \subitem {Page\+Images}, 40
+  \item {image}
+    \subitem {I\+I\+I\+F\+Image\+Loading\+Bar}, 30
+  \item {images}
+    \subitem {Button\+Controls}, 19
+  \item {in\+Control}
+    \subitem {Move\+Player}, 33
+  \item {input}
+    \subitem {Pop\+Up\+Box}, 43
+  \item {Is\+Loading\+Left}
+    \subitem {Page\+Images}, 39
+  \item {Is\+Loading\+Right}
+    \subitem {Page\+Images}, 39
+  \item {is\+Right}
+    \subitem {Hand\+On\+Page}, 25
+  \item {Is\+Showing}
+    \subitem {U\+I\+Pop\+Up}, 45
+  \item {is\+Spotlight}
+    \subitem {Button\+Controls}, 19
+
+  \indexspace
+
+  \item {L\+E\+N\+S\+\_\+\+T\+O\+OL}
+    \subitem {Button\+Controls}, 20
+  \item {L\+I\+G\+H\+T\+\_\+\+T\+O\+OL}
+    \subitem {Button\+Controls}, 20
+  \item {left\+Trans}
+    \subitem {Page\+Images}, 40
+  \item {lens\+Img}
+    \subitem {Move\+Transcription\+Lens}, 38
+  \item {loading\+Texture}
+    \subitem {Page\+Images}, 41
+  \item {Local\+Annotation\+File}
+    \subitem {Annotation}, 10
+
+  \indexspace
+
+  \item {manifest\+U\+RL}
+    \subitem {Page\+Images}, 41
+  \item {mask\+Img}
+    \subitem {Move\+Transcription\+Lens}, 38
+  \item {maxX}
+    \subitem {Move\+Spotlight}, 36
+  \item {maxY}
+    \subitem {Move\+Spotlight}, 36
+  \item {minX}
+    \subitem {Move\+Spotlight}, 36
+  \item {minY}
+    \subitem {Move\+Spotlight}, 37
+  \item {mirrored}
+    \subitem {I\+I\+I\+F\+Image\+Get}, 29
+  \item {models}
+    \subitem {Book\+Handler}, 15
+  \item {Move}, 31
+    \subitem {my\+Transform}, 32
+    \subitem {set\+Activated}, 31
+    \subitem {speed}, 32
+  \item {Move\+Player}, 32
+    \subitem {Change\+Control}, 32
+    \subitem {in\+Control}, 33
+    \subitem {move\+Script}, 33
+  \item {move\+Script}
+    \subitem {Move\+Player}, 33
+  \item {Move\+Spotlight}, 33
+    \subitem {cam}, 36
+    \subitem {ceiling\+Light}, 36
+    \subitem {freeze\+Position}, 34
+    \subitem {frozen}, 36
+    \subitem {frozen\+Toggle}, 36
+    \subitem {hide\+Properties}, 34
+    \subitem {hide\+Toggle}, 36
+    \subitem {hiding\+Properties}, 36
+    \subitem {maxX}, 36
+    \subitem {maxY}, 36
+    \subitem {minX}, 36
+    \subitem {minY}, 37
+    \subitem {preview}, 37
+    \subitem {properties}, 37
+    \subitem {spot\+Light}, 37
+    \subitem {update\+Brightness}, 35
+    \subitem {update\+Hue}, 35
+    \subitem {update\+Sat}, 35
+    \subitem {update\+Size}, 35
+    \subitem {update\+Value}, 35
+    \subitem {world\+Light}, 37
+  \item {Move\+Transcription\+Lens}, 37
+    \subitem {lens\+Img}, 38
+    \subitem {mask\+Img}, 38
+  \item {my\+Text}
+    \subitem {Dialog\+Box}, 24
+  \item {my\+Transform}
+    \subitem {Move}, 32
+  \item {my\+UI}
+    \subitem {Book\+Handler}, 15
+
+  \indexspace
+
+  \item {On\+Okay}
+    \subitem {Dialog\+Box}, 23
+  \item {others}
+    \subitem {Hand\+On\+Page}, 25
+
+  \indexspace
+
+  \item {page}
+    \subitem {Annotation}, 11
+    \subitem {Hand\+On\+Page}, 25
+  \item {page\+Display}
+    \subitem {Page\+Images}, 41
+  \item {page\+Height}
+    \subitem {Annotation}, 11
+  \item {Page\+Images}, 38
+    \subitem {annotation}, 40
+    \subitem {drawers}, 40
+    \subitem {Get\+Annotations}, 39
+    \subitem {iiif\+Image}, 40
+    \subitem {Is\+Loading\+Left}, 39
+    \subitem {Is\+Loading\+Right}, 39
+    \subitem {left\+Trans}, 40
+    \subitem {loading\+Texture}, 41
+    \subitem {manifest\+U\+RL}, 41
+    \subitem {page\+Display}, 41
+    \subitem {pages}, 41
+    \subitem {right\+Trans}, 41
+    \subitem {Show\+Annotations}, 40
+    \subitem {Turn\+Page\+Left}, 40
+    \subitem {Turn\+Page\+Right}, 40
+    \subitem {Update\+Annotations}, 40
+  \item {page\+Images}
+    \subitem {Hand\+On\+Page}, 25
+  \item {page\+Width}
+    \subitem {Annotation}, 11
+    \subitem {Hand\+On\+Page}, 25
+  \item {pages}
+    \subitem {Book\+Handler}, 16
+    \subitem {Page\+Images}, 41
+  \item {player}
+    \subitem {Camera\+Switch}, 22
+  \item {player\+Cam}
+    \subitem {Camera\+Switch}, 22
+  \item {Pop\+Up}
+    \subitem {Button\+Controls}, 18
+    \subitem {Pop\+Up\+Box}, 42
+  \item {Pop\+Up\+Box}, 41
+    \subitem {Cancel}, 42
+    \subitem {get\+Text}, 42
+    \subitem {input}, 43
+    \subitem {Pop\+Up}, 42
+    \subitem {reset}, 42
+    \subitem {Submit}, 42
+  \item {popup}
+    \subitem {Button\+Controls}, 20
+  \item {pos}
+    \subitem {U\+I\+Pop\+Up}, 45
+  \item {presenter}
+    \subitem {Button\+Controls}, 20
+  \item {preview}
+    \subitem {Move\+Spotlight}, 37
+  \item {progress\+Bar}
+    \subitem {I\+I\+I\+F\+Image\+Loading\+Bar}, 30
+  \item {properties}
+    \subitem {Move\+Spotlight}, 37
+
+  \indexspace
+
+  \item {quality}
+    \subitem {I\+I\+I\+F\+Image\+Get}, 29
+
+  \indexspace
+
+  \item {R\+E\+A\+D\+E\+R\+\_\+\+T\+O\+OL}
+    \subitem {Button\+Controls}, 20
+  \item {remove\+Tail}
+    \subitem {I\+I\+I\+F\+Image\+Get}, 28
+  \item {reset}
+    \subitem {Pop\+Up\+Box}, 42
+  \item {right\+Trans}
+    \subitem {Page\+Images}, 41
+  \item {rotation}
+    \subitem {I\+I\+I\+F\+Image\+Get}, 29
+
+  \indexspace
+
+  \item {S\+E\+L\+E\+C\+T\+I\+O\+N\+\_\+\+T\+O\+OL}
+    \subitem {Button\+Controls}, 20
+  \item {set\+Activated}
+    \subitem {Move}, 31
+  \item {Show}
+    \subitem {Dialog\+Box}, 23
+  \item {Show\+Annotations}
+    \subitem {Annotation\+Drawer}, 13
+    \subitem {Page\+Images}, 40
+  \item {Show\+Latest\+Tweet}
+    \subitem {Button\+Controls}, 19
+  \item {showY}
+    \subitem {U\+I\+Pop\+Up}, 45
+  \item {speed}
+    \subitem {Move}, 32
+  \item {spot\+Light}
+    \subitem {Move\+Spotlight}, 37
+  \item {spotlight}
+    \subitem {Button\+Controls}, 20
+  \item {Submit}
+    \subitem {Pop\+Up\+Box}, 42
+  \item {switcher}
+    \subitem {Button\+Controls}, 20
+
+  \indexspace
+
+  \item {T\+W\+I\+T\+T\+E\+R\+\_\+\+T\+O\+OL}
+    \subitem {Button\+Controls}, 21
+  \item {target\+Height}
+    \subitem {I\+I\+I\+F\+Image\+Get}, 29
+  \item {target\+Width}
+    \subitem {I\+I\+I\+F\+Image\+Get}, 29
+  \item {texture}
+    \subitem {I\+I\+I\+F\+Image\+Get}, 29
+  \item {top\+Left}
+    \subitem {Annotation}, 11
+    \subitem {Annotation\+Drawer}, 14
+    \subitem {Transcription\+Tool}, 44
+  \item {Transcription\+Tool}, 43
+    \subitem {annotations}, 44
+    \subitem {bottom\+Right}, 44
+    \subitem {canvas}, 44
+    \subitem {top\+Left}, 44
+    \subitem {Updates\+Transcriptions}, 43
+  \item {trigger\+Pos}
+    \subitem {U\+I\+Pop\+Up}, 45
+  \item {Turn\+Page\+Left}
+    \subitem {Page\+Images}, 40
+  \item {Turn\+Page\+Right}
+    \subitem {Page\+Images}, 40
+  \item {tweet\+Box}
+    \subitem {Button\+Controls}, 20
+  \item {tweet\+Text}
+    \subitem {Button\+Controls}, 20
+  \item {twitter\+Bird}
+    \subitem {Button\+Controls}, 21
+  \item {twitter\+Bird\+Closed}
+    \subitem {Button\+Controls}, 21
+  \item {twitter\+Bird\+Obj}
+    \subitem {Button\+Controls}, 21
+  \item {twitter\+Bird\+Open}
+    \subitem {Button\+Controls}, 21
+  \item {twitter\+Sound}
+    \subitem {Button\+Controls}, 21
+
+  \indexspace
+
+  \item {U\+I\+Pop\+Up}, 44
+    \subitem {hide\+Above}, 45
+    \subitem {hideY}, 45
+    \subitem {Is\+Showing}, 45
+    \subitem {pos}, 45
+    \subitem {showY}, 45
+    \subitem {trigger\+Pos}, 45
+  \item {Update\+Annotations}
+    \subitem {Page\+Images}, 40
+  \item {update\+Brightness}
+    \subitem {Move\+Spotlight}, 35
+  \item {update\+Hue}
+    \subitem {Move\+Spotlight}, 35
+  \item {Update\+Image}
+    \subitem {I\+I\+I\+F\+Image\+Get}, 28
+  \item {update\+Sat}
+    \subitem {Move\+Spotlight}, 35
+  \item {update\+Size}
+    \subitem {Move\+Spotlight}, 35
+  \item {update\+Value}
+    \subitem {Move\+Spotlight}, 35
+  \item {Update\+Web\+Address}
+    \subitem {Annotation}, 10
+  \item {Updates\+Annotations}
+    \subitem {Annotation\+Drawer}, 13
+  \item {Updates\+Transcriptions}
+    \subitem {Transcription\+Tool}, 43
+
+  \indexspace
+
+  \item {w}
+    \subitem {Annotation\+::\+Annotation\+Box}, 12
+  \item {web\+Address}
+    \subitem {Annotation}, 11
+    \subitem {I\+I\+I\+F\+Image\+Get}, 29
+  \item {world\+Light}
+    \subitem {Move\+Spotlight}, 37
+
+  \indexspace
+
+  \item {x}
+    \subitem {Annotation\+::\+Annotation\+Box}, 12
+
+  \indexspace
+
+  \item {y}
+    \subitem {Annotation\+::\+Annotation\+Box}, 12
+
+  \indexspace
+
+  \item {Z\+O\+O\+M\+\_\+\+T\+O\+OL}
+    \subitem {Button\+Controls}, 21
+
+\end{theindex}

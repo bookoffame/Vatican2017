@@ -1,0 +1,226 @@
+\section{Page\+Images Class Reference}
+\label{class_page_images}\index{Page\+Images@{Page\+Images}}
+
+
+Presents the I\+I\+IF images from a manifest on 6 pages.  
+
+
+Inheritance diagram for Page\+Images\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_page_images}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+I\+Enumerator {\bf Turn\+Page\+Left} ()
+\begin{DoxyCompactList}\small\item\em Shifts page\textquotesingle{}s textures to the left and loads the next two pages. \end{DoxyCompactList}\item 
+I\+Enumerator {\bf Turn\+Page\+Right} ()
+\begin{DoxyCompactList}\small\item\em Shifts page\textquotesingle{}s textures to the right and loads the previous two pages. \end{DoxyCompactList}\item 
+bool {\bf Is\+Loading\+Left} ()
+\begin{DoxyCompactList}\small\item\em Determines whether this instance is loading left pages. \end{DoxyCompactList}\item 
+bool {\bf Is\+Loading\+Right} ()
+\begin{DoxyCompactList}\small\item\em Determines whether this instance is loading right pages. \end{DoxyCompactList}\item 
+void {\bf Show\+Annotations} (bool is\+Showing)
+\begin{DoxyCompactList}\small\item\em Shows/\+Hides the annotations. \end{DoxyCompactList}\item 
+void {\bf Update\+Annotations} ()
+\begin{DoxyCompactList}\small\item\em Updates the annotations that are being drawn. \end{DoxyCompactList}\item 
+{\bf Annotation.\+Annotation\+Box}[$\,$] {\bf Get\+Annotations} (int which)
+\begin{DoxyCompactList}\small\item\em Gets the annotations for a specified page. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Renderer[$\,$] {\bf pages}
+\begin{DoxyCompactList}\small\item\em The pages to present the I\+I\+IF images on. \end{DoxyCompactList}\item 
+{\bf I\+I\+I\+F\+Image\+Get} {\bf iiif\+Image}
+\begin{DoxyCompactList}\small\item\em Used to obtain the images. \end{DoxyCompactList}\item 
+string {\bf manifest\+U\+RL}
+\begin{DoxyCompactList}\small\item\em The manifest U\+RL. \end{DoxyCompactList}\item 
+Texture2D {\bf loading\+Texture}
+\begin{DoxyCompactList}\small\item\em The texture to display when loading images \end{DoxyCompactList}\item 
+{\bf Annotation}[$\,$] {\bf annotation}
+\begin{DoxyCompactList}\small\item\em Retrieve infomation about annotations on the pages. \end{DoxyCompactList}\item 
+{\bf Annotation\+Drawer}[$\,$] {\bf drawers}
+\begin{DoxyCompactList}\small\item\em The annotation drawers. \end{DoxyCompactList}\item 
+{\bf Transcription\+Tool} {\bf left\+Trans}
+\begin{DoxyCompactList}\small\item\em The left transcription. \end{DoxyCompactList}\item 
+{\bf Transcription\+Tool} {\bf right\+Trans}
+\begin{DoxyCompactList}\small\item\em The right transcription. \end{DoxyCompactList}\item 
+Text {\bf page\+Display}
+\begin{DoxyCompactList}\small\item\em The text that display the page number. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Presents the I\+I\+IF images from a manifest on 6 pages. 
+
+
+
+\subsection{Member Function Documentation}
+\index{Page\+Images@{Page\+Images}!Get\+Annotations@{Get\+Annotations}}
+\index{Get\+Annotations@{Get\+Annotations}!Page\+Images@{Page\+Images}}
+\subsubsection[{Get\+Annotations(int which)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Annotation.\+Annotation\+Box} [$\,$] Page\+Images.\+Get\+Annotations (
+\begin{DoxyParamCaption}
+\item[{int}]{which}
+\end{DoxyParamCaption}
+)}\label{class_page_images_af563e42dd7774f6ea7a51a9e5668ddc0}
+
+
+Gets the annotations for a specified page. 
+
+\begin{DoxyReturn}{Returns}
+The annotations for the page.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em which} & Which page to get the annotations for (0 for left, 1 for right).\\
+\hline
+\end{DoxyParams}
+\index{Page\+Images@{Page\+Images}!Is\+Loading\+Left@{Is\+Loading\+Left}}
+\index{Is\+Loading\+Left@{Is\+Loading\+Left}!Page\+Images@{Page\+Images}}
+\subsubsection[{Is\+Loading\+Left()}]{\setlength{\rightskip}{0pt plus 5cm}bool Page\+Images.\+Is\+Loading\+Left (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_page_images_a5412e1d64104e009ad3cf9fa3c3351dd}
+
+
+Determines whether this instance is loading left pages. 
+
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if this instance is loading left pages; otherwise, {\ttfamily false}.
+\end{DoxyReturn}
+\index{Page\+Images@{Page\+Images}!Is\+Loading\+Right@{Is\+Loading\+Right}}
+\index{Is\+Loading\+Right@{Is\+Loading\+Right}!Page\+Images@{Page\+Images}}
+\subsubsection[{Is\+Loading\+Right()}]{\setlength{\rightskip}{0pt plus 5cm}bool Page\+Images.\+Is\+Loading\+Right (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_page_images_a7fcf05646abee094ae39cdf725489414}
+
+
+Determines whether this instance is loading right pages. 
+
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if this instance is loading right pages; otherwise, {\ttfamily false}.
+\end{DoxyReturn}
+\index{Page\+Images@{Page\+Images}!Show\+Annotations@{Show\+Annotations}}
+\index{Show\+Annotations@{Show\+Annotations}!Page\+Images@{Page\+Images}}
+\subsubsection[{Show\+Annotations(bool is\+Showing)}]{\setlength{\rightskip}{0pt plus 5cm}void Page\+Images.\+Show\+Annotations (
+\begin{DoxyParamCaption}
+\item[{bool}]{is\+Showing}
+\end{DoxyParamCaption}
+)}\label{class_page_images_aaaebf078a3aaff99a47b5ddbdbbd9dd7}
+
+
+Shows/\+Hides the annotations. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em is\+Showing} & If set to {\ttfamily true} shows annotations. Otherwise, hides annotations.\\
+\hline
+\end{DoxyParams}
+\index{Page\+Images@{Page\+Images}!Turn\+Page\+Left@{Turn\+Page\+Left}}
+\index{Turn\+Page\+Left@{Turn\+Page\+Left}!Page\+Images@{Page\+Images}}
+\subsubsection[{Turn\+Page\+Left()}]{\setlength{\rightskip}{0pt plus 5cm}I\+Enumerator Page\+Images.\+Turn\+Page\+Left (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_page_images_a2d94ed5b60c041dd4550f4dfbca0ef94}
+
+
+Shifts page\textquotesingle{}s textures to the left and loads the next two pages. 
+
+\index{Page\+Images@{Page\+Images}!Turn\+Page\+Right@{Turn\+Page\+Right}}
+\index{Turn\+Page\+Right@{Turn\+Page\+Right}!Page\+Images@{Page\+Images}}
+\subsubsection[{Turn\+Page\+Right()}]{\setlength{\rightskip}{0pt plus 5cm}I\+Enumerator Page\+Images.\+Turn\+Page\+Right (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_page_images_a290f753eca727781c135ce41e6fcd48a}
+
+
+Shifts page\textquotesingle{}s textures to the right and loads the previous two pages. 
+
+\index{Page\+Images@{Page\+Images}!Update\+Annotations@{Update\+Annotations}}
+\index{Update\+Annotations@{Update\+Annotations}!Page\+Images@{Page\+Images}}
+\subsubsection[{Update\+Annotations()}]{\setlength{\rightskip}{0pt plus 5cm}void Page\+Images.\+Update\+Annotations (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_page_images_ad9678501582f1cb45563e2b294d97ced}
+
+
+Updates the annotations that are being drawn. 
+
+
+
+\subsection{Member Data Documentation}
+\index{Page\+Images@{Page\+Images}!annotation@{annotation}}
+\index{annotation@{annotation}!Page\+Images@{Page\+Images}}
+\subsubsection[{annotation}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Annotation} [$\,$] Page\+Images.\+annotation}\label{class_page_images_a6579d6330bcfb9f7b7782c84f39e8431}
+
+
+Retrieve infomation about annotations on the pages. 
+
+\index{Page\+Images@{Page\+Images}!drawers@{drawers}}
+\index{drawers@{drawers}!Page\+Images@{Page\+Images}}
+\subsubsection[{drawers}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Annotation\+Drawer} [$\,$] Page\+Images.\+drawers}\label{class_page_images_a5113b509fe82ac0eb3670856860fa113}
+
+
+The annotation drawers. 
+
+\index{Page\+Images@{Page\+Images}!iiif\+Image@{iiif\+Image}}
+\index{iiif\+Image@{iiif\+Image}!Page\+Images@{Page\+Images}}
+\subsubsection[{iiif\+Image}]{\setlength{\rightskip}{0pt plus 5cm}{\bf I\+I\+I\+F\+Image\+Get} Page\+Images.\+iiif\+Image}\label{class_page_images_ac5c26cd4b70e28c0c13f18d6a0cc5b71}
+
+
+Used to obtain the images. 
+
+\index{Page\+Images@{Page\+Images}!left\+Trans@{left\+Trans}}
+\index{left\+Trans@{left\+Trans}!Page\+Images@{Page\+Images}}
+\subsubsection[{left\+Trans}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Transcription\+Tool} Page\+Images.\+left\+Trans}\label{class_page_images_a640a7d43b34e9f47a2ade8c83c239c78}
+
+
+The left transcription. 
+
+\index{Page\+Images@{Page\+Images}!loading\+Texture@{loading\+Texture}}
+\index{loading\+Texture@{loading\+Texture}!Page\+Images@{Page\+Images}}
+\subsubsection[{loading\+Texture}]{\setlength{\rightskip}{0pt plus 5cm}Texture2D Page\+Images.\+loading\+Texture}\label{class_page_images_a23ff461069def11e8c328474c28a6516}
+
+
+The texture to display when loading images 
+
+\index{Page\+Images@{Page\+Images}!manifest\+U\+RL@{manifest\+U\+RL}}
+\index{manifest\+U\+RL@{manifest\+U\+RL}!Page\+Images@{Page\+Images}}
+\subsubsection[{manifest\+U\+RL}]{\setlength{\rightskip}{0pt plus 5cm}string Page\+Images.\+manifest\+U\+RL}\label{class_page_images_a4392dd9e57f3dc4f97a90c9deea5fa50}
+
+
+The manifest U\+RL. 
+
+\index{Page\+Images@{Page\+Images}!page\+Display@{page\+Display}}
+\index{page\+Display@{page\+Display}!Page\+Images@{Page\+Images}}
+\subsubsection[{page\+Display}]{\setlength{\rightskip}{0pt plus 5cm}Text Page\+Images.\+page\+Display}\label{class_page_images_ae0dfe0e7e9f87ff9f0724cfdf856eea0}
+
+
+The text that display the page number. 
+
+\index{Page\+Images@{Page\+Images}!pages@{pages}}
+\index{pages@{pages}!Page\+Images@{Page\+Images}}
+\subsubsection[{pages}]{\setlength{\rightskip}{0pt plus 5cm}Renderer [$\,$] Page\+Images.\+pages}\label{class_page_images_ab33e023afe9968299aee2c600a9b6670}
+
+
+The pages to present the I\+I\+IF images on. 
+
+\index{Page\+Images@{Page\+Images}!right\+Trans@{right\+Trans}}
+\index{right\+Trans@{right\+Trans}!Page\+Images@{Page\+Images}}
+\subsubsection[{right\+Trans}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Transcription\+Tool} Page\+Images.\+right\+Trans}\label{class_page_images_a43dd571101b0554c29a48c8fab263042}
+
+
+The right transcription. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Page\+Images.\+cs\end{DoxyCompactItemize}

@@ -1,0 +1,14 @@
+﻿King:King>Come In From Left
+There we go. Oh, you're still here are you? Were you expecting some reward? The true reward is
+in the tale itself. Indeed, as the venerable Nun's Priest sayeth, take the seed and leave the chaff.
+Finish reading the tale and you will understand what he means.
+
+Eagle:GoldenEagleD-1>Default Left
+He's right, you know. But just so you don't feel completely robbed, here's, say, a million
+points. Minus my commission. *eats a point*
+
+Eagle:GoldenEagleD-1>Default Left
+Not because I'm a bird and they *nom nom* look and taste like seeds or anything. Thank you for
+playing. You have my gratitude for restoring Bodmer 48's Wife of Bath's Tale to its original state.
+Please enjoy the rest of the tale and look forward to Book of Fame's demo version,
+currently in development!

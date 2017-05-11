@@ -1,0 +1,227 @@
+\section{I\+I\+I\+F\+Image\+Get Class Reference}
+\label{class_i_i_i_f_image_get}\index{I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}}
+
+
+Retrieves an image from an I\+I\+IF server.  
+
+
+Inheritance diagram for I\+I\+I\+F\+Image\+Get\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_i_i_i_f_image_get}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+I\+Enumerator {\bf Update\+Image} ()
+\begin{DoxyCompactList}\small\item\em Updates the image. \end{DoxyCompactList}\item 
+string {\bf remove\+Tail} (string new\+Address)
+\begin{DoxyCompactList}\small\item\em Removes the tail from a web address. \end{DoxyCompactList}\item 
+void {\bf change\+Address} (string new\+Address)
+\begin{DoxyCompactList}\small\item\em Changes the web address. \end{DoxyCompactList}\item 
+string {\bf get\+Address} ()
+\begin{DoxyCompactList}\small\item\em Calculates the web address for the I\+I\+IF image with this \doxyref{I\+I\+I\+F\+Image\+Get}{p.}{class_i_i_i_f_image_get}\textquotesingle{}s settings. \end{DoxyCompactList}\item 
+float {\bf Get\+Progress} ()
+\begin{DoxyCompactList}\small\item\em Gets the current percentage downloaded of the image. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+string {\bf web\+Address}
+\begin{DoxyCompactList}\small\item\em The root web address to get the image from. \end{DoxyCompactList}\item 
+int {\bf crop\+OffsetX} = -\/1
+\begin{DoxyCompactList}\small\item\em The horizontal crop offset. -\/1 If not used. \end{DoxyCompactList}\item 
+int {\bf crop\+OffsetY} = -\/1
+\begin{DoxyCompactList}\small\item\em The vertical crop offset. \end{DoxyCompactList}\item 
+int {\bf crop\+Width} = -\/1
+\begin{DoxyCompactList}\small\item\em The width of the crop. \end{DoxyCompactList}\item 
+int {\bf crop\+Height} = -\/1
+\begin{DoxyCompactList}\small\item\em The height of the crop. \end{DoxyCompactList}\item 
+int {\bf target\+Width}
+\begin{DoxyCompactList}\small\item\em The width of the target image. \end{DoxyCompactList}\item 
+int {\bf target\+Height} = -\/1
+\begin{DoxyCompactList}\small\item\em The height of the target image. \end{DoxyCompactList}\item 
+bool {\bf mirrored} = false
+\begin{DoxyCompactList}\small\item\em Is the image reflected?. \end{DoxyCompactList}\item 
+int {\bf rotation} = 0
+\begin{DoxyCompactList}\small\item\em The rotation of the image. \end{DoxyCompactList}\item 
+string {\bf quality} = \char`\"{}default\char`\"{}
+\begin{DoxyCompactList}\small\item\em The quality of the image. \end{DoxyCompactList}\item 
+string {\bf format} = \char`\"{}.jpg\char`\"{}
+\begin{DoxyCompactList}\small\item\em The format of the image. \end{DoxyCompactList}\item 
+Texture2D {\bf texture}
+\begin{DoxyCompactList}\small\item\em The image obtained from the I\+I\+IF server. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Retrieves an image from an I\+I\+IF server. 
+
+
+
+\subsection{Member Function Documentation}
+\index{I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}!change\+Address@{change\+Address}}
+\index{change\+Address@{change\+Address}!I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}}
+\subsubsection[{change\+Address(string new\+Address)}]{\setlength{\rightskip}{0pt plus 5cm}void I\+I\+I\+F\+Image\+Get.\+change\+Address (
+\begin{DoxyParamCaption}
+\item[{string}]{new\+Address}
+\end{DoxyParamCaption}
+)}\label{class_i_i_i_f_image_get_ae312ad6a713e6d7cee3210db59838f00}
+
+
+Changes the web address. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Address} & The new web address (still with the tail).\\
+\hline
+\end{DoxyParams}
+\index{I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}!get\+Address@{get\+Address}}
+\index{get\+Address@{get\+Address}!I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}}
+\subsubsection[{get\+Address()}]{\setlength{\rightskip}{0pt plus 5cm}string I\+I\+I\+F\+Image\+Get.\+get\+Address (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_i_i_i_f_image_get_af37d0e78a9db92c63e1f04e3589f05b1}
+
+
+Calculates the web address for the I\+I\+IF image with this \doxyref{I\+I\+I\+F\+Image\+Get}{p.}{class_i_i_i_f_image_get}\textquotesingle{}s settings. 
+
+\begin{DoxyReturn}{Returns}
+The I\+I\+IF web address corresponding to this \doxyref{I\+I\+I\+F\+Image\+Get}{p.}{class_i_i_i_f_image_get}.
+\end{DoxyReturn}
+\index{I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}!Get\+Progress@{Get\+Progress}}
+\index{Get\+Progress@{Get\+Progress}!I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}}
+\subsubsection[{Get\+Progress()}]{\setlength{\rightskip}{0pt plus 5cm}float I\+I\+I\+F\+Image\+Get.\+Get\+Progress (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_i_i_i_f_image_get_af36dc447c2e08becce3eb0946b7372ec}
+
+
+Gets the current percentage downloaded of the image. 
+
+\begin{DoxyReturn}{Returns}
+The percentage downloaded of the image thus far. 1.\+0f if the image is downloaded.
+\end{DoxyReturn}
+\index{I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}!remove\+Tail@{remove\+Tail}}
+\index{remove\+Tail@{remove\+Tail}!I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}}
+\subsubsection[{remove\+Tail(string new\+Address)}]{\setlength{\rightskip}{0pt plus 5cm}string I\+I\+I\+F\+Image\+Get.\+remove\+Tail (
+\begin{DoxyParamCaption}
+\item[{string}]{new\+Address}
+\end{DoxyParamCaption}
+)}\label{class_i_i_i_f_image_get_aabc551661bd940d1a06c99074d3cd759}
+
+
+Removes the tail from a web address. 
+
+\begin{DoxyReturn}{Returns}
+The web address with the tail removed.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Address} & The web address to remove the tail from.\\
+\hline
+\end{DoxyParams}
+\index{I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}!Update\+Image@{Update\+Image}}
+\index{Update\+Image@{Update\+Image}!I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}}
+\subsubsection[{Update\+Image()}]{\setlength{\rightskip}{0pt plus 5cm}I\+Enumerator I\+I\+I\+F\+Image\+Get.\+Update\+Image (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_i_i_i_f_image_get_a2f44ae11571a424cb7e6b473036577a3}
+
+
+Updates the image. 
+
+
+
+\subsection{Member Data Documentation}
+\index{I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}!crop\+Height@{crop\+Height}}
+\index{crop\+Height@{crop\+Height}!I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}}
+\subsubsection[{crop\+Height}]{\setlength{\rightskip}{0pt plus 5cm}int I\+I\+I\+F\+Image\+Get.\+crop\+Height = -\/1}\label{class_i_i_i_f_image_get_a9db467afe54453d71953d79d09ccd856}
+
+
+The height of the crop. 
+
+\index{I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}!crop\+OffsetX@{crop\+OffsetX}}
+\index{crop\+OffsetX@{crop\+OffsetX}!I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}}
+\subsubsection[{crop\+OffsetX}]{\setlength{\rightskip}{0pt plus 5cm}int I\+I\+I\+F\+Image\+Get.\+crop\+OffsetX = -\/1}\label{class_i_i_i_f_image_get_a3e424fce3d74529b87b488a4a918da64}
+
+
+The horizontal crop offset. -\/1 If not used. 
+
+\index{I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}!crop\+OffsetY@{crop\+OffsetY}}
+\index{crop\+OffsetY@{crop\+OffsetY}!I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}}
+\subsubsection[{crop\+OffsetY}]{\setlength{\rightskip}{0pt plus 5cm}int I\+I\+I\+F\+Image\+Get.\+crop\+OffsetY = -\/1}\label{class_i_i_i_f_image_get_ab21f44619cba32ab34a99723f4e2c21e}
+
+
+The vertical crop offset. 
+
+\index{I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}!crop\+Width@{crop\+Width}}
+\index{crop\+Width@{crop\+Width}!I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}}
+\subsubsection[{crop\+Width}]{\setlength{\rightskip}{0pt plus 5cm}int I\+I\+I\+F\+Image\+Get.\+crop\+Width = -\/1}\label{class_i_i_i_f_image_get_ab88ed28d3c28596fbd0f61ed53551bba}
+
+
+The width of the crop. 
+
+\index{I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}!format@{format}}
+\index{format@{format}!I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}}
+\subsubsection[{format}]{\setlength{\rightskip}{0pt plus 5cm}string I\+I\+I\+F\+Image\+Get.\+format = \char`\"{}.jpg\char`\"{}}\label{class_i_i_i_f_image_get_a816a7c3831777caa0bf2c314dc9e3d2b}
+
+
+The format of the image. 
+
+\index{I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}!mirrored@{mirrored}}
+\index{mirrored@{mirrored}!I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}}
+\subsubsection[{mirrored}]{\setlength{\rightskip}{0pt plus 5cm}bool I\+I\+I\+F\+Image\+Get.\+mirrored = false}\label{class_i_i_i_f_image_get_a8ca420b349df804f1dd087cfdaa389e4}
+
+
+Is the image reflected?. 
+
+\index{I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}!quality@{quality}}
+\index{quality@{quality}!I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}}
+\subsubsection[{quality}]{\setlength{\rightskip}{0pt plus 5cm}string I\+I\+I\+F\+Image\+Get.\+quality = \char`\"{}default\char`\"{}}\label{class_i_i_i_f_image_get_a0edb84f6ed8c3618bfbcb5383403f756}
+
+
+The quality of the image. 
+
+\index{I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}!rotation@{rotation}}
+\index{rotation@{rotation}!I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}}
+\subsubsection[{rotation}]{\setlength{\rightskip}{0pt plus 5cm}int I\+I\+I\+F\+Image\+Get.\+rotation = 0}\label{class_i_i_i_f_image_get_a4cdbf0a334d0be4334c00a2cb6eb26c1}
+
+
+The rotation of the image. 
+
+\index{I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}!target\+Height@{target\+Height}}
+\index{target\+Height@{target\+Height}!I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}}
+\subsubsection[{target\+Height}]{\setlength{\rightskip}{0pt plus 5cm}int I\+I\+I\+F\+Image\+Get.\+target\+Height = -\/1}\label{class_i_i_i_f_image_get_a81ec0146df6843169c7a301d0018b29b}
+
+
+The height of the target image. 
+
+\index{I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}!target\+Width@{target\+Width}}
+\index{target\+Width@{target\+Width}!I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}}
+\subsubsection[{target\+Width}]{\setlength{\rightskip}{0pt plus 5cm}int I\+I\+I\+F\+Image\+Get.\+target\+Width}\label{class_i_i_i_f_image_get_ad29efbe7f08cd76fa519aa5ca036c404}
+
+
+The width of the target image. 
+
+\index{I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}!texture@{texture}}
+\index{texture@{texture}!I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}}
+\subsubsection[{texture}]{\setlength{\rightskip}{0pt plus 5cm}Texture2D I\+I\+I\+F\+Image\+Get.\+texture}\label{class_i_i_i_f_image_get_acd964c8562547558f31bfc04ff434565}
+
+
+The image obtained from the I\+I\+IF server. 
+
+\index{I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}!web\+Address@{web\+Address}}
+\index{web\+Address@{web\+Address}!I\+I\+I\+F\+Image\+Get@{I\+I\+I\+F\+Image\+Get}}
+\subsubsection[{web\+Address}]{\setlength{\rightskip}{0pt plus 5cm}string I\+I\+I\+F\+Image\+Get.\+web\+Address}\label{class_i_i_i_f_image_get_a4b3539da1bc9765bae28166cbe13bdfb}
+
+
+The root web address to get the image from. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+I\+I\+I\+F\+Image\+Get.\+cs\end{DoxyCompactItemize}
