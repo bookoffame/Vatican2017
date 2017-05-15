@@ -28,6 +28,10 @@ public class TranscriptionTool : MonoBehaviour {
 	/// </summary>
 	public Transform canvas;
 
+	public Vector3 offset;
+	public float unitXScale, unitYScale, locationBias, positionBias, sizeXScale, sizeYScale;
+
+
 	private Annotation.AnnotationBox[] boxes;
 	private Texture2D texture;
 
@@ -62,7 +66,6 @@ public class TranscriptionTool : MonoBehaviour {
 	void Update(){
 		Vector3 myTopLeft = Camera.main.WorldToScreenPoint (topLeft.position);
 		Vector3 myBottomRight = Camera.main.WorldToScreenPoint (bottomRight.position);
-		Vector3 offset = new Vector3 (-0.00f * Screen.width, 0.3f * Screen.height, 0);
 
 		myTopLeft.y = Screen.height - myTopLeft.y;
 		myBottomRight.y = Screen.height - myBottomRight.y;
@@ -74,13 +77,13 @@ public class TranscriptionTool : MonoBehaviour {
 			Rect pos = new Rect (
 				myTopLeft.x + myWidth*boxes[i].x,
 				myTopLeft.y + myHeight*boxes[i].y,
-				myWidth * boxes[i].w * 1.15f,
-				myHeight * boxes[i].h);
+				myWidth * boxes[i].w * unitXScale,
+				myHeight * boxes[i].h * unitYScale);
 
 			Vector3 location = new Vector3 (pos.x, Screen.height - pos.y);
 
-			annotations [i].localPosition = 1.2f*location - transform.position*1.5f + offset;
-			Vector2 size = new Vector2 (pos.width * 1.6f, pos.height * 1.6f);
+			annotations [i].localPosition = locationBias*location - positionBias*transform.position + offset;
+			Vector2 size = new Vector2 (pos.width * sizeXScale, pos.height * sizeYScale);
 			annotations[i].sizeDelta = size;
 		}
 	}

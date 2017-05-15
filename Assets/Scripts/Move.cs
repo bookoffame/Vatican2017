@@ -19,6 +19,7 @@ public class Move : MonoBehaviour {
 	public float maxX, minX;
 	public float maxY, minY;
 	public float maxZ, minZ;
+	public bool lockZ;
 
 	private bool on;
 
@@ -37,6 +38,9 @@ public class Move : MonoBehaviour {
 
 			nz = Mathf.Min (maxZ, nz);
 			nz = Mathf.Max (minZ, nz);
+
+			if (lockZ)
+				nz = 6.360013f;
 
 			myTransform.localPosition = new Vector3 (nx, ny, nz);
 		}

@@ -88,6 +88,7 @@ public class IIIFImageGet : ScriptableObject {
 			} 
 		} while(!string.IsNullOrEmpty(iiifImage.error));
 
+		Debug.Log("Finished downloading " + location);
 		isDownloading = false;
 		texture = iiifImage.texture;
 	}

@@ -16,9 +16,12 @@ public class MoveTranscriptionLens : MonoBehaviour {
 	/// </summary>
 	public Image maskImg;
 
+	public Move cam;
 	void Update () {
 		lensImg.enabled = ButtonControls.current.getSelected () == ButtonControls.LENS_TOOL;
 		maskImg.enabled = ButtonControls.current.getSelected () == ButtonControls.LENS_TOOL;
+		cam.lockZ = ButtonControls.current.getSelected () == ButtonControls.LENS_TOOL;
+
 		transform.GetChild (0).gameObject.SetActive (ButtonControls.current.getSelected () == ButtonControls.LENS_TOOL);
 		transform.position = Input.mousePosition;
 	}
