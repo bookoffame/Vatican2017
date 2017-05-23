@@ -6,98 +6,69 @@ using System.IO;
 /// Retrieves an image from an IIIF server. 
 /// </summary>
 public class IIIFImageGet : ScriptableObject {
-	/// <summary>
-	/// The root web address to get the image from.
-	/// </summary>
+	// The root web address to get the image from.
 	public string webAddress;
 
-	/// <summary>
-	/// The horizontal crop offset. -1 If not used.
-	/// </summary>
+	// The horizontal crop offset. -1 If not used.
 	public int cropOffsetX = -1;
 
-	/// <summary>
-	/// The vertical crop offset.
-	/// </summary>
+	// The vertical crop offset.
 	public int cropOffsetY = -1;
 
-	/// <summary>
-	/// The width of the crop.
-	/// </summary>
+	// The width of the crop.
 	public int cropWidth = -1;
 
-	/// <summary>
-	/// The height of the crop.
-	/// </summary>
+	// The height of the crop.
 	public int cropHeight = -1;
 
-	/// <summary>
-	/// The width of the target image.
-	/// </summary>
+	// The width of the target image.
 	public int targetWidth = -1;
 
-	/// <summary>
-	/// The height of the target image.
-	/// </summary>
+	// The height of the target image.
 	public int targetHeight = -1;
 
-	/// <summary>
 	/// Is the image reflected?.
-	/// </summary>
 	public bool mirrored = false;
 
-	/// <summary>
 	/// The rotation of the image.
-	/// </summary>
 	public int rotation = 0;
 
-	/// <summary>
 	/// The quality of the image.
-	/// </summary>
 	public string quality = "default";
 
-	/// <summary>
 	/// The format of the image.
-	/// </summary>
 	public string format = ".jpg";
 
-	/// <summary>
 	/// The image obtained from the IIIF server.
-	/// </summary>
 	public Texture2D texture;
 
 	private WWW iiifImage;
 
 	private static bool isDownloading = false;
 
-	/// <summary>
-	/// Updates the image.
-	/// </summary>
-	public IEnumerator UpdateImage () {
-		string location = getAddress ();
-		yield return new WaitWhile (() => isDownloading);
-		do 
-		{
-			iiifImage = new WWW (location);
-			isDownloading = true;
-			yield return new WaitUntil (() => iiifImage.isDone);
-			if (!string.IsNullOrEmpty(iiifImage.error))
-			{
-				Debug.Log("Failed to download " + location + ":" + iiifImage.error);
-				yield return new WaitForSeconds(1f);
-			} 
-		} while(!string.IsNullOrEmpty(iiifImage.error));
+    // Updates the image.
+    public IEnumerator UpdateImage()
+    {
+        string location = getAddress();
+        yield return new WaitWhile(() => isDownloading);
+        do
+        {
+            iiifImage = new WWW(location);
+            isDownloading = true;
+            yield return new WaitUntil(() => iiifImage.isDone);
+            if (!string.IsNullOrEmpty(iiifImage.error))
+            {
+                Debug.Log("Failed to download " + location + ":" + iiifImage.error);
+                yield return new WaitForSeconds(1f);
+            }
+        } while (!string.IsNullOrEmpty(iiifImage.error));
 
-		Debug.Log("Finished downloading " + location);
-		isDownloading = false;
-		texture = iiifImage.texture;
-	}
+        Debug.Log("Finished downloading " + location);
+        isDownloading = false;
+        texture = iiifImage.texture;
+    }
 
-	/// <summary>
-	/// Removes the tail from a web address.
-	/// </summary>
-	/// <returns>The web address with the tail removed.</returns>
-	/// <param name="newAddress">The web address to remove the tail from.</param>
+	// Removes the tail from a web address.
 	public string removeTail(string newAddress){
 		int remaining = 4;
 		int index = newAddress.Length - 1;
@@ -109,18 +80,12 @@ public class IIIFImageGet : ScriptableObject {
 		return newAddress.Substring (0,index + 1);
 	}
 
-	/// <summary>
-	/// Changes the web address.
-	/// </summary>
-	/// <param name="newAddress">The new web address (still with the tail).</param>
+	// Changes the web address.
 	public void changeAddress(string newAddress){
 		webAddress = removeTail (newAddress);
 	}
 
-	/// <summary>
-	/// Calculates the web address for the IIIF image with this IIIFImageGet's settings.
-	/// </summary>
-	/// <returns>The IIIF web address corresponding to this IIIFImageGet.</returns>
+	// Calculates the web address for the IIIF image with this IIIFImageGet's settings.
 	public string getAddress(){
 		string location = webAddress;
 		location = location.Insert (location.Length,"/");
@@ -146,10 +111,7 @@ public class IIIFImageGet : ScriptableObject {
 		return location;
 	}
 
-	/// <summary>
 	/// Gets the current percentage downloaded of the image.
-	/// </summary>
-	/// <returns>The percentage downloaded of the image thus far. 1.0f if the image is downloaded.</returns>
 	public float GetProgress(){
 		if (iiifImage == null)
 			return 1;

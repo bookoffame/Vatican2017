@@ -52,7 +52,6 @@ public class CameraSwitch : MonoBehaviour {
 			player.ChangeControl (playerCam.enabled);
 			book.setActivated (bookCam.enabled);
 			canvas.SetActive (bookCam.enabled);
-			fpc.m_MouseLook.SetCursorLock (!fpc.m_MouseLook.lockCursor);
 		}
 	}
 }

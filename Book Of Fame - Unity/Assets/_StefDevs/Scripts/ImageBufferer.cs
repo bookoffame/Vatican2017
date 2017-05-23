@@ -4,24 +4,17 @@ using System.Collections;
 using System.IO;
 using AssemblyCSharp;
 
-/// <summary>
 /// Presents the IIIF images from a manifest on 6 pages.
-/// </summary>
 public class ImageBufferer : MonoBehaviour {
-	/// <summary>
-	/// The images for the buffered pages
-	/// </summary>
+
+	// The images for the buffered pages
 	private Texture2D[,] pageImages;
 	private bool[] dirty;
 
-	/// <summary>
-	/// The manifest URL.
-	/// </summary>
+	// The manifest URL.
 	public string manifestURL;
 
-	/// <summary>
-	/// The texture to display when loading images
-	/// </summary>
+	// The texture to display when loading images
 	public Texture2D loadingTexture;
 
 	private IIIFGetManifest data;
@@ -59,9 +52,7 @@ public class ImageBufferer : MonoBehaviour {
 		}
 	}
 
-	/// <summary>
-	/// Shifts page's textures to the left and loads the next two pages.
-	/// </summary>
+	// Shifts page's textures to the left and loads the next two pages.
 	public void TurnPageLeft(){
 		pageToImage.Remove (curr * 2 - 3);
 		pageToImage.Remove (curr * 2 - 2);
@@ -102,9 +93,7 @@ public class ImageBufferer : MonoBehaviour {
 		}
 	}
 
-	/// <summary>
-	/// Shifts page's textures to the right and loads the previous two pages.
-	/// </summary>
+	// Shifts page's textures to the right and loads the previous two pages.
 	public void TurnPageRight(){
 		pageToImage.Remove (curr * 2 - 4 + 12);
 		pageToImage.Remove (curr * 2 - 5 + 12);
@@ -128,10 +117,7 @@ public class ImageBufferer : MonoBehaviour {
 	}
 
 	public Texture2D GetImage(int page, bool flipped){
-		if (flipped)
-			return pageImages [page + OFFSET,1];
-		else
-		    return pageImages [page + OFFSET,0];
+			return pageImages [page + OFFSET, flipped ? 1 : 0];
 	}
 
 	public string GetURL(int pageNum){
@@ -194,88 +180,4 @@ public class ImageBufferer : MonoBehaviour {
 	public float Progress(){
 		return (16f - loading) / 16f;
 	}
-
-	/*public Texture2D GetDualTexture(int front, int back){
-		front = (int)(pageToImage [front]);
-		back = (int)(pageToImage [back]);
-		bool isRight = front > back;
-		if (!dirty [front] || !dirty[back] || pageImages [back].width != pageImages [front].width) {
-			if (front == back) {
-				if (front == OFFSET)
-					return backLeft;
-				else
-					return backRight;
-			}
-			if (isRight)
-				return rightPage;
-			else
-				return leftPage;
-		}
-			
-		Texture2D left = pageImages [back];
-		Texture2D right = pageImages [front];
-		Color[] leftColors, rightColors;
-
-		if (front != back) {
-			if (isRight) {
-				leftColors = left.GetPixels ();
-				rightColors = FlipColorArray (right.width, right.GetPixels ());
-			} else {
-				leftColors = FlipColorArray (left.width, left.GetPixels ());
-				rightColors = right.GetPixels ();
-			}
-		} else {
-			if (front == OFFSET) {
-				backLeft = left;
-				return left;
-			} else {
-				backRight = right;
-				return right;
-			}
-		}
-
-		Texture2D output = new Texture2D (left.width*2,left.height + 315 + 380);
-		output.SetPixels(0, 315, left.width, left.height, leftColors);
-		output.SetPixels(left.width, 315, right.width, right.height, rightColors);
-		output.Apply ();
-
-		if (front == back) {
-			if (front == OFFSET)
-				backLeft = output;
-			else
-				backRight = output;
-		} else {
-			if (isRight)
-				rightPage = output;
-			else
-				leftPage = output;
-		}
-		dirty [front] = false;
-		dirty [back] = false;
-		return output;
-	}
-
-	private Color[] FlipColorArray(int width, Color[] arr){
-		for (int i = 0; i < arr.Length; i++) {
-			int other = width - (i % width) - 1;
-			if (other > (i % width)) {
-				Color temp = arr [i];
-				arr [i] = arr [i - (i % width) + other];
-				arr [i - (i % width) + other] = temp;
-			}
-		}
-		return arr;
-	}/*
-
-	/*void OnGUI(){
-		string output = "";
-		ArrayList list = new ArrayList ();
-		foreach (int key in pageToImage.Keys)
-			list.Add (key);
-		list.Sort ();
-		foreach (int key in list)
-		    output += "Loading page " + (key - curr * 2 - 3) + " to " + pageToImage [key].ToString () + ".\n";
-		GUI.Box (new Rect (0,0,200,20*pageToImage.Count), output);
-	}*/
-
 }
