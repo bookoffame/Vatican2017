@@ -70,7 +70,10 @@ public class IIIFImageGet : ScriptableObject {
 
 	// Removes the tail from a web address.
 	public string removeTail(string newAddress){
-		int remaining = 4;
+        Debug.Log(newAddress);
+
+
+        int remaining = 4;
 		int index = newAddress.Length - 1;
 		while (remaining > 0) {
 			if (newAddress [index] == '/')

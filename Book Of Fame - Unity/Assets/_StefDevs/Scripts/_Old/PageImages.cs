@@ -4,8 +4,13 @@ using System.Collections;
 using System.IO;
 using AssemblyCSharp;
 
-/// Presents the IIIF images from a manifest on 6 pages.
 
+/// NOTE (Stef) :: Primarily deals with hiding/showing the images on the pages
+/// 
+
+
+
+/// Presents the IIIF images from a manifest on 6 pages.
 public class PageImages : MonoBehaviour
 {
     /// The pages to present the IIIF images on.

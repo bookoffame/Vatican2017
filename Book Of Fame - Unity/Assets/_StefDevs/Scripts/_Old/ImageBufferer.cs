@@ -17,7 +17,7 @@ public class ImageBufferer : MonoBehaviour {
 	// The texture to display when loading images
 	public Texture2D loadingTexture;
 
-	private IIIFGetManifest data;
+	private IIIFGetManifest iiifGetManifest;
 
 	private const int OFFSET = 2;
 	private const int SIZE = 12;
@@ -33,7 +33,7 @@ public class ImageBufferer : MonoBehaviour {
 	void Start () {
 		pageImages = new Texture2D[SIZE,2];
 		dirty = new bool[SIZE];
-		data = new IIIFGetManifest ();
+		iiifGetManifest = new IIIFGetManifest ();
 		pageToImage = new Hashtable();
 		leftPage = loadingTexture;
 		rightPage = loadingTexture;
@@ -45,7 +45,7 @@ public class ImageBufferer : MonoBehaviour {
 		}
 		curr = 72;
 		loading = 0;
-		data.download(manifestURL);
+		iiifGetManifest.download(manifestURL);
 		for (int i = 0; i < SIZE; i++) {
 			StartCoroutine (LoadPage (i,0));
 			StartCoroutine (LoadPage (i,1));
@@ -121,7 +121,7 @@ public class ImageBufferer : MonoBehaviour {
 	}
 
 	public string GetURL(int pageNum){
-		return data.getPage (pageNum);
+		return iiifGetManifest.getPage (pageNum);
 	}
 
 	private IEnumerator LoadPage(int image, int flipped)
@@ -129,7 +129,7 @@ public class ImageBufferer : MonoBehaviour {
 		int pageNum = curr * 2 - 3 + image;
 		pageToImage [pageNum] = image;
 		loading += 2;
-		if (pageNum > 0 && pageNum < data.getNumOfPages ()) {
+		if (pageNum > 0 && pageNum < iiifGetManifest.getNumOfPages ()) {
 			IIIFImageGet downloader = ScriptableObject.CreateInstance<IIIFImageGet>();
 			downloader.cropOffsetY = 210;
 			downloader.cropWidth = 2900;
@@ -146,7 +146,7 @@ public class ImageBufferer : MonoBehaviour {
 			} else {
 				downloader.cropOffsetX = 60;
 			}
-			downloader.changeAddress (data.getPage (pageNum));
+			downloader.changeAddress (iiifGetManifest.getPage (pageNum));
 			downloader.targetWidth = downloader.cropWidth/2;
 			downloader.targetHeight = downloader.cropHeight/2;
 

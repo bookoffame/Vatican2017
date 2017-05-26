@@ -29,11 +29,6 @@ public class ButtonControls : MonoBehaviour {
 	public Move bookCam;
 
 	/// <summary>
-	/// The switcher between navigation mode and book mode cameras.
-	/// </summary>
-	public CameraSwitch switcher;
-
-	/// <summary>
 	/// The presenter of the IIIF images.
 	/// </summary>
 	public PageImages presenter;
@@ -177,14 +172,14 @@ public class ButtonControls : MonoBehaviour {
 		int old = selected;
 		clearSelected ();
 		bookCam.setActivated (false);
-		switcher.gameObject.SetActive (false);
+		///switcher.gameObject.SetActive (false);
 		popup.gameObject.SetActive (true);
 		popup.reset ();
 		yield return popup.StartCoroutine ("PopUp");
 		popupText =  popup.getText ();
 		popup.gameObject.SetActive (false);
 		bookCam.setActivated (true);
-		switcher.gameObject.SetActive (true);
+		///switcher.gameObject.SetActive (true);
 		changeSelected(old);
 	}
 

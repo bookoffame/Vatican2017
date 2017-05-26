@@ -150,11 +150,6 @@ public class MinigameControl : MonoBehaviour {
 		}
 	}
 
-	private void CountDown(){
-		timeLeft--;
-		timer.text = timeLeft + " days"; 
-	}
-
 	private IEnumerator PlayCutscene(string cutscene){
 		int tool = controls.getSelected ();
 		inDialog = true;
