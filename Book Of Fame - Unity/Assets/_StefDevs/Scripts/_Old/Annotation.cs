@@ -10,76 +10,46 @@ public class Annotation : MonoBehaviour {
 
 	public int pageNum;
 
-	/// <summary>
 	/// The width of the image.
-	/// </summary>
-	/// <value>
 	/// The width used to calculate annotation coordinates 
-	/// </value>
 	public int pageWidth;
 
-	/// <summary>
 	/// The height of the image.
-	/// </summary>
-	/// <value>
 	/// The height used to calculate annotation coordinates 
-	/// </value>
 	public int pageHeight;
 
-	/// <summary>
 	/// The Collider used to calculate where on the page the user clicked.
-	/// </summary>
 	public Collider page;
 	public PageImages webdata;
 
-	/// <summary>
 	/// The location of the top left corner of the page.
-	/// </summary>
 	public Transform topLeft;
 
-	/// <summary>
 	/// The location of the bottom right corner of the page.
-	/// </summary>
 	public Transform bottomRight;
 
-	/// <summary>
 	/// The web address to write to the annotation file.
-	/// </summary>
 	public string webAddress;
 
-	/// <summary>
 	/// The original starting x for a new annotation.
-	/// </summary>
 	private int sx;
 
-	/// <summary>
 	/// The original starting y for a new annotation.
-	/// </summary>
 	private int sy;
 
-	/// <summary>
 	/// The width of a new annotation.
-	/// </summary>
 	private int w;
 
-	/// <summary>
 	/// The height of a new annotation.
-	/// </summary>
 	private int h;
 
-	/// <summary>
 	/// Is the user creating a new annotation?
-	/// </summary>
 	private bool annotating;
 
-	/// <summary>
 	/// The new annotation to create.
-	/// </summary>
 	private AnnotationBox anno;
 
-	/// <summary>
 	/// The texture used when selecting an area for a new annotation.
-	/// </summary>
 	private Texture2D texture;
 
 
@@ -98,18 +68,13 @@ public class Annotation : MonoBehaviour {
 	}
 
 
-	/// <summary>
 	/// Updates the web address used for writting annotations.
-	/// </summary>
 	/// <param name="newAddress">The new web address to write for new annotations.</param>
 	public void UpdateWebAddress(string newAddress){
 		webAddress = newAddress;
 	}
 
-	/// <summary>
 	/// Get all the annotations corresponding to a specific IIIF image. 
-	/// </summary>
-	/// <returns>An ArrayList of all the annotations corresponding to a webpage (each annotation is an AnnotationBox).</returns>
 	/// <param name="data">The source annotation file to parse as a String.</param>
 	/// <param name="url">The URL that represents the IIIF image to look for annotations for.</param>
 	public ArrayList GetAnnotations (string data, string url)
@@ -137,9 +102,7 @@ public class Annotation : MonoBehaviour {
 		return list;
 	}
 
-	/// <summary>
 	/// Gets each pair of matching "{" "}" braces.
-	/// </summary>
 	/// <returns>Each pair of "{" "}" braces.</returns>
 	/// <param name="s">The string to look for pairs in.</param>
 	private IEnumerable GetPair(string s){
@@ -164,9 +127,7 @@ public class Annotation : MonoBehaviour {
 		}
 	}
 
-	/// <summary>
 	/// Marks the region of the annotation on screen.
-	/// </summary>
 	private void MarkAnnotation(){
 		RaycastHit hit;
 		Vector3 topLeftCorr = Camera.main.WorldToScreenPoint (topLeft.position);
@@ -227,9 +188,7 @@ public class Annotation : MonoBehaviour {
 		}
 	}
 
-	/// <summary>
 	/// Get the path to the local annotation file.
-	/// </summary>
 	/// <returns>The path to the local annotation file.</returns>
 	public string LocalAnnotationFile(){
 		return  Application.persistentDataPath + "/anno.json";
