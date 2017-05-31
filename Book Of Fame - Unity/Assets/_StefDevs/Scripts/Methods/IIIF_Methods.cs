@@ -54,5 +54,67 @@ public static partial class Methods
         location = location.Insert(location.Length, imageRequestParams.quality + imageRequestParams.format);
         return location;
     }
+
+    public static IIIF_Transcription_Element[] IIIF_Annotations_For_IIIFEntry(string annotationManifest, string url, IIIF_ImageRequestParams imageRequestParams)
+    {
+        if (annotationManifest.Length > 1)
+            annotationManifest = annotationManifest.Substring(1);
+
+        Regex regex = new Regex("{(\\s|.)*?\"@type\": \"oa:Annotation\",(\\s|.)*?\"@type\": \"cnt:ContentAsText\"," +
+                      "(\\s|.)*?\"chars\": \"([^\"]*?)\",(\\s|.)*?\"on\": \""
+                      + Regex.Escape(url) + "#xywh=(\\d*?),(\\d*?),(\\d*?),(\\d*?)\"(\\s|.)*?}");
+
+        List<IIIF_Transcription_Element> list = new List<IIIF_Transcription_Element>();
+
+        foreach (string s in IIIF_GetContentBetweenBraces(annotationManifest))
+        {
+            if (s.Equals(annotationManifest))
+                continue;
+            MatchCollection matches = regex.Matches(s);
+            foreach (Match m in matches)
+            {
+                list.Add(
+                    new IIIF_Transcription_Element()
+                    {
+                        content = m.Groups[4].ToString(),
+                        boundingBox_normalizedInPageSpace = new Rect(
+                            (float)int.Parse(m.Groups[6].ToString()) / imageRequestParams.targetWidth,
+                            (float)int.Parse(m.Groups[7].ToString()) / imageRequestParams.targetHeight,
+                            (float)int.Parse(m.Groups[8].ToString()) / imageRequestParams.targetWidth,
+                            (float)int.Parse(m.Groups[9].ToString()) / imageRequestParams.targetHeight
+                            )
+                    }
+                    );
+            }
+        }
+        return list.ToArray();
+    }
+
+    /// <returns>Each pair of "{" "}" braces.</returns>
+    public static IEnumerable IIIF_GetContentBetweenBraces(string s)
+    {
+        int count = 0;
+
+        //The position of the last "{" brace
+        ArrayList last = new ArrayList();
+
+        for (int i = 0; i < s.Length; i++)
+        {
+            //If we find a "{", add its position to the end of last
+            if (s[i] == '{')
+            {
+                last.Add(i);
+                count++;
+            }
+            //Else if we find a "}", group it with its corresponding "{" and return the string between them
+            else if (s[i] == '}' && count > 0)
+            {
+                count--;
+                int start = (int)last[count];
+                last.RemoveAt(count);
+                yield return s.Substring(start, i - start + 1);
+            }
+        }
+    }
 }
 

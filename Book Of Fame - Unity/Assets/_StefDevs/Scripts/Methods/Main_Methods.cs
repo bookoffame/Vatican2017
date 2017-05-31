@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Net;
+using System.Text.RegularExpressions;
+
+
+
 
 
 public static partial class Methods
@@ -17,18 +21,7 @@ public static partial class Methods
         gameData.bookManifest.pageDescriptions = gameData.manifest_regex.Matches(gameData.bookManifest.manifestString);
 
         // Queue up downloads for each page described in the manifest
-        IIIF_ImageRequestParams imageRequestParams = new IIIF_ImageRequestParams()
-        {
-            cropOffsetY = 210,
-            cropWidth = 2900,
-            cropHeight = 4000,
-            targetWidth = 2900 / 2,
-            targetHeight = 4000 / 2,
-            rotation = 0,
-            mirrored = false,
-            quality = "default",
-            format = ".jpg"
-        };
+        IIIF_ImageRequestParams imageRequestParams = gameData.defaultImageRequestParams;
         Book_Entry newPage;
 
         /// TODO (Stef) :: replace this assumption making hack (specifying desired page description indicies manually) with proper parsing of manifest to determine which page descriptions to download 
@@ -37,17 +30,29 @@ public static partial class Methods
         int descriptionIndex_first = 167;
         // 88 recto
         int descriptionIndex_last = 178;
+        string transcriptionManifest = Resources.Load<TextAsset>("Transcriptions/anno").text;
+        List<IIIF_Transcription_Element> transcriptionAnnotationList = new List<IIIF_Transcription_Element>();
         for (int i = descriptionIndex_first; i <= descriptionIndex_last; i++)
         {
             // creat a new book page
-            newPage = new Book_Entry() { coordinate = currentEntryCoordinate, material_base = new Material(gameData.bookEntryBaseMaterial)};
+            newPage = new Book_Entry()
+            {
+                coordinate = currentEntryCoordinate,
+                material_base = new Material(gameData.bookEntryBaseMaterial),
+            };
             gameData.book_pages.Add(newPage.coordinate, newPage);
 
+            #region // Image request params for manuscript image
             // verso images get offset of 60, recto gets 175
             imageRequestParams.cropOffsetX = newPage.coordinate.isVerso ? 175 : 60;
             imageRequestParams.webAddress = Methods.IIIF_Remove_Tail_From_Web_Address(gameData.bookManifest.pageDescriptions[i].Groups[1].Value);
 
-            // Create a download job
+            // Store request params for later use
+            gameData.book_page_imageRequestParams.Add(newPage.coordinate, imageRequestParams);
+            #endregion // Create image request params for manuscript image
+
+            #region // Manuscript image download job
+            // Create a download job for the entry image
             IIIF_ImageDownloadJob downloadJob = new IIIF_ImageDownloadJob()
             {
                 imageRequestParams = imageRequestParams,
@@ -60,6 +65,61 @@ public static partial class Methods
 
             // Add it to the job queue
             gameData.imageDownload_jobQueue.Enqueue(downloadJob);
+            #endregion // Manuscript image download job
+
+            #region // Generate transcription image from transcription manifest
+
+            #region // Get annotations from manifest
+            if (transcriptionManifest.Length > 1)
+                transcriptionManifest = transcriptionManifest.Substring(1);
+
+            Regex regex = new Regex("{(\\s|.)*?\"@type\": \"oa:Annotation\",(\\s|.)*?\"@type\": \"cnt:ContentAsText\"," +
+                          "(\\s|.)*?\"chars\": \"([^\"]*?)\",(\\s|.)*?\"on\": \""
+                          + Regex.Escape(imageRequestParams.webAddress) + "#xywh=(\\d*?),(\\d*?),(\\d*?),(\\d*?)\"(\\s|.)*?}");
+
+            transcriptionAnnotationList.Clear();
+
+            foreach (string s in IIIF_GetContentBetweenBraces(transcriptionManifest))
+            {
+                if (s.Equals(transcriptionManifest))
+                    continue;
+                MatchCollection matches = regex.Matches(s);
+                foreach (Match m in matches)
+                {
+                    transcriptionAnnotationList.Add(
+                        new IIIF_Transcription_Element()
+                        {
+                            content = m.Groups[4].ToString(),
+                            boundingBox_normalizedInPageSpace = new Rect(
+                                (float)int.Parse(m.Groups[6].ToString()) / imageRequestParams.targetWidth,
+                                (float)int.Parse(m.Groups[7].ToString()) / imageRequestParams.targetHeight,
+                                (float)int.Parse(m.Groups[8].ToString()) / imageRequestParams.targetWidth,
+                                (float)int.Parse(m.Groups[9].ToString()) / imageRequestParams.targetHeight
+                                )
+                        }
+                        );
+                }
+            }
+            newPage.transcriptionElements = transcriptionAnnotationList.ToArray();
+            #endregion // Get annotations from manifest
+
+            #region // Render transcription text to texture and create material from it
+
+            // Generate UI canvas with annotations laid out with TMP text elements
+            // Set them all to auto size
+            // After all are generated, find the maximum font size used and set all annotations to that size
+            // Generate camera and render to texture - store the texture on the "newEntry"
+            // Create camera
+            // Set aspect ratio to correct size
+            // Set Canvas camera to camera
+
+            // Create new material and assign the texture to it's albedo etc.
+
+
+
+            #endregion // Render transcription text to texture and create material from it
+
+            #endregion // Generate transcription image from transcription manuscript
 
             // Increment current entry coord
             Debug.Log(currentEntryCoordinate.ToString());
@@ -118,5 +178,5 @@ public static partial class Methods
         #endregion // Image download job maintenance
     }
 
-    
+
 }

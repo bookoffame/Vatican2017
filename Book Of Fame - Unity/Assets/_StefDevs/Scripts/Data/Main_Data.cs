@@ -26,8 +26,33 @@ public class GameData
     public Queue<IIIF_ImageDownloadJob> imageDownload_jobQueue = new Queue<IIIF_ImageDownloadJob>();
     internal IIIF_ImageDownloadJob imageDownload_currentJob;
     public Dictionary<IIIF_EntryCoordinate, Book_Entry> book_pages = new Dictionary<IIIF_EntryCoordinate, Book_Entry>();
+    public Dictionary<IIIF_EntryCoordinate, IIIF_ImageRequestParams> book_page_imageRequestParams = new Dictionary<IIIF_EntryCoordinate, IIIF_ImageRequestParams>();
     internal float timeOfLastProgressUpdate;
+
+    internal string LocalAnnotationFile
+    {
+        get
+        {
+            return Application.persistentDataPath + "/anno.json";
+        }
+    }
+
+
+    internal IIIF_ImageRequestParams defaultImageRequestParams = new IIIF_ImageRequestParams()
+    {
+        cropOffsetY = 210,
+        cropWidth = 2900,
+        cropHeight = 4000,
+        targetWidth = 2900 / 2,
+        targetHeight = 4000 / 2,
+        rotation = 0,
+        mirrored = false,
+        quality = "default",
+        format = ".jpg"
+    };
 }
+
+
 
 [Serializable]
 public struct IIIF_EntryCoordinate
@@ -85,18 +110,26 @@ public class AssetReferences
     public User_Params_so userParams;
 }
 
+[Serializable]
 public class Book_Entry
 {
-    public IIIF_EntryCoordinate coordinate;
-    public Texture2D pageImage_base;
-    public Texture2D pageImage_transcription;
-    public Material material_base;
+    internal IIIF_EntryCoordinate coordinate;
+    internal Texture2D pageImage_base;
+    internal Texture2D pageImage_transcription;
+    internal Material material_base;
+    internal Material material_transcription;
+    internal IIIF_Transcription_Element[] transcriptionElements;
     // manifest
-
-
 }
 
 
+public class IIIF_Transcription_Element
+{
+    internal string content;
+    internal Rect boundingBox_normalizedInPageSpace;
+}
+
+[Serializable]
 public struct IIIF_ImageRequestParams
 {
     // The root web address to get the image from.
