@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
+using StefDevs;
 
 public static partial class Methods
 {

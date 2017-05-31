@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Net;
 using System.Text.RegularExpressions;
-
-
-
-
+using StefDevs;
 
 public static partial class Methods
 {
@@ -16,9 +13,9 @@ public static partial class Methods
         // Get the manifest describing our request
         WebClient client = new WebClient();
         // Download manifest into single string
-        gameData.bookManifest.manifestString = client.DownloadString(gameData.book_manifestURL);
+        gameData.book.manifest.manifestString = client.DownloadString(gameData.book_manifestURL);
         // Parse string for page descriptions using a defined regex
-        gameData.bookManifest.pageDescriptions = gameData.manifest_regex.Matches(gameData.bookManifest.manifestString);
+        gameData.book.manifest.pageDescriptions = gameData.manifest_regex.Matches(gameData.book.manifest.manifestString);
 
         // Queue up downloads for each page described in the manifest
         IIIF_ImageRequestParams imageRequestParams = gameData.defaultImageRequestParams;
@@ -40,15 +37,15 @@ public static partial class Methods
                 coordinate = currentEntryCoordinate,
                 material_base = new Material(gameData.bookEntryBaseMaterial),
             };
-            gameData.book_pages.Add(newPage.coordinate, newPage);
+            gameData.book.pages.Add(newPage.coordinate, newPage);
 
             #region // Image request params for manuscript image
             // verso images get offset of 60, recto gets 175
             imageRequestParams.cropOffsetX = newPage.coordinate.isVerso ? 175 : 60;
-            imageRequestParams.webAddress = Methods.IIIF_Remove_Tail_From_Web_Address(gameData.bookManifest.pageDescriptions[i].Groups[1].Value);
+            imageRequestParams.webAddress = Methods.IIIF_Remove_Tail_From_Web_Address(gameData.book.manifest.pageDescriptions[i].Groups[1].Value);
 
             // Store request params for later use
-            gameData.book_page_imageRequestParams.Add(newPage.coordinate, imageRequestParams);
+            gameData.book.page_imageRequestParams.Add(newPage.coordinate, imageRequestParams);
             #endregion // Create image request params for manuscript image
 
             #region // Manuscript image download job
@@ -148,13 +145,13 @@ public static partial class Methods
                     Debug.Log("FINISHED downloading " + downloadJob.targetPageCoordinate + " URL: " + downloadJob.iiif_www.url);
 
                     // Copy downloaded texture to page data
-                    gameData.book_pages[downloadJob.targetPageCoordinate].pageImage_base = downloadJob.iiif_www.texture;
-                    gameData.book_pages[downloadJob.targetPageCoordinate].material_base.mainTexture = gameData.book_pages[downloadJob.targetPageCoordinate].pageImage_base;
+                    gameData.book.pages[downloadJob.targetPageCoordinate].pageImage_base = downloadJob.iiif_www.texture;
+                    gameData.book.pages[downloadJob.targetPageCoordinate].material_base.mainTexture = gameData.book.pages[downloadJob.targetPageCoordinate].pageImage_base;
                     ImageTestPage_mono imageTest = GameObject.Instantiate(gameData.imageTestPrefab) as ImageTestPage_mono;
                     imageTest.transform.localScale = new Vector3((float)downloadJob.iiif_www.texture.width / (float)downloadJob.iiif_www.texture.height, 1, 1);
                     imageTest.gameObject.name = "Image Test - " + downloadJob.targetPageCoordinate;
                     imageTest.transform.position = (Vector3.up * 1.1f * (downloadJob.targetPageCoordinate.leafNumber - 81 - (downloadJob.targetPageCoordinate.isVerso ? 0 : 1))) + Vector3.right * .4f * (downloadJob.targetPageCoordinate.isVerso ? -1 : 1);
-                    imageTest.renderer.material = gameData.book_pages[downloadJob.targetPageCoordinate].material_base;
+                    imageTest.renderer.material = gameData.book.pages[downloadJob.targetPageCoordinate].material_base;
                 }
 
                 // Discard download job

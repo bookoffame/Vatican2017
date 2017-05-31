@@ -1,6 +1,6 @@
 //Maya ASCII 2017 scene
 //Name: Lectern.ma
-//Last modified: Tue, May 30, 2017 10:54:52 PM
+//Last modified: Wed, May 31, 2017 12:26:59 AM
 //Codeset: 1252
 requires maya "2017";
 currentUnit -l centimeter -a degree -t film;
@@ -13,13 +13,13 @@ fileInfo "license" "student";
 createNode transform -s -n "persp";
 	rename -uid "0F3633E4-4CCC-FD3C-0414-24946A7A4433";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" -0.45643971300439795 0.13466540218943573 -0.0035559301686639167 ;
+	setAttr ".t" -type "double3" -1.6163774711805288 -0.0058459429960973919 0.13065344750423921 ;
 	setAttr ".r" -type "double3" 6.8616472144727894 996.59999999973468 3.4590150660080286e-015 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "A6FB8E5C-4C0A-E1BA-4E98-DDB2342FFAF3";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999993;
-	setAttr ".coi" 0.24028177271335421;
+	setAttr ".coi" 1.4163817676218926;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
