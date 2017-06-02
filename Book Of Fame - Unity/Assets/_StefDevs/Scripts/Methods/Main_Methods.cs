@@ -83,8 +83,7 @@ public static partial class Methods
             };
 
             // Add it to the job queue
-            /// Debug!!! Only DL one page... 
-            if(i == descriptionIndex_first)
+            if(!gameData.debug_onlyDLOnePage || i == descriptionIndex_first)
                 gameData.imageDownload_jobQueue.Enqueue(downloadJob);
             #endregion 
 
@@ -395,6 +394,11 @@ public static partial class Methods
         gameData.book.ui_bookAccess.gameObject.SetActive(false);
 
         // User enter book view mode
+    }
+
+    public static void User_Enter_Book_Viewing_Mode(User user, Book book)
+    {
+
     }
 
     public static void Book_Update_Page_Materials(Dictionary<IIIF_EntryCoordinate, Book_Entry> entries, Renderer[] pageRenderers, Renderer[] pageRenderers_transcription, int openRectoRendererIndex, IIIF_EntryCoordinate currentRectoEntry, Material fallbackMaterial)

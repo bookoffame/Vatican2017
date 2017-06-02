@@ -12,6 +12,7 @@ namespace StefDevs
     [Serializable]
     public class GameData
     {
+        public bool debug_onlyDLOnePage;
         public ImageTestPage_mono imageTestPrefab;
         public Material bookEntryBaseMaterial;
         public Material bookEntryBaseTranscriptionMaterial;
@@ -29,7 +30,7 @@ namespace StefDevs
 
         public Queue<IIIF_ImageDownloadJob> imageDownload_jobQueue = new Queue<IIIF_ImageDownloadJob>();
         internal IIIF_ImageDownloadJob imageDownload_currentJob;
-        internal bool allDownloadJobsFinished = false;
+        internal bool allDownloadJobsFinished;
 
         internal float timeOfLastProgressUpdate;
 
@@ -211,6 +212,7 @@ namespace StefDevs
         internal Transform[] transcriptionMeshSkeleton_transforms;
         public Renderer[] pageRenderers_transcriptions;
         public Book_PopupTheatre_mono popupTheatre;
+        public Transform cameraViewingPositionAnchor;
     }
 
     [Serializable]
