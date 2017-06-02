@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -28,6 +29,7 @@ namespace StefDevs
 
         public Queue<IIIF_ImageDownloadJob> imageDownload_jobQueue = new Queue<IIIF_ImageDownloadJob>();
         internal IIIF_ImageDownloadJob imageDownload_currentJob;
+        internal bool allDownloadJobsFinished = false;
 
         internal float timeOfLastProgressUpdate;
 
@@ -53,7 +55,8 @@ namespace StefDevs
             format = ".jpg"
         };
 
-        public float walkingAreaRadius;
+        public VRInputModule inputModule;
+
     }
 
 
@@ -178,7 +181,23 @@ namespace StefDevs
         internal List<IIIF_EntryCoordinate> currentlyAccessibleEntries = new List<IIIF_EntryCoordinate>();
         internal Dictionary<IIIF_EntryCoordinate, Book_Entry> entries = new Dictionary<IIIF_EntryCoordinate, Book_Entry>();
         internal Dictionary<IIIF_EntryCoordinate, IIIF_ImageRequestParams> page_imageRequestParams = new Dictionary<IIIF_EntryCoordinate, IIIF_ImageRequestParams>();
-        public List<Book_Entry> entriesDebugList;
+
+        internal List<Book_Entry> entriesDebugList;
+
+        public Book_UI_BookAccess ui_bookAccess;
+
+        internal int nInitialDownloadJobs;
+    }
+
+    [Serializable]
+    public class Book_UI_BookAccess
+    {
+        public GameObject gameObject;
+        public Animator animator;
+        public Image image_loadingBar;
+        public Color image_loadingBar_hue_empty;
+        public Color image_loadingBar_hue_full;
+        public Image image_lock;
     }
 
     [Serializable]

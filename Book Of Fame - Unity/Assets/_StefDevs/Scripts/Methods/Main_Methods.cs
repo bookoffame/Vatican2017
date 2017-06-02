@@ -83,13 +83,17 @@ public static partial class Methods
             };
 
             // Add it to the job queue
-            gameData.imageDownload_jobQueue.Enqueue(downloadJob);
+            /// Debug!!! Only DL one page... 
+            if(i == descriptionIndex_first)
+                gameData.imageDownload_jobQueue.Enqueue(downloadJob);
             #endregion 
 
 
 
             currentEntryCoordinate++;
         }
+        book.nInitialDownloadJobs = gameData.imageDownload_jobQueue.Count;
+        gameData.allDownloadJobsFinished = false;
         #endregion // Create book entries
 
         #region // Get all transcription annotations
@@ -228,7 +232,6 @@ public static partial class Methods
         //gameData.user.agent.currentPosition = gameData.user.agent.transform.position;
         gameData.user.agent.pitch_current = gameData.user.agent.camera.transform.eulerAngles.x;
         gameData.user.agent.yaw_current = gameData.user.agent.camera.transform.eulerAngles.y;
-        Cursor.lockState = CursorLockMode.Locked;
         #endregion // Init user
     }
 
@@ -271,20 +274,47 @@ public static partial class Methods
                 // Discard download job
                 gameData.imageDownload_jobQueue.Dequeue();
                 gameData.imageDownload_currentJob = null;
+
+   
             }
-            else if (Time.time - gameData.timeOfLastProgressUpdate > .2f)
+            else 
             {
-                gameData.timeOfLastProgressUpdate = Time.time;
-                Debug.Log("Download Progress: " + (downloadJob.iiif_www.progress * 100).ToString("0") + "%");
+                // Update loading bar
+                float singlejobValue = 1f / book.nInitialDownloadJobs;
+                int downloadsCompleted = book.nInitialDownloadJobs - gameData.imageDownload_jobQueue.Count;
+                float totalProgress = ((float) downloadsCompleted / book.nInitialDownloadJobs) + (downloadJob.iiif_www.progress * singlejobValue);
+                book.ui_bookAccess.image_loadingBar.fillAmount = totalProgress;
+                Color newColor = book.ui_bookAccess.image_loadingBar.color;
+                newColor = Color.Lerp(book.ui_bookAccess.image_loadingBar_hue_empty, book.ui_bookAccess.image_loadingBar_hue_full, totalProgress);
+                newColor.a = book.ui_bookAccess.image_loadingBar.color.a;
+                book.ui_bookAccess.image_loadingBar.color = newColor;
+                //gameData.timeOfLastProgressUpdate = Time.time;
+                //Debug.Log("Download Progress: " + (downloadJob.iiif_www.progress * 100).ToString("0") + "%");
             }
         }
 
         // Start next job in queue, if any
-        if (gameData.imageDownload_currentJob == null && gameData.imageDownload_jobQueue.Count > 0)
+        if (gameData.imageDownload_currentJob == null && !gameData.allDownloadJobsFinished)
         {
-            gameData.imageDownload_currentJob = gameData.imageDownload_jobQueue.Peek();
-            gameData.imageDownload_currentJob.iiif_www = new WWW(gameData.imageDownload_currentJob.targetUrl);
-            Debug.Log("STARTING download job :: " + gameData.imageDownload_currentJob.targetPageCoordinate + " URL: " + gameData.imageDownload_currentJob.iiif_www.url);
+            if (gameData.imageDownload_jobQueue.Count > 0)
+            {
+                gameData.imageDownload_currentJob = gameData.imageDownload_jobQueue.Peek();
+                gameData.imageDownload_currentJob.iiif_www = new WWW(gameData.imageDownload_currentJob.targetUrl);
+                Debug.Log("STARTING download job :: " + gameData.imageDownload_currentJob.targetPageCoordinate + " URL: " + gameData.imageDownload_currentJob.iiif_www.url);
+            }
+            else
+            {
+                // Detect all jobs finished
+                gameData.allDownloadJobsFinished = true;
+                book.ui_bookAccess.animator.Play("Book_UI_Access_Unlock", 1);
+
+                // Update loading bar
+                book.ui_bookAccess.image_loadingBar.fillAmount = 1;
+                Color newColor = book.ui_bookAccess.image_loadingBar.color;
+                newColor = book.ui_bookAccess.image_loadingBar_hue_full;
+                newColor.a = book.ui_bookAccess.image_loadingBar.color.a;
+                book.ui_bookAccess.image_loadingBar.color = newColor;
+            }
         }
         #endregion // Image download job maintenance
 
@@ -300,7 +330,8 @@ public static partial class Methods
         Agent agent = user.agent;
         if (!user.agent.isViewingBook)
         {
-
+            Cursor.lockState = CursorLockMode.Locked;
+            gameData.inputModule.m_cursorPos = Vector2.right * Screen.width / 2 + Vector2.up * Screen.height / 2;
             User_Intent userIntent = user.intent;
             #region /// Lateral movement intent
             Vector3 camFor = user.agent.camera.transform.forward;
@@ -348,11 +379,22 @@ public static partial class Methods
             agent.pitch_current = Mathf.Clamp(agent.pitch_current, -70, 85);
             agent.yaw_current += Input.GetAxis("Mouse X") * user.userParams.lookSensitivity;
             agent.yaw_current %= 360;
-            //Vector3 newEulerAngles = agent.camera.transform.eulerAngles;
-            //newEulerAngles.x += -Input.GetAxis("Mouse Y") * user.userParams.lookSensitivity;
-            //newEulerAngles.y += Input.GetAxis("Mouse X") * user.userParams.lookSensitivity;
             agent.camera.transform.eulerAngles = (Vector3.right * agent.pitch_current) + (Vector3.up * agent.yaw_current);
         }
+    }
+
+    public static void OpenBook()
+    {
+        GameData gameData = GameManager.gameDataInstance;
+
+        Debug.Log("Opening book!");
+        // Trigger book animation
+        gameData.book.worldRefs.animator.Play("Opening",0);
+
+        // Disable access UI
+        gameData.book.ui_bookAccess.gameObject.SetActive(false);
+
+        // User enter book view mode
     }
 
     public static void Book_Update_Page_Materials(Dictionary<IIIF_EntryCoordinate, Book_Entry> entries, Renderer[] pageRenderers, Renderer[] pageRenderers_transcription, int openRectoRendererIndex, IIIF_EntryCoordinate currentRectoEntry, Material fallbackMaterial)
