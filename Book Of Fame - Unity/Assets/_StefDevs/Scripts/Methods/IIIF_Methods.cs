@@ -56,7 +56,7 @@ public static partial class Methods
         return location;
     }
 
-    public static IIIF_Transcription_Element[] IIIF_Annotations_For_IIIFEntry(string annotationManifest, string url, IIIF_ImageRequestParams imageRequestParams)
+    /* public static IIIF_Transcription_Element[] IIIF_Annotations_For_IIIFEntry(string annotationManifest, string url, IIIF_ImageRequestParams imageRequestParams)
     {
         if (annotationManifest.Length > 1)
             annotationManifest = annotationManifest.Substring(1);
@@ -67,7 +67,7 @@ public static partial class Methods
 
         List<IIIF_Transcription_Element> list = new List<IIIF_Transcription_Element>();
 
-        foreach (string s in IIIF_GetContentBetweenBraces(annotationManifest))
+        foreach (string s in IIIF_Annotation_Elements_Of_Annotation_Manifest_As_Strings(annotationManifest))
         {
             if (s.Equals(annotationManifest))
                 continue;
@@ -90,32 +90,69 @@ public static partial class Methods
         }
         return list.ToArray();
     }
+    */
 
-    /// <returns>Each pair of "{" "}" braces.</returns>
-    public static IEnumerable IIIF_GetContentBetweenBraces(string s)
+    /* public static string[] IIIF_Annotation_Elements_Of_Annotation_Manifest_As_Strings(string manifest)
     {
-        int count = 0;
+        //string toReplace = (char)34 + "en" + (char)34 + "," + System.Environment.NewLine + "}";
+        //string replaceWith = (char)34 + "en" + (char)34 + System.Environment.NewLine + "},";
+        //string newString = manifest.Replace("@", "");
+        //Debug.Log("Here we go");
+        //IIIF_AnnotationManifestFromJSON newThing = new IIIF_AnnotationManifestFromJSON();
+        //JsonUtility.FromJsonOverwrite(manifest, newThing);
 
-        //The position of the last "{" brace
-        ArrayList last = new ArrayList();
+        //return new string[0];
 
-        for (int i = 0; i < s.Length; i++)
+        // get all the positions of left brackets
+        // pair lefts with rights
+        List<int> leftBracketPositions = new List<int>();
+        List<int> rightBracketPositions = new List<int>();
+
+
+        // Skip first, find every second one
+        bool skipNext = true;
+        for (int i = 0; i < manifest.Length; i++)
         {
-            //If we find a "{", add its position to the end of last
-            if (s[i] == '{')
+            if (manifest[i] == '{')
             {
-                last.Add(i);
-                count++;
-            }
-            //Else if we find a "}", group it with its corresponding "{" and return the string between them
-            else if (s[i] == '}' && count > 0)
-            {
-                count--;
-                int start = (int)last[count];
-                last.RemoveAt(count);
-                yield return s.Substring(start, i - start + 1);
+                if(!skipNext)
+                    leftBracketPositions.Add(i);
+                skipNext = !skipNext;
             }
         }
+
+        // get all the positions of right brackets in decrementing order
+        // Skip first, find every second one
+        skipNext = true;
+        for (int i = manifest.Length - 1; i >= 0; i--)
+        {
+            if (manifest[i] == '}')
+            {
+                if(!skipNext)
+                    rightBracketPositions.Add(i);
+                skipNext = !skipNext;
+            }
+        }
+        // Reverse it to aligh with left bracket array
+        rightBracketPositions.Reverse();
+
+
+        string[] contentItems = new string[leftBracketPositions.Count];
+        int n = 0;
+        int start;
+        int end;
+        int length;
+        for (int i = 0; i < leftBracketPositions.Count; i ++)
+        {
+            start = leftBracketPositions[i] + 1;
+            end = rightBracketPositions[i] - 1;
+            length = end - start;
+            contentItems[n] = manifest.Substring(start, length);
+            n++;
+        }
+
+        return contentItems;
     }
+    */
 }
 

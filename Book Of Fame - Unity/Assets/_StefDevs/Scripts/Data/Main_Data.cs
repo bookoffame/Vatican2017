@@ -13,8 +13,10 @@ namespace StefDevs
     {
         public ImageTestPage_mono imageTestPrefab;
         public Material bookEntryBaseMaterial;
+        public Material bookEntryBaseTranscriptionMaterial;
         internal string book_manifestURL = "http://www.e-codices.unifr.ch/metadata/iiif/fmb-cb-0048/manifest.json";
 
+        public Book_mono book_mono;
         internal Book book;
 
         public AssetReferences assetReferences;
@@ -51,6 +53,22 @@ namespace StefDevs
         };
     }
 
+
+    [Serializable]
+    public class TranscriptionRenderer
+    {
+        public GameObject gameObject;
+        public Camera camera;
+        public Canvas canvas;
+    }
+
+    [Serializable]
+    public class TranscriptionRenderer_Annotation
+    {
+        public RectTransform transform;
+        public TMPro.TMP_Text textMesh;
+    }
+
     [Serializable]
     public struct IIIF_EntryCoordinate
     {
@@ -58,6 +76,14 @@ namespace StefDevs
         public bool isVerso;
         public int leafNumber;
         //public PageLeafSide leafSide;
+
+        public static IIIF_EntryCoordinate Translate(IIIF_EntryCoordinate coord, int amount)
+        {
+            coord.leafNumber += amount / 2;
+            if (amount % 2 == 0)
+                coord.isVerso = !coord.isVerso;
+            return coord;
+        }
 
         public static IIIF_EntryCoordinate operator ++(IIIF_EntryCoordinate coord)
         {
@@ -75,7 +101,7 @@ namespace StefDevs
 
             coord.isVerso = !coord.isVerso;
             return coord;
-        }
+        }        
 
         public override string ToString()
         {
@@ -105,20 +131,26 @@ namespace StefDevs
     public class AssetReferences
     {
         public User_Params_so userParams;
+        public TranscriptionRenderer_mono transcription_rendererFab;
+        public TranscriptionRenderer_Annotation_mono transcription_annotationFab;
     }
 
     [Serializable]
     public class Book
     {
-        public Book_Entity gameEntity;
+        public Book_WorldRefs worldRefs;
+        public int openRectoRendererIndex = 3;
         internal string manifestURL = "http://www.e-codices.unifr.ch/metadata/iiif/fmb-cb-0048/manifest.json";
 
         internal IIIF_Manifest manifest = new IIIF_Manifest();
 
+        internal IIIF_EntryCoordinate minRectoEntry;
+        internal IIIF_EntryCoordinate maxRectoEntry;
         internal IIIF_EntryCoordinate currentRectoEntry;
-        public List<IIIF_EntryCoordinate> currentlyDisplayedEntries;
-        public Dictionary<IIIF_EntryCoordinate, Book_Entry> pages = new Dictionary<IIIF_EntryCoordinate, Book_Entry>();
-        public Dictionary<IIIF_EntryCoordinate, IIIF_ImageRequestParams> page_imageRequestParams = new Dictionary<IIIF_EntryCoordinate, IIIF_ImageRequestParams>();
+        internal List<IIIF_EntryCoordinate> currentlyAccessibleEntries = new List<IIIF_EntryCoordinate>();
+        internal Dictionary<IIIF_EntryCoordinate, Book_Entry> entries = new Dictionary<IIIF_EntryCoordinate, Book_Entry>();
+        internal Dictionary<IIIF_EntryCoordinate, IIIF_ImageRequestParams> page_imageRequestParams = new Dictionary<IIIF_EntryCoordinate, IIIF_ImageRequestParams>();
+        public List<Book_Entry> entriesDebugList;
     }
 
     [Serializable]
@@ -133,13 +165,25 @@ namespace StefDevs
         // manifest
     }
 
-    public class Book_Entity
+    [Serializable]
+    public class Book_WorldRefs
     {
+        public Animator animator;
         public Renderer[] pageRenderers;
+        public Book_PopupTheatre_mono popupTheatre;
+    }
 
+    [Serializable]
+    public class Book_PopupTheatre
+    {
+        public GameObject gameObject;
+        public Animator animator;
+        public Transform popupCameraPos;
+        public ParticleSystem smoke;
     }
 
 
+    [Serializable]
     public class IIIF_Transcription_Element
     {
         internal string content;
@@ -187,5 +231,31 @@ namespace StefDevs
         internal Texture2D resultTexture;
         internal WWW iiif_www;
         internal string targetUrl;
+    }
+
+    [Serializable]
+    public class IIIF_AnnotationManifestFromJSON
+    {
+        //public string context;
+        //public string id;
+        //public string type;
+        public IIIF_AnnotationManifestFromJSON_AnnotationElement[] resources;
+    }
+
+    [Serializable]
+    public class IIIF_AnnotationManifestFromJSON_AnnotationElement
+    {
+        //public string id;
+        //public string type;
+        public IIIF_AnnotationManifestFromJSON_AnnotationElement_Resource resource;
+        public string on;
+    }
+    [Serializable]
+    public class IIIF_AnnotationManifestFromJSON_AnnotationElement_Resource
+    {
+        //public string id;
+        //public string type;
+        public string chars;
+        //public string language;
     }
 }
