@@ -10,10 +10,11 @@ public static partial class Methods
 
     public static void Main_Start(GameData gameData)
     {
+
+        #region // Init book
         gameData.book = gameData.book_mono.data;
 
         Book book = gameData.book;            
-
         // Get the manifest describing our request
         WebClient client = new WebClient();
         // Download manifest into single string
@@ -21,62 +22,9 @@ public static partial class Methods
         // Parse string for page descriptions using a defined regex
         book.manifest.pageDescriptions = gameData.manifest_regex.Matches(book.manifest.manifestString);
 
-        IIIF_ImageRequestParams imageRequestParams = gameData.defaultImageRequestParams;
-
-        #region // Get all transcription annotations
-        // Load the transcription annotation manifest
-        IIIF_AnnotationManifestFromJSON transcriptionManifest = new IIIF_AnnotationManifestFromJSON();
-        JsonUtility.FromJsonOverwrite(Resources.Load<TextAsset>("Transcriptions/anno").text, transcriptionManifest);
-        Dictionary<IIIF_EntryCoordinate, List<IIIF_Transcription_Element>> transcriptionAnnotations = new Dictionary<IIIF_EntryCoordinate, List<IIIF_Transcription_Element>>();
-
-        for (int ann = 0; ann < transcriptionManifest.resources.Length; ann++)
-        {
-            IIIF_AnnotationManifestFromJSON_AnnotationElement annotationElement = transcriptionManifest.resources[ann];
-            // Regex match within url provided
-
-            // Determine the entry coordinate
-            int indexOfEntryCoords = annotationElement.on.IndexOf(".jp2#") - 4;
-            string coordString = annotationElement.on.Substring(indexOfEntryCoords, 4);
-            IIIF_EntryCoordinate coord = new IIIF_EntryCoordinate()
-            {
-                isVerso = coordString.Contains("v"),
-                leafNumber = int.Parse(coordString.Substring(0, 3))
-            };
-
-            // If we dont have a list of annotations for this entry/page, create/add one
-            if (!transcriptionAnnotations.ContainsKey(coord))
-                transcriptionAnnotations.Add(coord, new List<IIIF_Transcription_Element>());
-
-            string rectParamsLabel = "#xywh=";
-            string rectParamsString = annotationElement.on.Substring(annotationElement.on.IndexOf(rectParamsLabel) + rectParamsLabel.Length);
-            int i_comma;
-            int[] numbers = new int[4];
-            for (int i = 0; i < 3; i++)
-            {
-                i_comma = rectParamsString.IndexOf(',');
-                numbers[i] = int.Parse(rectParamsString.Substring(0, i_comma));
-                rectParamsString = rectParamsString.Substring(i_comma + 1);
-            }
-            numbers[3] = int.Parse(rectParamsString);
-
-            // Add this transcription element to the collection
-            transcriptionAnnotations[coord].Add(
-                    new IIIF_Transcription_Element()
-                    {
-                        content = annotationElement.resource.chars,
-                        boundingBox_normalizedInPageSpace = new Rect(
-                            (float)numbers[0] / imageRequestParams.targetWidth,
-                            (float)numbers[1] / imageRequestParams.targetHeight,
-                            (float)numbers[2] / imageRequestParams.targetWidth,
-                            (float)numbers[3] / imageRequestParams.targetHeight
-                            )
-                    }
-                    );
-        }
-        #endregion // Get all transcription annotations
-
-
+        #region // Create book entries
         /// TODO (Stef) :: replace this assumption making hack (specifying desired page description indicies manually) with proper parsing of manifest to determine which page descriptions to download 
+        IIIF_ImageRequestParams imageRequestParams = gameData.defaultImageRequestParams;
         IIIF_EntryCoordinate currentEntryCoordinate = new IIIF_EntryCoordinate() { isVerso = true, leafNumber = 81 };
         int descriptionIndex_first = 167; // 81 verso
         int descriptionIndex_last = 178; // 88 recto
@@ -84,13 +32,13 @@ public static partial class Methods
         List<IIIF_Transcription_Element> transcriptionAnnotationList = new List<IIIF_Transcription_Element>();
         for (int i = descriptionIndex_first; i <= descriptionIndex_last; i++)
         {
-            #region // Create book entries
 
             // creat a new entry
             newPage = new Book_Entry()
             {
                 coordinate = currentEntryCoordinate,
-                material_base = new Material(gameData.bookEntryBaseMaterial) {
+                material_base = new Material(gameData.bookEntryBaseMaterial)
+                {
                     name = "Placeholder Manuscript Mat - " + currentEntryCoordinate
                 },
                 material_transcription = new Material(gameData.bookEntryBaseTranscriptionMaterial)
@@ -141,40 +89,83 @@ public static partial class Methods
 
 
             currentEntryCoordinate++;
-            #endregion // Create book entries
         }
+        #endregion // Create book entries
+
+        #region // Get all transcription annotations
+        // Load the transcription annotation manifest
+        IIIF_AnnotationManifestFromJSON transcriptionManifest = new IIIF_AnnotationManifestFromJSON();
+        JsonUtility.FromJsonOverwrite(Resources.Load<TextAsset>("Transcriptions/anno").text, transcriptionManifest);
+        Dictionary<IIIF_EntryCoordinate, List<IIIF_Transcription_Element>> transcriptionAnnotations = new Dictionary<IIIF_EntryCoordinate, List<IIIF_Transcription_Element>>();
+
+        for (int ann = 0; ann < transcriptionManifest.resources.Length; ann++)
+        {
+            IIIF_AnnotationManifestFromJSON_AnnotationElement annotationElement = transcriptionManifest.resources[ann];
+            // Regex match within url provided
+
+            // Determine the entry coordinate
+            int indexOfEntryCoords = annotationElement.on.IndexOf(".jp2#") - 4;
+            string coordString = annotationElement.on.Substring(indexOfEntryCoords, 4);
+            IIIF_EntryCoordinate coord = new IIIF_EntryCoordinate()
+            {
+                isVerso = coordString.Contains("v"),
+                leafNumber = int.Parse(coordString.Substring(0, 3))
+            };
+
+            // If we dont have a list of annotations for this entry/page, create/add one
+            if (!transcriptionAnnotations.ContainsKey(coord))
+                transcriptionAnnotations.Add(coord, new List<IIIF_Transcription_Element>());
+
+            string rectParamsLabel = "#xywh=";
+            string rectParamsString = annotationElement.on.Substring(annotationElement.on.IndexOf(rectParamsLabel) + rectParamsLabel.Length);
+            int i_comma;
+            int[] numbers = new int[4];
+            for (int i = 0; i < 3; i++)
+            {
+                i_comma = rectParamsString.IndexOf(',');
+                numbers[i] = int.Parse(rectParamsString.Substring(0, i_comma));
+                rectParamsString = rectParamsString.Substring(i_comma + 1);
+            }
+            numbers[3] = int.Parse(rectParamsString);
+
+            // Add this transcription element to the collection
+            transcriptionAnnotations[coord].Add(
+                    new IIIF_Transcription_Element()
+                    {
+                        content = annotationElement.resource.chars,
+                        //boundingBox_normalizedInPageSpace = new Rect(numbers[0], numbers[1], numbers[2], numbers[3])
+                        boundingBox_normalizedInPageSpace = new Rect(
+                            (float)numbers[0] / imageRequestParams.cropWidth,
+                            (float)numbers[1] / imageRequestParams.cropHeight,
+                            (float)numbers[2] / imageRequestParams.cropWidth,
+                            (float)numbers[3] / imageRequestParams.cropHeight
+                            )
+                    }
+                    );
+        }
+        #endregion // Get all transcription annotations
 
         #region // Generate transcription images
         RenderTexture renderTexture = new RenderTexture(imageRequestParams.targetWidth, imageRequestParams.targetHeight,0);
         renderTexture.Create();
         RenderTexture.active = renderTexture;
-
         TranscriptionRenderer transcriptionRenderer = (GameObject.Instantiate(gameData.assetReferences.transcription_rendererFab) as TranscriptionRenderer_mono).data;
-
         transcriptionRenderer.camera.targetTexture = renderTexture;
-        List<TranscriptionRenderer_Annotation> annotationObjects = new List<TranscriptionRenderer_Annotation>();
+        List<GameObject> annotationUIObjects = new List<GameObject>();
         TranscriptionRenderer_Annotation newAnnotationUIElement;
-        int n = 0;
+
         foreach (IIIF_EntryCoordinate key in transcriptionAnnotations.Keys)
         {
-            if (n != 0) break;
-            n++;
-
             List<IIIF_Transcription_Element> annotations = transcriptionAnnotations[key];
-
-            // Build canvas
 
             // Build annotations on canvas
             foreach (IIIF_Transcription_Element annotation in annotations)
             {
                 newAnnotationUIElement = (GameObject.Instantiate(gameData.assetReferences.transcription_annotationFab, transcriptionRenderer.canvas.transform, false) as TranscriptionRenderer_Annotation_mono).data;
-                //newAnnotationUIElement.transform.SetParent(transcriptionRenderer.canvas.transform);
-                Vector2 position = annotation.boundingBox_normalizedInPageSpace.position;
-                position.x *= transcriptionRenderer.canvas.pixelRect.width;
-                position.y *= transcriptionRenderer.canvas.pixelRect.height;
-                newAnnotationUIElement.transform.anchoredPosition = position;
-                newAnnotationUIElement.transform.sizeDelta = (Vector2.right * annotation.boundingBox_normalizedInPageSpace.width) + (Vector2.up * annotation.boundingBox_normalizedInPageSpace.height);
+                newAnnotationUIElement.transform.offsetMin = Vector2.Scale(annotation.boundingBox_normalizedInPageSpace.min, transcriptionRenderer.canvas.pixelRect.size) ;
+                newAnnotationUIElement.transform.offsetMax = Vector2.Scale(annotation.boundingBox_normalizedInPageSpace.max, transcriptionRenderer.canvas.pixelRect.size) ;
                 newAnnotationUIElement.textMesh.text = annotation.content;
+                annotationUIObjects.Add(newAnnotationUIElement.transform.gameObject);
             }
 
 
@@ -193,36 +184,29 @@ public static partial class Methods
             book.entries[key].material_transcription.mainTexture = book.entries[key].pageImage_transcription;
             book.entries[key].material_transcription.name = "Generated Transcription Mat - " + key;
 
-            ImageTestPage_mono imageTest = GameObject.Instantiate(gameData.imageTestPrefab) as ImageTestPage_mono;
-            imageTest.transform.localScale = new Vector3((float)texture.width / (float)texture.height, 1, 1);
-            imageTest.gameObject.name = "Image Test - " + key;
-            imageTest.transform.position = (Vector3.up * 1.1f * (key.leafNumber - 81 - (key.isVerso ? 0 : 1))) + Vector3.right * .4f * (key.isVerso ? -1 : 1);
-            imageTest.renderer.material = book.entries[key].material_transcription;
+            // Image test
+            //ImageTestPage_mono imageTest = GameObject.Instantiate(gameData.imageTestPrefab) as ImageTestPage_mono;
+            //imageTest.transform.localScale = new Vector3((float)texture.width / (float)texture.height, 1, 1);
+            //imageTest.gameObject.name = "Image Test - " + key;
+            //imageTest.transform.position = (Vector3.up * 1.1f * (key.leafNumber - 81 - (key.isVerso ? 0 : 1))) + Vector3.right * .4f * (key.isVerso ? -1 : 1);
+            //imageTest.renderer.material = book.entries[key].material_transcription;
 
+            // Cleanup
+            foreach (GameObject uiElement in annotationUIObjects)
+                GameObject.Destroy(uiElement);
+            annotationUIObjects.Clear();
         }
-
         // Cleanup
-        {
-            //GameObject.Destroy(transcriptionRenderer.gameObject);
-            //RenderTexture.active = null;            
-        }
-
-        // Generate UI canvas with annotations laid out with TMP text elements
-        // Set them all to auto size
-        // After all are generated, find the maximum font size used and set all annotations to that size
-        // Generate camera and render to texture - store the texture on the "newEntry"
-        // Create camera
-        // Set aspect ratio to correct size
-        // Set Canvas camera to camera
-
-        // Create new material and assign the texture to it's albedo etc.
+        GameObject.Destroy(transcriptionRenderer.gameObject);
+        RenderTexture.active = null;
 
         #endregion // Generate transcription image from transcription manuscript
 
         book.entriesDebugList = new List<Book_Entry>(book.entries.Values);
 
-
         // Initialize book
+        book.worldRefs.baseMeshSkeleton_transforms = book.worldRefs.baseMeshSkeleton_root.GetComponentsInChildren<Transform>();
+        book.worldRefs.transcriptionMeshSkeleton_transforms = book.worldRefs.transcriptionMeshSkeleton_root.GetComponentsInChildren<Transform>();
 
         // Set initial page
         /// NOTE (Stef) :: This assumes that the first entry in the list is a verso entry
@@ -231,24 +215,21 @@ public static partial class Methods
         book.currentRectoEntry = book.minRectoEntry;
 
         // Set materials for each page
-        Methods.Book_Update_Page_Materials(book.entries, book.worldRefs.pageRenderers,book.openRectoRendererIndex, book.currentRectoEntry, gameData.bookEntryBaseMaterial);
-    }
+        Methods.Book_Update_Page_Materials(book.entries, book.worldRefs.pageRenderers, book.worldRefs.pageRenderers_transcriptions, book.openRectoRendererIndex, book.currentRectoEntry, gameData.bookEntryBaseMaterial);
+        #endregion // Init book
 
-    public static void Book_Update_Page_Materials(Dictionary<IIIF_EntryCoordinate, Book_Entry> entries, Renderer[] pageRenderers, int openRectoRendererIndex, IIIF_EntryCoordinate currentRectoEntry, Material fallbackMaterial)
-    {
-        IIIF_EntryCoordinate entryCoord;
-        for (int i = 0; i < pageRenderers.Length; i++)
+        #region // Init user
+        gameData.user = new User()
         {
-            entryCoord = IIIF_EntryCoordinate.Translate(currentRectoEntry, i - openRectoRendererIndex);
-            if (entries.ContainsKey(entryCoord))
-            {
-                pageRenderers[i].material = entries[entryCoord].material_base;
-            }
-            else
-            {
-                pageRenderers[i].material = fallbackMaterial;
-            }
-        }
+            agent = gameData.agentObject.data,
+            userParams = gameData.assetReferences.userParams.data,
+            intent = new User_Intent()
+        };
+        //gameData.user.agent.currentPosition = gameData.user.agent.transform.position;
+        gameData.user.agent.pitch_current = gameData.user.agent.camera.transform.eulerAngles.x;
+        gameData.user.agent.yaw_current = gameData.user.agent.camera.transform.eulerAngles.y;
+        Cursor.lockState = CursorLockMode.Locked;
+        #endregion // Init user
     }
 
     public static void Main_Update(GameData gameData)
@@ -278,6 +259,8 @@ public static partial class Methods
                     targetEntry.pageImage_base = downloadJob.iiif_www.texture;
                     targetEntry.material_base.mainTexture = targetEntry.pageImage_base;
                     targetEntry.material_base.name = "Generated Manuscript Mat - " + targetEntry.coordinate;
+
+                    // Image test
                     //ImageTestPage_mono imageTest = GameObject.Instantiate(gameData.imageTestPrefab) as ImageTestPage_mono;
                     //imageTest.transform.localScale = new Vector3((float)downloadJob.iiif_www.texture.width / (float)downloadJob.iiif_www.texture.height, 1, 1);
                     //imageTest.gameObject.name = "Image Test - " + downloadJob.targetPageCoordinate;
@@ -304,5 +287,89 @@ public static partial class Methods
             Debug.Log("STARTING download job :: " + gameData.imageDownload_currentJob.targetPageCoordinate + " URL: " + gameData.imageDownload_currentJob.iiif_www.url);
         }
         #endregion // Image download job maintenance
+
+        // Syncronize base book and transcription book
+        for (int i = 0; i < book.worldRefs.baseMeshSkeleton_transforms.Length; i++)
+        {
+            book.worldRefs.transcriptionMeshSkeleton_transforms[i].localRotation = book.worldRefs.baseMeshSkeleton_transforms[i].localRotation;
+            book.worldRefs.transcriptionMeshSkeleton_transforms[i].localPosition = book.worldRefs.baseMeshSkeleton_transforms[i].localPosition;
+        }
+
+
+        User user = gameData.user;
+        Agent agent = user.agent;
+        if (!user.agent.isViewingBook)
+        {
+
+            User_Intent userIntent = user.intent;
+            #region /// Lateral movement intent
+            Vector3 camFor = user.agent.camera.transform.forward;
+            //Project the camera direction down onto a plane
+            camFor -= (Vector3.Dot(camFor, Vector3.up) * Vector3.up);
+            Quaternion camRot = Quaternion.LookRotation(camFor);
+
+            userIntent.moveIntent = Vector3.zero;
+            userIntent.moveInput = (Vector3.right * Input.GetAxis("Horizontal")) + (Vector3.forward * Input.GetAxis("Vertical"));
+            userIntent.moveIntent = camRot * userIntent.moveInput;
+            userIntent.moveIntent -= (Vector3.Dot(userIntent.moveIntent, Vector3.up) * Vector3.up);
+            userIntent.moveIntent = userIntent.moveIntent.normalized * userIntent.moveInput.magnitude;
+            #endregion
+
+            #region // Player locomotion
+            Vector3 acceleration = Vector3.zero;
+
+            // Acceleration
+            if(userIntent.moveIntent.magnitude > .1f)
+            {
+            float currentTargetSpeed = userIntent.moveIntent.magnitude * user.userParams.move_maxSpeed;
+            float accelAmount = user.userParams.move_accel;
+            Vector3 projectedVelocity = agent.rigidbody.velocity + (userIntent.moveIntent.normalized * accelAmount * Time.deltaTime);
+            projectedVelocity = projectedVelocity.normalized * Mathf.Clamp(projectedVelocity.magnitude, 0, currentTargetSpeed);
+            acceleration += (projectedVelocity - agent.rigidbody.velocity) / Time.deltaTime;
+            }
+            else
+            {
+                acceleration += -agent.rigidbody.velocity * user.userParams.move_decel;
+            }
+
+            // Velocity
+            agent.rigidbody.velocity += acceleration * Time.deltaTime;
+
+            //// Velocity
+            //agent.velocity += acceleration * Time.deltaTime;
+
+            //// Position
+            //agent.currentPosition += agent.velocity * Time.deltaTime;
+            //agent.transform.position = agent.currentPosition;
+            #endregion // Player locomotion
+
+            // Camera control
+            agent.pitch_current += -Input.GetAxis("Mouse Y") * user.userParams.lookSensitivity;
+            agent.pitch_current = Mathf.Clamp(agent.pitch_current, -70, 85);
+            agent.yaw_current += Input.GetAxis("Mouse X") * user.userParams.lookSensitivity;
+            agent.yaw_current %= 360;
+            //Vector3 newEulerAngles = agent.camera.transform.eulerAngles;
+            //newEulerAngles.x += -Input.GetAxis("Mouse Y") * user.userParams.lookSensitivity;
+            //newEulerAngles.y += Input.GetAxis("Mouse X") * user.userParams.lookSensitivity;
+            agent.camera.transform.eulerAngles = (Vector3.right * agent.pitch_current) + (Vector3.up * agent.yaw_current);
+        }
+    }
+
+    public static void Book_Update_Page_Materials(Dictionary<IIIF_EntryCoordinate, Book_Entry> entries, Renderer[] pageRenderers, Renderer[] pageRenderers_transcription, int openRectoRendererIndex, IIIF_EntryCoordinate currentRectoEntry, Material fallbackMaterial)
+    {
+        IIIF_EntryCoordinate entryCoord;
+        for (int i = 0; i < pageRenderers.Length; i++)
+        {
+            entryCoord = IIIF_EntryCoordinate.Translate(currentRectoEntry, i - openRectoRendererIndex);
+            if (entries.ContainsKey(entryCoord))
+            {
+                pageRenderers[i].material = entries[entryCoord].material_base;
+                pageRenderers_transcription[i].material = entries[entryCoord].material_transcription;
+            }
+            else
+            {
+                pageRenderers[i].material = fallbackMaterial;
+            }
+        }
     }
 }

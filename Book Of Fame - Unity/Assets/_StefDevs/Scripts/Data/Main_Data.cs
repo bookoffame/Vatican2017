@@ -20,6 +20,7 @@ namespace StefDevs
         internal Book book;
 
         public AssetReferences assetReferences;
+        public Agent_mono agentObject;
         internal User user;
         public Texture2D book_page_placeholderTexture;
 
@@ -51,6 +52,8 @@ namespace StefDevs
             quality = "default",
             format = ".jpg"
         };
+
+        public float walkingAreaRadius;
     }
 
 
@@ -110,21 +113,46 @@ namespace StefDevs
     }
 
     [Serializable]
-    public class User_Camera
+    public class Agent
     {
         public Camera camera;
+        public Transform transform;
+        public Rigidbody rigidbody;
+
+        internal float pitch_current;
+        internal float yaw_current;
+
+        internal Transform lastKnownFPPosition;
+
+            
+        //internal Vector3 velocity;
+        //internal Vector3 currentPosition;
+        internal bool isViewingBook;
     }
 
     [Serializable]
     public class User
     {
-        internal User_Camera playerCamera;
+        internal Agent agent;
+        internal User_Intent intent = new User_Intent();
+        internal User_Params userParams;
     }
+
+    [Serializable]
+    public class User_Intent
+    {
+        internal Vector3 moveInput;
+        internal Vector3 moveIntent;
+    }
+
 
     [Serializable]
     public class User_Params
     {
-        public float moveSpeed;
+        public float move_maxSpeed;
+        public float move_accel;
+        public float move_decel;
+        public float lookSensitivity;
     }
 
     [Serializable]
@@ -154,6 +182,19 @@ namespace StefDevs
     }
 
     [Serializable]
+    public class Book_WorldRefs
+    {
+        public Animator animator;
+        public Renderer[] pageRenderers;
+        public Transform baseMeshSkeleton_root;
+        public Transform transcriptionMeshSkeleton_root;
+        internal Transform[] baseMeshSkeleton_transforms;
+        internal Transform[] transcriptionMeshSkeleton_transforms;
+        public Renderer[] pageRenderers_transcriptions;
+        public Book_PopupTheatre_mono popupTheatre;
+    }
+
+    [Serializable]
     public class Book_Entry
     {
         internal IIIF_EntryCoordinate coordinate;
@@ -165,13 +206,6 @@ namespace StefDevs
         // manifest
     }
 
-    [Serializable]
-    public class Book_WorldRefs
-    {
-        public Animator animator;
-        public Renderer[] pageRenderers;
-        public Book_PopupTheatre_mono popupTheatre;
-    }
 
     [Serializable]
     public class Book_PopupTheatre
