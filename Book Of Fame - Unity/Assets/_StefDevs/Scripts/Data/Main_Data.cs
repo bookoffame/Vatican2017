@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
+using TMPro;
 
 namespace StefDevs
 {
@@ -58,6 +59,8 @@ namespace StefDevs
 
         public VRInputModule inputModule;
 
+        internal User_Intent emptyIntent;
+
     }
 
 
@@ -108,7 +111,16 @@ namespace StefDevs
 
             coord.isVerso = !coord.isVerso;
             return coord;
-        }        
+        }
+
+        public static bool operator ==(IIIF_EntryCoordinate coord1, IIIF_EntryCoordinate coord2)
+        {
+            return coord1.isVerso == coord2.isVerso && coord1.leafNumber == coord2.leafNumber;
+        }
+        public static bool operator !=(IIIF_EntryCoordinate coord1, IIIF_EntryCoordinate coord2)
+        {
+            return coord1.isVerso != coord2.isVerso || coord1.leafNumber != coord2.leafNumber;
+        }
 
         public override string ToString()
         {
@@ -119,19 +131,32 @@ namespace StefDevs
     [Serializable]
     public class Agent
     {
-        public Camera camera;
+        public Camera camera_main;
+        public Camera camera_ui;
+        public Camera camera_transcription;
+        public Transform cameras_root;
+        public Transform cameras_parent;
+        public Transform cameraSocket;
         public Transform transform;
+        public SpriteRenderer crosshair;
         public Rigidbody rigidbody;
+        internal bool isViewingBook;
+        internal Agent_Camera_ControlData_LocomotionMode camera_control_locomotion = new Agent_Camera_ControlData_LocomotionMode();
+        internal Agent_Camera_ControlData_ViewingMode camera_control_bookViewing = new Agent_Camera_ControlData_ViewingMode();
+    }
 
+    public class Agent_Camera_ControlData_LocomotionMode
+    {
         internal float pitch_current;
         internal float yaw_current;
-
-        internal Transform lastKnownFPPosition;
-
-            
-        //internal Vector3 velocity;
-        //internal Vector3 currentPosition;
-        internal bool isViewingBook;
+    }
+    public class Agent_Camera_ControlData_ViewingMode
+    {
+        internal float zoom_current;
+        internal float zoom_target;
+        internal Transform viewPointAnchor;
+        internal Vector3 positionOffset_target;
+        //internal Vector3 positionOffset_current;
     }
 
     [Serializable]
@@ -143,20 +168,35 @@ namespace StefDevs
     }
 
     [Serializable]
-    public class User_Intent
+    public struct User_Intent
     {
         internal Vector3 moveInput;
-        internal Vector3 moveIntent;
+        internal Vector3 moveIntent_locomotion;
+
+        internal Vector2 moveIntent_bookView;
+        internal float zoomIntent;
+        internal bool turnPage_right;
+        internal bool turnPage_left;
     }
 
 
     [Serializable]
     public class User_Params
     {
-        public float move_maxSpeed;
-        public float move_accel;
-        public float move_decel;
-        public float lookSensitivity;
+        public float move_maxSpeed = 1;
+        public float move_accel = 100;
+        public float move_decel = 40;
+        public float lookSensitivity = 2;
+        public float bookView_zoom_fov_min = 40;
+        public float bookView_zoom_fov_max = 60;
+        public float bookView_zoom_lerpSpeed = 5;
+        public float bookView_zoom_sensitivity = .1f;
+        public Vector2 bookView_offset_limit = new Vector2(.3f,.3f);
+        public float bookView_offset_sensitivity = 3;
+        public float bookView_offset_lerpSpeed = 3;
+
+        public float camera_toSocketLerpSpeed = 10;
+
     }
 
     [Serializable]
@@ -186,14 +226,31 @@ namespace StefDevs
         internal List<Book_Entry> entriesDebugList;
 
         public Book_UI_BookAccess ui_bookAccess;
+        public Book_UI_ViewModeUI ui_viewMode;
 
         internal int nInitialDownloadJobs;
+
+        internal bool turnPageAnimationPlaying;
+
+        public Vector2[] pageRenderers_textureScales;
+    }
+
+    [Serializable]
+    public class Book_UI_ViewModeUI
+    {
+        public GameObject gameObject;
+        public TMP_Text pageNumber_next;
+        public TMP_Text pageNumber_previous;
+        public TMP_Text pageNumber_current_recto;
+        public TMP_Text pageNumber_current_verso;
+        public Button[] buttonsToToggle;
     }
 
     [Serializable]
     public class Book_UI_BookAccess
     {
         public GameObject gameObject;
+        public Button button;
         public Animator animator;
         public Image image_loadingBar;
         public Color image_loadingBar_hue_empty;
@@ -212,7 +269,7 @@ namespace StefDevs
         internal Transform[] transcriptionMeshSkeleton_transforms;
         public Renderer[] pageRenderers_transcriptions;
         public Book_PopupTheatre_mono popupTheatre;
-        public Transform cameraViewingPositionAnchor;
+        public Transform cameraSocket;
     }
 
     [Serializable]

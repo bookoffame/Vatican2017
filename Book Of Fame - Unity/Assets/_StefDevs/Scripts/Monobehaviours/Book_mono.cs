@@ -8,7 +8,20 @@ public class Book_mono : MonoBehaviour
 
     public void UIEvent_OpenBook()
     {
-        Methods.OpenBook();
+        Methods.User_Enter_Mode_Book_Viewing(GameManager.gameDataInstance.user, GameManager.gameDataInstance.book);
+    }
+    public void UIEvent_CloseBook()
+    {
+        Methods.User_Enter_Mode_Locomotion(GameManager.gameDataInstance.user);
+    }
+    public void UIEvent_NextPage()
+    {
+        Methods.Book_ChangePage_Next();
+    }
+
+    public void UIEvent_PreviousPage()
+    {
+        Methods.Book_ChangePage_Previous();
     }
 
 }

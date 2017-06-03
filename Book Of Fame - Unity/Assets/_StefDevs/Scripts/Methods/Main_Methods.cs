@@ -23,6 +23,7 @@ public static partial class Methods
         book.manifest.pageDescriptions = gameData.manifest_regex.Matches(book.manifest.manifestString);
 
         #region // Create book entries
+
         /// TODO (Stef) :: replace this assumption making hack (specifying desired page description indicies manually) with proper parsing of manifest to determine which page descriptions to download 
         IIIF_ImageRequestParams imageRequestParams = gameData.defaultImageRequestParams;
         IIIF_EntryCoordinate currentEntryCoordinate = new IIIF_EntryCoordinate() { isVerso = true, leafNumber = 81 };
@@ -47,12 +48,17 @@ public static partial class Methods
                 },
             };
 
-            // Flip recto pages horizontally
-            if (!newPage.coordinate.isVerso)
-            {
-                newPage.material_base.mainTextureScale = new Vector2(-1, 1);
-                newPage.material_transcription.mainTextureScale = new Vector2(-1, 1);
-            }
+            //// Flip verso pages horizontally and all pages vertically
+            //if (newPage.coordinate.isVerso)
+            //{
+            //    newPage.material_base.mainTextureScale = new Vector2(-1, -1);
+            //    newPage.material_transcription.mainTextureScale = new Vector2(-1, -1);
+            //}
+            //else
+            //{
+            //    newPage.material_base.mainTextureScale = new Vector2(1, -1);
+            //    newPage.material_transcription.mainTextureScale = new Vector2(1, -1);
+            //}
 
             // Add to indexed collection of entries
             book.entries.Add(newPage.coordinate, newPage);
@@ -93,6 +99,7 @@ public static partial class Methods
         }
         book.nInitialDownloadJobs = gameData.imageDownload_jobQueue.Count;
         gameData.allDownloadJobsFinished = false;
+        book.ui_bookAccess.button.interactable = false;
         #endregion // Create book entries
 
         #region // Get all transcription annotations
@@ -217,8 +224,15 @@ public static partial class Methods
         book.maxRectoEntry = book.currentlyAccessibleEntries[book.currentlyAccessibleEntries.Count  - 1];
         book.currentRectoEntry = book.minRectoEntry;
 
-        // Set materials for each page
-        Methods.Book_Update_Page_Materials(book.entries, book.worldRefs.pageRenderers, book.worldRefs.pageRenderers_transcriptions, book.openRectoRendererIndex, book.currentRectoEntry, gameData.bookEntryBaseMaterial);
+        // Update page numbers
+        book.ui_viewMode.pageNumber_next.text = IIIF_EntryCoordinate.Translate(book.currentRectoEntry, 1).ToString();
+        book.ui_viewMode.pageNumber_current_recto.text = book.currentRectoEntry.ToString();
+        book.ui_viewMode.pageNumber_current_verso.text = IIIF_EntryCoordinate.Translate(book.currentRectoEntry, -1).ToString();
+        book.ui_viewMode.pageNumber_previous.text = IIIF_EntryCoordinate.Translate(book.currentRectoEntry, -2).ToString();
+
+        // Change out page images when page turn animation is complete
+        Methods.Book_Update_Page_Materials(book);
+
         #endregion // Init book
 
         #region // Init user
@@ -229,8 +243,11 @@ public static partial class Methods
             intent = new User_Intent()
         };
         //gameData.user.agent.currentPosition = gameData.user.agent.transform.position;
-        gameData.user.agent.pitch_current = gameData.user.agent.camera.transform.eulerAngles.x;
-        gameData.user.agent.yaw_current = gameData.user.agent.camera.transform.eulerAngles.y;
+
+        Methods.User_Enter_Mode_Locomotion(gameData.user, false);
+
+        gameData.user.agent.camera_control_locomotion.pitch_current = gameData.user.agent.camera_main.transform.eulerAngles.x;
+        gameData.user.agent.camera_control_locomotion.yaw_current = gameData.user.agent.camera_main.transform.eulerAngles.y;
         #endregion // Init user
     }
 
@@ -274,14 +291,14 @@ public static partial class Methods
                 gameData.imageDownload_jobQueue.Dequeue();
                 gameData.imageDownload_currentJob = null;
 
-   
+
             }
-            else 
+            else
             {
                 // Update loading bar
                 float singlejobValue = 1f / book.nInitialDownloadJobs;
                 int downloadsCompleted = book.nInitialDownloadJobs - gameData.imageDownload_jobQueue.Count;
-                float totalProgress = ((float) downloadsCompleted / book.nInitialDownloadJobs) + (downloadJob.iiif_www.progress * singlejobValue);
+                float totalProgress = ((float)downloadsCompleted / book.nInitialDownloadJobs) + (downloadJob.iiif_www.progress * singlejobValue);
                 book.ui_bookAccess.image_loadingBar.fillAmount = totalProgress;
                 Color newColor = book.ui_bookAccess.image_loadingBar.color;
                 newColor = Color.Lerp(book.ui_bookAccess.image_loadingBar_hue_empty, book.ui_bookAccess.image_loadingBar_hue_full, totalProgress);
@@ -305,6 +322,7 @@ public static partial class Methods
             {
                 // Detect all jobs finished
                 gameData.allDownloadJobsFinished = true;
+                book.ui_bookAccess.button.interactable = true;
                 book.ui_bookAccess.animator.Play("Book_UI_Access_Unlock", 1);
 
                 // Update loading bar
@@ -324,38 +342,122 @@ public static partial class Methods
             book.worldRefs.transcriptionMeshSkeleton_transforms[i].localPosition = book.worldRefs.baseMeshSkeleton_transforms[i].localPosition;
         }
 
+        // Detect book animation finishing
+        if (book.turnPageAnimationPlaying && book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+        {
+            book.turnPageAnimationPlaying = false;
+
+            // Turn all the buttons back on
+            for (int i = 0; i < book.ui_viewMode.buttonsToToggle.Length; i++)
+            {
+                book.ui_viewMode.buttonsToToggle[i].interactable = true;
+            }
+
+            // Update page numbers
+            book.ui_viewMode.pageNumber_next.text = IIIF_EntryCoordinate.Translate(book.currentRectoEntry, 1).ToString();
+            book.ui_viewMode.pageNumber_current_recto.text = book.currentRectoEntry.ToString();
+            book.ui_viewMode.pageNumber_current_verso.text = IIIF_EntryCoordinate.Translate(book.currentRectoEntry, -1).ToString();
+            book.ui_viewMode.pageNumber_previous.text = IIIF_EntryCoordinate.Translate(book.currentRectoEntry, -2).ToString();
+
+            // Change out page images when page turn animation is complete
+            Methods.Book_Update_Page_Materials(book);
+
+            // Set book back to opened animation state
+            book.worldRefs.animator.Play("Opened", 0);
+        }
+
+        #region // User simulation
 
         User user = gameData.user;
         Agent agent = user.agent;
-        if (!user.agent.isViewingBook)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            gameData.inputModule.m_cursorPos = Vector2.right * Screen.width / 2 + Vector2.up * Screen.height / 2;
-            User_Intent userIntent = user.intent;
-            #region /// Lateral movement intent
-            Vector3 camFor = user.agent.camera.transform.forward;
-            //Project the camera direction down onto a plane
-            camFor -= (Vector3.Dot(camFor, Vector3.up) * Vector3.up);
-            Quaternion camRot = Quaternion.LookRotation(camFor);
 
-            userIntent.moveIntent = Vector3.zero;
-            userIntent.moveInput = (Vector3.right * Input.GetAxis("Horizontal")) + (Vector3.forward * Input.GetAxis("Vertical"));
-            userIntent.moveIntent = camRot * userIntent.moveInput;
-            userIntent.moveIntent -= (Vector3.Dot(userIntent.moveIntent, Vector3.up) * Vector3.up);
-            userIntent.moveIntent = userIntent.moveIntent.normalized * userIntent.moveInput.magnitude;
-            #endregion
+        #region // User Intent
+        user.intent = gameData.emptyIntent;
+
+        User_Intent newIntent = gameData.emptyIntent;
+        User_Params userParams = user.userParams;
+
+        #region /// Lateral movement intent
+        Vector3 camFor = user.agent.camera_main.transform.forward;
+        //Project the camera direction down onto a plane
+        camFor -= (Vector3.Dot(camFor, Vector3.up) * Vector3.up);
+        Quaternion camRot = Quaternion.LookRotation(camFor);
+
+        newIntent.moveIntent_locomotion = Vector3.zero;
+        newIntent.moveInput = (Vector3.right * Input.GetAxis("Horizontal")) + (Vector3.forward * Input.GetAxis("Vertical"));
+        newIntent.moveIntent_locomotion = camRot * newIntent.moveInput;
+        newIntent.moveIntent_locomotion -= (Vector3.Dot(newIntent.moveIntent_locomotion, Vector3.up) * Vector3.up);
+        newIntent.moveIntent_locomotion = newIntent.moveIntent_locomotion.normalized * newIntent.moveInput.magnitude;
+        #endregion
+
+        #region // Bookview intent
+
+        if (user.agent.isViewingBook)
+        {
+            // Zoom intent
+            newIntent.zoomIntent = Input.mouseScrollDelta.y;
+            // Move Intent
+            newIntent.moveIntent_bookView = (Vector3.right * Input.GetAxis("Horizontal")) + (Vector3.up * Input.GetAxis("Vertical"));
+        }
+        #endregion // Bookview intent
+
+        user.intent = newIntent;
+
+        #endregion // User Intent
+
+
+        float fov;
+        if (user.agent.isViewingBook)
+        {
+            if (Cursor.lockState != CursorLockMode.None)
+                Cursor.lockState = CursorLockMode.None;
+            gameData.inputModule.m_cursorPos = Input.mousePosition;
+
+
+            // Adjust target position offset
+            agent.camera_control_bookViewing.positionOffset_target += (Vector3)newIntent.moveIntent_bookView * userParams.bookView_offset_sensitivity * Time.deltaTime;
+            agent.camera_control_bookViewing.positionOffset_target.x = Mathf.Clamp(agent.camera_control_bookViewing.positionOffset_target.x, -userParams.bookView_offset_limit.x, userParams.bookView_offset_limit.x);
+            agent.camera_control_bookViewing.positionOffset_target.y = Mathf.Clamp(agent.camera_control_bookViewing.positionOffset_target.y, -userParams.bookView_offset_limit.y, userParams.bookView_offset_limit.y);
+
+            // Current position offset
+            //agent.camera_control_bookViewing.positionOffset_current = Vector2.Lerp(agent.camera_control_bookViewing.positionOffset_current, agent.camera_control_bookViewing.positionOffset_target, userParams.bookView_offset_lerpSpeed);
+
+            // Current position - offset from root
+            agent.cameras_parent.localPosition = Vector3.Lerp(agent.cameras_parent.localPosition, agent.camera_control_bookViewing.positionOffset_target, userParams.bookView_offset_lerpSpeed * Time.deltaTime);
+
+            // Adjust target zoom
+            agent.camera_control_bookViewing.zoom_target = Mathf.Clamp01(agent.camera_control_bookViewing.zoom_target + newIntent.zoomIntent * userParams.bookView_zoom_sensitivity);
+            // Move toward target zoom
+            agent.camera_control_bookViewing.zoom_current = Mathf.Lerp(agent.camera_control_bookViewing.zoom_current, agent.camera_control_bookViewing.zoom_target, userParams.bookView_zoom_lerpSpeed * Time.deltaTime);
+            // Current fov given current zoom
+            fov = Mathf.Lerp(userParams.bookView_zoom_fov_max, userParams.bookView_zoom_fov_min, agent.camera_control_bookViewing.zoom_current);
+
+
+            // Camera root rotation and position move toward current socket
+            Vector3 newEulerAngles_parent = agent.cameras_parent.localEulerAngles;
+            newEulerAngles_parent.x = Mathf.Lerp(newEulerAngles_parent.x, 0, Mathf.Clamp01(userParams.camera_toSocketLerpSpeed * Time.deltaTime));
+            newEulerAngles_parent.y = Mathf.Lerp(newEulerAngles_parent.y, 0, Mathf.Clamp01(userParams.camera_toSocketLerpSpeed * Time.deltaTime));
+            newEulerAngles_parent.z = 0;
+            agent.cameras_parent.localEulerAngles = Vector3.zero;
+
+        }
+        else
+        {
+            if (Cursor.lockState != CursorLockMode.Locked)
+                Cursor.lockState = CursorLockMode.Locked;
+            gameData.inputModule.m_cursorPos = Vector2.right * Screen.width / 2 + Vector2.up * Screen.height / 2;
 
             #region // Player locomotion
             Vector3 acceleration = Vector3.zero;
 
             // Acceleration
-            if(userIntent.moveIntent.magnitude > .1f)
+            if (user.intent.moveIntent_locomotion.magnitude > .1f)
             {
-            float currentTargetSpeed = userIntent.moveIntent.magnitude * user.userParams.move_maxSpeed;
-            float accelAmount = user.userParams.move_accel;
-            Vector3 projectedVelocity = agent.rigidbody.velocity + (userIntent.moveIntent.normalized * accelAmount * Time.deltaTime);
-            projectedVelocity = projectedVelocity.normalized * Mathf.Clamp(projectedVelocity.magnitude, 0, currentTargetSpeed);
-            acceleration += (projectedVelocity - agent.rigidbody.velocity) / Time.deltaTime;
+                float currentTargetSpeed = user.intent.moveIntent_locomotion.magnitude * user.userParams.move_maxSpeed;
+                float accelAmount = user.userParams.move_accel;
+                Vector3 projectedVelocity = agent.rigidbody.velocity + (user.intent.moveIntent_locomotion.normalized * accelAmount * Time.deltaTime);
+                projectedVelocity = projectedVelocity.normalized * Mathf.Clamp(projectedVelocity.magnitude, 0, currentTargetSpeed);
+                acceleration += (projectedVelocity - agent.rigidbody.velocity) / Time.deltaTime;
             }
             else
             {
@@ -374,47 +476,134 @@ public static partial class Methods
             #endregion // Player locomotion
 
             // Camera control
-            agent.pitch_current += -Input.GetAxis("Mouse Y") * user.userParams.lookSensitivity;
-            agent.pitch_current = Mathf.Clamp(agent.pitch_current, -70, 85);
-            agent.yaw_current += Input.GetAxis("Mouse X") * user.userParams.lookSensitivity;
-            agent.yaw_current %= 360;
-            agent.camera.transform.eulerAngles = (Vector3.right * agent.pitch_current) + (Vector3.up * agent.yaw_current);
+            agent.camera_control_locomotion.pitch_current += -Input.GetAxis("Mouse Y") * user.userParams.lookSensitivity;
+            agent.camera_control_locomotion.pitch_current = Mathf.Clamp(agent.camera_control_locomotion.pitch_current, -70, 85);
+            agent.camera_control_locomotion.yaw_current += Input.GetAxis("Mouse X") * user.userParams.lookSensitivity;
+            agent.camera_control_locomotion.yaw_current %= 360;
+            agent.cameras_parent.localEulerAngles = (Vector3.right * agent.camera_control_locomotion.pitch_current) + (Vector3.up * agent.camera_control_locomotion.yaw_current);
+
+            // Move towards max fov
+            fov = Mathf.Lerp(agent.camera_main.fieldOfView, userParams.bookView_zoom_fov_max, userParams.bookView_zoom_lerpSpeed * Time.deltaTime);
         }
+
+        // Camera root rotation and position move toward current socket
+        /// TODO (Stef) :: Transition camera root to new position
+        {
+
+            //Vector3 newEulerAngles = agent.cameras_root.localEulerAngles;
+            //newEulerAngles.x = Mathf.Lerp(newEulerAngles.x, 0, Mathf.Clamp01(userParams.camera_toSocketLerpSpeed * Time.deltaTime));
+            //newEulerAngles.y = Mathf.Lerp(newEulerAngles.y, 0, Mathf.Clamp01(userParams.camera_toSocketLerpSpeed * Time.deltaTime));
+            //newEulerAngles.z = 0;
+            agent.cameras_root.localEulerAngles = Vector3.zero;
+        }
+
+        //agent.cameras_root.localEulerAngles = Vector3.Slerp(agent.cameras_parent.localEulerAngles, Vector3.zero, userParams.camera_toSocketLerpSpeed * Time.deltaTime);
+        agent.cameras_root.localPosition = Vector3.Lerp(agent.cameras_root.localPosition, Vector3.zero, userParams.camera_toSocketLerpSpeed * Time.deltaTime);
+
+        // Apply current fov
+        agent.camera_main.fieldOfView = fov;
+        agent.camera_ui.fieldOfView = fov;
+        agent.camera_transcription.fieldOfView = fov;
+        #endregion // User simulation
+
     }
 
-    public static void OpenBook()
+    public static void User_Enter_Mode_Book_Viewing(User user, Book book)
     {
         GameData gameData = GameManager.gameDataInstance;
-
-        Debug.Log("Opening book!");
-        // Trigger book animation
-        gameData.book.worldRefs.animator.Play("Opening",0);
-
+        user.agent.isViewingBook = true;
+        user.agent.cameras_root.SetParent(book.worldRefs.cameraSocket, true);
+        user.agent.crosshair.enabled = false;
+        gameData.book.ui_viewMode.gameObject.SetActive(true);
         // Disable access UI
         gameData.book.ui_bookAccess.gameObject.SetActive(false);
+        // Trigger book animation
+        gameData.book.worldRefs.animator.Play("Opening", 0);
+        gameData.book.turnPageAnimationPlaying = false;
 
-        // User enter book view mode
     }
 
-    public static void User_Enter_Book_Viewing_Mode(User user, Book book)
+    public static void User_Enter_Mode_Locomotion(User user, bool playAnim = true)
     {
+        GameData gameData = GameManager.gameDataInstance;
+        user.agent.isViewingBook = false;
+        user.agent.cameras_root.SetParent(user.agent.cameraSocket, true);
+        user.agent.crosshair.enabled = true;
+        gameData.book.ui_viewMode.gameObject.SetActive(false);
+        // Enable access UI
+        gameData.book.ui_bookAccess.gameObject.SetActive(true);
 
+
+        if(playAnim)
+            gameData.book.worldRefs.animator.Play("CloseState", 0);
+        gameData.book.turnPageAnimationPlaying = false;
     }
 
-    public static void Book_Update_Page_Materials(Dictionary<IIIF_EntryCoordinate, Book_Entry> entries, Renderer[] pageRenderers, Renderer[] pageRenderers_transcription, int openRectoRendererIndex, IIIF_EntryCoordinate currentRectoEntry, Material fallbackMaterial)
+    public static void Book_ChangePage_Previous()
+    {
+        GameData gameData = GameManager.gameDataInstance;
+        IIIF_EntryCoordinate newRectoCoord = IIIF_EntryCoordinate.Translate(gameData.book.currentRectoEntry, -2);
+        if (!gameData.book.currentlyAccessibleEntries.Contains(newRectoCoord))
+        {
+            newRectoCoord = gameData.book.minRectoEntry;
+        }
+        if (newRectoCoord == gameData.book.currentRectoEntry) return;
+
+
+        // Trigger page turn animation
+        gameData.book.worldRefs.animator.Play("TurnPageLeft", 0);
+        gameData.book.turnPageAnimationPlaying = true;
+        Book_ChangePageToRectoPage(newRectoCoord);
+    }
+
+    public static void Book_ChangePage_Next()
+    {
+        GameData gameData = GameManager.gameDataInstance;
+        IIIF_EntryCoordinate newRectoCoord = IIIF_EntryCoordinate.Translate(gameData.book.currentRectoEntry, 2);
+        if (!gameData.book.currentlyAccessibleEntries.Contains(newRectoCoord))
+        {
+            newRectoCoord = gameData.book.maxRectoEntry;
+        }
+        if (newRectoCoord == gameData.book.currentRectoEntry) return;
+
+        // Trigger page turn animation
+        gameData.book.worldRefs.animator.Play("TurnPageRight", 0);
+        gameData.book.turnPageAnimationPlaying = true;
+        Book_ChangePageToRectoPage(newRectoCoord);
+    }
+
+    public static void Book_ChangePageToRectoPage(IIIF_EntryCoordinate newRectoPageCoord)
+    {
+        GameData gameData = GameManager.gameDataInstance;
+        Book book = gameData.book;
+
+        // Disable all buttons until page animation is complete
+        for (int i = 0; i < book.ui_viewMode.buttonsToToggle.Length; i++)
+        {
+            book.ui_viewMode.buttonsToToggle[i].interactable = false;
+        }
+
+        // Change current recto entry
+        book.currentRectoEntry = newRectoPageCoord;
+    }
+
+    public static void Book_Update_Page_Materials(Book book)
     {
         IIIF_EntryCoordinate entryCoord;
-        for (int i = 0; i < pageRenderers.Length; i++)
+        for (int i = 0; i < book.worldRefs.pageRenderers.Length; i++)
         {
-            entryCoord = IIIF_EntryCoordinate.Translate(currentRectoEntry, i - openRectoRendererIndex);
-            if (entries.ContainsKey(entryCoord))
+            entryCoord = IIIF_EntryCoordinate.Translate(book.currentRectoEntry, i - book.openRectoRendererIndex);
+            if (book.entries.ContainsKey(entryCoord))
             {
-                pageRenderers[i].material = entries[entryCoord].material_base;
-                pageRenderers_transcription[i].material = entries[entryCoord].material_transcription;
+                book.entries[entryCoord].material_base.mainTextureScale = book.pageRenderers_textureScales[i];
+                book.entries[entryCoord].material_transcription.mainTextureScale = book.pageRenderers_textureScales[i];
+                book.worldRefs.pageRenderers[i].material = book.entries[entryCoord].material_base;
+                book.worldRefs.pageRenderers_transcriptions[i].material = book.entries[entryCoord].material_transcription;
             }
             else
             {
-                pageRenderers[i].material = fallbackMaterial;
+                book.worldRefs.pageRenderers[i].material = GameManager.gameDataInstance.bookEntryBaseMaterial;
+                book.worldRefs.pageRenderers_transcriptions[i].material = GameManager.gameDataInstance.bookEntryBaseTranscriptionMaterial;
             }
         }
     }
