@@ -11,6 +11,11 @@ public static partial class Methods
     public static void Main_Start(GameData gameData)
     {
 
+        //for (int i = -3; i < 3; i++)
+        //{
+        //    Debug.Log("Translated by " + i + ": " + IIIF_EntryCoordinate.Translate(new IIIF_EntryCoordinate() { leafNumber = 0, isVerso = false }, i));
+        //}
+
         #region // Init book
         gameData.book = gameData.book_mono.data;
 
@@ -224,12 +229,6 @@ public static partial class Methods
         book.maxRectoEntry = book.currentlyAccessibleEntries[book.currentlyAccessibleEntries.Count  - 1];
         book.currentRectoEntry = book.minRectoEntry;
 
-        // Update page numbers
-        book.ui_viewMode.pageNumber_next.text = IIIF_EntryCoordinate.Translate(book.currentRectoEntry, 1).ToString();
-        book.ui_viewMode.pageNumber_current_recto.text = book.currentRectoEntry.ToString();
-        book.ui_viewMode.pageNumber_current_verso.text = IIIF_EntryCoordinate.Translate(book.currentRectoEntry, -1).ToString();
-        book.ui_viewMode.pageNumber_previous.text = IIIF_EntryCoordinate.Translate(book.currentRectoEntry, -2).ToString();
-
         // Change out page images when page turn animation is complete
         Methods.Book_Update_Page_Materials(book);
 
@@ -343,27 +342,26 @@ public static partial class Methods
         }
 
         // Detect book animation finishing
-        if (book.turnPageAnimationPlaying && book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+        //if (book.turnPageAnimationPlaying && book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+        if (book.turnPageAnimationPlaying && book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).IsName("TurnPageRight") || book.turnPageAnimationPlaying && book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).IsName("TurnPageLeft"))
         {
-            book.turnPageAnimationPlaying = false;
-
-            // Turn all the buttons back on
-            for (int i = 0; i < book.ui_viewMode.buttonsToToggle.Length; i++)
+            if (book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
             {
-                book.ui_viewMode.buttonsToToggle[i].interactable = true;
+
+                book.turnPageAnimationPlaying = false;
+
+                // Turn all the buttons back on
+                for (int i = 0; i < book.ui_viewMode.buttonsToToggle.Length; i++)
+                {
+                    book.ui_viewMode.buttonsToToggle[i].interactable = true;
+                }
+
+                // Change out page images when page turn animation is complete
+                Methods.Book_Update_Page_Materials(book);
+
+                // Set book back to opened animation state
+                book.worldRefs.animator.Play("Opened", 0);
             }
-
-            // Update page numbers
-            book.ui_viewMode.pageNumber_next.text = IIIF_EntryCoordinate.Translate(book.currentRectoEntry, 1).ToString();
-            book.ui_viewMode.pageNumber_current_recto.text = book.currentRectoEntry.ToString();
-            book.ui_viewMode.pageNumber_current_verso.text = IIIF_EntryCoordinate.Translate(book.currentRectoEntry, -1).ToString();
-            book.ui_viewMode.pageNumber_previous.text = IIIF_EntryCoordinate.Translate(book.currentRectoEntry, -2).ToString();
-
-            // Change out page images when page turn animation is complete
-            Methods.Book_Update_Page_Materials(book);
-
-            // Set book back to opened animation state
-            book.worldRefs.animator.Play("Opened", 0);
         }
 
         #region // User simulation
@@ -551,7 +549,7 @@ public static partial class Methods
 
 
         // Trigger page turn animation
-        gameData.book.worldRefs.animator.Play("TurnPageLeft", 0);
+        gameData.book.worldRefs.animator.Play("TurnPageRight", 0);
         gameData.book.turnPageAnimationPlaying = true;
         Book_ChangePageToRectoPage(newRectoCoord);
     }
@@ -567,7 +565,7 @@ public static partial class Methods
         if (newRectoCoord == gameData.book.currentRectoEntry) return;
 
         // Trigger page turn animation
-        gameData.book.worldRefs.animator.Play("TurnPageRight", 0);
+        gameData.book.worldRefs.animator.Play("TurnPageLeft", 0);
         gameData.book.turnPageAnimationPlaying = true;
         Book_ChangePageToRectoPage(newRectoCoord);
     }
@@ -589,16 +587,26 @@ public static partial class Methods
 
     public static void Book_Update_Page_Materials(Book book)
     {
-        IIIF_EntryCoordinate entryCoord;
+
+        // Determine whart images to place at each renderer
+        IIIF_EntryCoordinate[] entryCoords = new IIIF_EntryCoordinate[book.worldRefs.pageRenderers.Length];
+
+        //Debug.Log("Current: " + book.currentRectoEntry);
+        //Debug.Log("OpenRectoRendererIndex: " + book.openRectoRendererIndex);
+        int delta;
         for (int i = 0; i < book.worldRefs.pageRenderers.Length; i++)
         {
-            entryCoord = IIIF_EntryCoordinate.Translate(book.currentRectoEntry, i - book.openRectoRendererIndex);
-            if (book.entries.ContainsKey(entryCoord))
+            delta = i - book.openRectoRendererIndex;
+            entryCoords[i] = IIIF_EntryCoordinate.Translate(book.currentRectoEntry, delta);
+
+            //Debug.Log("i: " + i + "   delta: " + delta + "   Result coord: " + entryCoords[i]);
+
+            if (book.entries.ContainsKey(entryCoords[i]))
             {
-                book.entries[entryCoord].material_base.mainTextureScale = book.pageRenderers_textureScales[i];
-                book.entries[entryCoord].material_transcription.mainTextureScale = book.pageRenderers_textureScales[i];
-                book.worldRefs.pageRenderers[i].material = book.entries[entryCoord].material_base;
-                book.worldRefs.pageRenderers_transcriptions[i].material = book.entries[entryCoord].material_transcription;
+                book.entries[entryCoords[i]].material_base.mainTextureScale = book.pageRenderers_textureScales[i];
+                book.entries[entryCoords[i]].material_transcription.mainTextureScale = book.pageRenderers_textureScales[i];
+                book.worldRefs.pageRenderers[i].material = book.entries[entryCoords[i]].material_base;
+                book.worldRefs.pageRenderers_transcriptions[i].material = book.entries[entryCoords[i]].material_transcription;
             }
             else
             {
@@ -606,5 +614,11 @@ public static partial class Methods
                 book.worldRefs.pageRenderers_transcriptions[i].material = GameManager.gameDataInstance.bookEntryBaseTranscriptionMaterial;
             }
         }
+
+        // Update page numbers
+        book.ui_viewMode.pageNumber_previous.text = entryCoords[1].ToString();
+        book.ui_viewMode.pageNumber_current_verso.text = entryCoords[2].ToString();
+        book.ui_viewMode.pageNumber_current_recto.text = entryCoords[3].ToString();
+        book.ui_viewMode.pageNumber_next.text = entryCoords[4].ToString();
     }
 }

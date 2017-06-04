@@ -89,10 +89,27 @@ namespace StefDevs
 
         public static IIIF_EntryCoordinate Translate(IIIF_EntryCoordinate coord, int amount)
         {
-            coord.leafNumber += amount / 2;
-            if (amount % 2 == 0)
-                coord.isVerso = !coord.isVerso;
-            return coord;
+            if (amount == 0) return coord;
+
+            IIIF_EntryCoordinate result = coord;
+
+            if (amount > 0)
+            {
+                for (int i = 0; i < amount; i++)
+                {
+                    //Debug.Log("adding");
+                    result++;
+                }
+            }
+            else if (amount < 0)
+            {
+                for (int i = amount; i < 0; i++)
+                {
+                    //Debug.Log("subtracting");
+                    result--;
+                }
+            }
+            return result;
         }
 
         public static IIIF_EntryCoordinate operator ++(IIIF_EntryCoordinate coord)
