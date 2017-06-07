@@ -345,6 +345,7 @@ public static partial class Methods
             book.worldRefs.transcriptionMeshSkeleton_transforms[i].localPosition = book.worldRefs.baseMeshSkeleton_transforms[i].localPosition;
         }
 
+        #region // Page turning
         if (book.turnPageAnimationPlaying)
         {
             // Detect book animation finishing
@@ -394,8 +395,6 @@ public static partial class Methods
             // Detect drag ending
             if (book.pageDrag_progress >= 1)
             {
-                Debug.Log("book.pageDrag_progress >= 1");
-
                 book.pageDrag_isDragging = false;
 
                 // Set animation state to opened
@@ -417,7 +416,6 @@ public static partial class Methods
             }
             else if (!mouseButtonDown)
             {
-                Debug.Log("!mouseButtonDown");
                 book.pageDrag_isDragging = false;
 
                 if (book.pageDrag_progress >= dragCompletionThreshold)
@@ -448,6 +446,7 @@ public static partial class Methods
             }
 
         }
+        #endregion // Page turning
 
         #region // User simulation
 
@@ -530,40 +529,13 @@ public static partial class Methods
                 Cursor.lockState = CursorLockMode.Locked;
             gameData.inputModule.m_cursorPos = Vector2.right * Screen.width / 2 + Vector2.up * Screen.height / 2;
 
-            #region // Player locomotion
-            Vector3 acceleration = Vector3.zero;
 
-            // Acceleration
-            if (user.intent.moveIntent_locomotion.magnitude > .1f)
-            {
-                float currentTargetSpeed = user.intent.moveIntent_locomotion.magnitude * user.userParams.move_maxSpeed;
-                float accelAmount = user.userParams.move_accel;
-                Vector3 projectedVelocity = agent.rigidbody.velocity + (user.intent.moveIntent_locomotion.normalized * accelAmount * Time.deltaTime);
-                projectedVelocity = projectedVelocity.normalized * Mathf.Clamp(projectedVelocity.magnitude, 0, currentTargetSpeed);
-                acceleration += (projectedVelocity - agent.rigidbody.velocity) / Time.deltaTime;
-            }
-            else
-            {
-                acceleration += -agent.rigidbody.velocity * user.userParams.move_decel;
-            }
-
-            // Velocity
-            agent.rigidbody.velocity += acceleration * Time.deltaTime;
-
-            //// Velocity
-            //agent.velocity += acceleration * Time.deltaTime;
-
-            //// Position
-            //agent.currentPosition += agent.velocity * Time.deltaTime;
-            //agent.transform.position = agent.currentPosition;
-            #endregion // Player locomotion
 
             // Camera control
             agent.camera_control_locomotion.pitch_current += -Input.GetAxis("Mouse Y") * user.userParams.lookSensitivity;
             agent.camera_control_locomotion.pitch_current = Mathf.Clamp(agent.camera_control_locomotion.pitch_current, -70, 85);
             agent.camera_control_locomotion.yaw_current += Input.GetAxis("Mouse X") * user.userParams.lookSensitivity;
             agent.camera_control_locomotion.yaw_current %= 360;
-            agent.cameras_parent.localEulerAngles = (Vector3.right * agent.camera_control_locomotion.pitch_current) + (Vector3.up * agent.camera_control_locomotion.yaw_current);
 
             // Move towards max fov
             fov = Mathf.Lerp(agent.camera_main.fieldOfView, userParams.bookView_zoom_fov_max, userParams.bookView_zoom_lerpSpeed * Time.deltaTime);
@@ -588,6 +560,40 @@ public static partial class Methods
         agent.camera_ui.fieldOfView = fov;
         agent.camera_transcription.fieldOfView = fov;
         #endregion // User simulation
+
+    }
+
+    public static void Main_FixedUpdate(GameData gameData)
+    {
+        User user = gameData.user;
+        Agent agent = user.agent;
+
+        if (!user.agent.isViewingBook)
+        {
+            #region // Player locomotion
+            Vector3 acceleration = Vector3.zero;
+
+            // Acceleration
+            if (user.intent.moveIntent_locomotion.magnitude > .1f)
+            {
+                float currentTargetSpeed = user.intent.moveIntent_locomotion.magnitude * user.userParams.move_maxSpeed;
+                float accelAmount = user.userParams.move_accel;
+                Vector3 projectedVelocity = agent.rigidbody.velocity + (user.intent.moveIntent_locomotion.normalized * accelAmount * Time.fixedDeltaTime);
+                projectedVelocity = projectedVelocity.normalized * Mathf.Clamp(projectedVelocity.magnitude, 0, currentTargetSpeed);
+                acceleration += (projectedVelocity - agent.rigidbody.velocity) / Time.fixedDeltaTime;
+            }
+            else
+            {
+                acceleration += -agent.rigidbody.velocity * user.userParams.move_decel;
+            }
+
+            // Velocity
+            agent.rigidbody.velocity += acceleration * Time.fixedDeltaTime;
+            #endregion // Player locomotion
+
+            // Camera direction application
+            agent.cameras_parent.localEulerAngles = (Vector3.right * agent.camera_control_locomotion.pitch_current) + (Vector3.up * agent.camera_control_locomotion.yaw_current);
+        }
 
     }
 

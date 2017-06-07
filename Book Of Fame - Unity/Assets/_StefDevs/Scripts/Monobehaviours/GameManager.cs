@@ -23,4 +23,9 @@ public class GameManager : MonoBehaviour
     {
         Methods.Main_Update(gameData);
     }
+
+    private void FixedUpdate()
+    {
+        Methods.Main_FixedUpdate(gameData);
+    }
 }
