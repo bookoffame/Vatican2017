@@ -248,8 +248,15 @@ namespace StefDevs
         internal int nInitialDownloadJobs;
 
         internal bool turnPageAnimationPlaying;
+        //internal bool turnPageAnimationPlaying_isReversed;
 
         public Vector2[] pageRenderers_textureScales;
+
+        internal bool pageDrag_isDragging;
+        internal bool pageDrag_isLeftPage;
+        internal float pageDrag_mousePos_target_x;
+        internal float pageDrag_mousePos_start_x;
+        internal float pageDrag_progress;
     }
 
     [Serializable]
@@ -261,6 +268,8 @@ namespace StefDevs
         public TMP_Text pageNumber_current_recto;
         public TMP_Text pageNumber_current_verso;
         public Button[] buttonsToToggle;
+        public Button pabeTurnButton_next;
+        public Button pabeTurnButton_previous;
     }
 
     [Serializable]

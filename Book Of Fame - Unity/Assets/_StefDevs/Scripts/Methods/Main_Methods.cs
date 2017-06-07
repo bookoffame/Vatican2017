@@ -232,6 +232,10 @@ public static partial class Methods
         // Change out page images when page turn animation is complete
         Methods.Book_Update_Page_Materials(book);
 
+        // Turn off left and right buttons if we have hit boundary of available pages
+        book.ui_viewMode.pabeTurnButton_next.interactable = Methods.Book_Can_Turn_Page_Next(book);
+        book.ui_viewMode.pabeTurnButton_previous.interactable = Methods.Book_Can_Turn_Page_Previous(book);
+
         #endregion // Init book
 
         #region // Init user
@@ -341,27 +345,108 @@ public static partial class Methods
             book.worldRefs.transcriptionMeshSkeleton_transforms[i].localPosition = book.worldRefs.baseMeshSkeleton_transforms[i].localPosition;
         }
 
-        // Detect book animation finishing
-        //if (book.turnPageAnimationPlaying && book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
-        if (book.turnPageAnimationPlaying && book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).IsName("TurnPageRight") || book.turnPageAnimationPlaying && book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).IsName("TurnPageLeft"))
+        if (book.turnPageAnimationPlaying)
         {
-            if (book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+            // Detect book animation finishing
+            if (book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).IsName("TurnPageRight") 
+                || book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).IsName("TurnPageLeft_Reversed")
+                || book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).IsName("TurnPageRight_Reversed")
+                || book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).IsName("TurnPageLeft"))
             {
+                bool animationFinished;
+                //if (book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).speed > 0)
+                    animationFinished = book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1;
+                //else
+                //    animationFinished = book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0;
 
-                book.turnPageAnimationPlaying = false;
-
-                // Turn all the buttons back on
-                for (int i = 0; i < book.ui_viewMode.buttonsToToggle.Length; i++)
+                if (animationFinished)
                 {
-                    book.ui_viewMode.buttonsToToggle[i].interactable = true;
-                }
+                    book.turnPageAnimationPlaying = false;
 
-                // Change out page images when page turn animation is complete
+                    // Turn all the buttons back on
+                    for (int i = 0; i < book.ui_viewMode.buttonsToToggle.Length; i++)
+                    {
+                        book.ui_viewMode.buttonsToToggle[i].interactable = true;
+                    }
+
+                    // Turn off left and right buttons if we have hit boundary of available pages
+                    book.ui_viewMode.pabeTurnButton_next.interactable = Methods.Book_Can_Turn_Page_Next(book);
+                    book.ui_viewMode.pabeTurnButton_previous.interactable = Methods.Book_Can_Turn_Page_Previous(book);
+
+                    // Change out page images when page turn animation is complete
+                    Methods.Book_Update_Page_Materials(book);
+
+                    // Set book back to opened animation state
+                    book.worldRefs.animator.Play("Opened", 0);
+                }
+            }
+        }
+        else if (book.pageDrag_isDragging)
+        {
+            // Continue drag
+            book.pageDrag_progress = Mathf.InverseLerp(book.pageDrag_mousePos_start_x, book.pageDrag_mousePos_target_x, Input.mousePosition.x / Screen.width);
+            string pageTurnAnimationName = book.pageDrag_isLeftPage ?  "TurnPageRight" : "TurnPageLeft";
+            book.worldRefs.animator.Play(pageTurnAnimationName, 0, book.pageDrag_progress);
+
+            bool mouseButtonDown = Input.GetMouseButton(0);
+
+            float dragCompletionThreshold = .5f;
+            // Detect drag ending
+            if (book.pageDrag_progress >= 1)
+            {
+                Debug.Log("book.pageDrag_progress >= 1");
+
+                book.pageDrag_isDragging = false;
+
+                // Set animation state to opened
+                book.worldRefs.animator.Play("Opened", 0);
+
+                // Increment / decrement page number
+                if (book.pageDrag_isLeftPage)
+                   book.currentRectoEntry =  IIIF_EntryCoordinate.Translate(gameData.book.currentRectoEntry, -2);
+                else
+                    book.currentRectoEntry = IIIF_EntryCoordinate.Translate(gameData.book.currentRectoEntry, 2);
+
+                // Update materials
                 Methods.Book_Update_Page_Materials(book);
 
-                // Set book back to opened animation state
-                book.worldRefs.animator.Play("Opened", 0);
+                // Turn off left and right buttons if we have hit boundary of available pages
+                book.ui_viewMode.pabeTurnButton_next.interactable = Methods.Book_Can_Turn_Page_Next(book);
+                book.ui_viewMode.pabeTurnButton_previous.interactable = Methods.Book_Can_Turn_Page_Previous(book);
+
             }
+            else if (!mouseButtonDown)
+            {
+                Debug.Log("!mouseButtonDown");
+                book.pageDrag_isDragging = false;
+
+                if (book.pageDrag_progress >= dragCompletionThreshold)
+                {
+                    // Play animation from wherever it is back to correct position
+                    book.worldRefs.animator.Play(pageTurnAnimationName, 0, book.pageDrag_progress);
+                    book.turnPageAnimationPlaying = true;
+                    // Disable all buttons until page animation is complete
+                    for (int i = 0; i < book.ui_viewMode.buttonsToToggle.Length; i++)
+                        book.ui_viewMode.buttonsToToggle[i].interactable = false;
+
+                    // Increment / decrement page number
+                    if (book.pageDrag_isLeftPage)
+                        book.currentRectoEntry = IIIF_EntryCoordinate.Translate(gameData.book.currentRectoEntry, -2);
+                    else
+                        book.currentRectoEntry = IIIF_EntryCoordinate.Translate(gameData.book.currentRectoEntry, 2);
+
+                }
+                else
+                {
+                    // Play animation IN REVERSE back to its original position
+                    book.worldRefs.animator.Play(pageTurnAnimationName + "_Reversed", 0, 1 - book.pageDrag_progress);
+                    book.turnPageAnimationPlaying = true;
+                    // Disable all buttons until page animation is complete
+                    for (int i = 0; i < book.ui_viewMode.buttonsToToggle.Length; i++)
+                        book.ui_viewMode.buttonsToToggle[i].interactable = false;
+                }
+            }
+
         }
 
         #region // User simulation
@@ -537,52 +622,69 @@ public static partial class Methods
         gameData.book.turnPageAnimationPlaying = false;
     }
 
-    public static void Book_ChangePage_Previous()
+    public static void Book_TurnPage(bool targetIsNext)
     {
         GameData gameData = GameManager.gameDataInstance;
-        IIIF_EntryCoordinate newRectoCoord = IIIF_EntryCoordinate.Translate(gameData.book.currentRectoEntry, -2);
+        Book book = gameData.book;        
+        IIIF_EntryCoordinate newRectoCoord = IIIF_EntryCoordinate.Translate(gameData.book.currentRectoEntry, targetIsNext  ? 2 : -2);
         if (!gameData.book.currentlyAccessibleEntries.Contains(newRectoCoord))
         {
-            newRectoCoord = gameData.book.minRectoEntry;
+            newRectoCoord = targetIsNext  ? gameData.book.maxRectoEntry : gameData.book.minRectoEntry;
         }
         if (newRectoCoord == gameData.book.currentRectoEntry) return;
 
-
         // Trigger page turn animation
-        gameData.book.worldRefs.animator.Play("TurnPageRight", 0);
+        gameData.book.worldRefs.animator.Play(targetIsNext ? "TurnPageLeft" : "TurnPageRight", 0);
         gameData.book.turnPageAnimationPlaying = true;
-        Book_ChangePageToRectoPage(newRectoCoord);
+
+        // Disable all buttons until page animation is complete
+        for (int i = 0; i < book.ui_viewMode.buttonsToToggle.Length; i++)
+            book.ui_viewMode.buttonsToToggle[i].interactable = false;
+
+        // Change current recto entry
+        book.currentRectoEntry = newRectoCoord;
     }
 
-    public static void Book_ChangePage_Next()
+    public static bool Book_Can_Turn_Page_Previous(Book book)
     {
-        GameData gameData = GameManager.gameDataInstance;
-        IIIF_EntryCoordinate newRectoCoord = IIIF_EntryCoordinate.Translate(gameData.book.currentRectoEntry, 2);
-        if (!gameData.book.currentlyAccessibleEntries.Contains(newRectoCoord))
-        {
-            newRectoCoord = gameData.book.maxRectoEntry;
-        }
-        if (newRectoCoord == gameData.book.currentRectoEntry) return;
+        IIIF_EntryCoordinate newRectoCoord = IIIF_EntryCoordinate.Translate(book.currentRectoEntry, -2);
+        return book.currentlyAccessibleEntries.Contains(newRectoCoord);
+    }
 
-        // Trigger page turn animation
-        gameData.book.worldRefs.animator.Play("TurnPageLeft", 0);
-        gameData.book.turnPageAnimationPlaying = true;
-        Book_ChangePageToRectoPage(newRectoCoord);
+    public static bool Book_Can_Turn_Page_Next(Book book)
+    {
+        IIIF_EntryCoordinate newRectoCoord = IIIF_EntryCoordinate.Translate(book.currentRectoEntry, 2);
+        return book.currentlyAccessibleEntries.Contains(newRectoCoord);
     }
 
     public static void Book_ChangePageToRectoPage(IIIF_EntryCoordinate newRectoPageCoord)
     {
         GameData gameData = GameManager.gameDataInstance;
-        Book book = gameData.book;
 
-        // Disable all buttons until page animation is complete
-        for (int i = 0; i < book.ui_viewMode.buttonsToToggle.Length; i++)
-        {
-            book.ui_viewMode.buttonsToToggle[i].interactable = false;
-        }
 
-        // Change current recto entry
-        book.currentRectoEntry = newRectoPageCoord;
+    }
+
+    public static void Start_Drag(GameData gameData, float mousePosition_viewport_x, float panelCenterPosition_viewport_x)
+    {
+        if (gameData.book.turnPageAnimationPlaying) return;
+
+        bool isLeftPage = mousePosition_viewport_x < panelCenterPosition_viewport_x;
+        if (isLeftPage && !Methods.Book_Can_Turn_Page_Previous(gameData.book)) return;
+        if (!isLeftPage && !Methods.Book_Can_Turn_Page_Next(gameData.book)) return;
+
+        float panelCenterToMousePos = mousePosition_viewport_x - panelCenterPosition_viewport_x;
+        float distanceToComplete = Mathf.Abs(panelCenterToMousePos);
+        float minDistance = .25f;
+        if (distanceToComplete < minDistance)
+            distanceToComplete = minDistance;
+        float targetX = panelCenterPosition_viewport_x + (isLeftPage ? distanceToComplete : -distanceToComplete);
+
+        gameData.book.pageDrag_isDragging = true;
+        gameData.book.pageDrag_isLeftPage = isLeftPage;
+        gameData.book.pageDrag_mousePos_start_x = mousePosition_viewport_x;
+        gameData.book.pageDrag_mousePos_target_x = targetX;
+
+        Debug.Log("Starting drag " + (isLeftPage ? "left" : "right"));
     }
 
     public static void Book_Update_Page_Materials(Book book)
@@ -590,7 +692,7 @@ public static partial class Methods
 
         // Determine whart images to place at each renderer
         IIIF_EntryCoordinate[] entryCoords = new IIIF_EntryCoordinate[book.worldRefs.pageRenderers.Length];
-
+        
         //Debug.Log("Current: " + book.currentRectoEntry);
         //Debug.Log("OpenRectoRendererIndex: " + book.openRectoRendererIndex);
         int delta;

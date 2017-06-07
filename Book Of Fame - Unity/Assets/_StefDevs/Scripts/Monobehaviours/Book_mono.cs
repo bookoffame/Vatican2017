@@ -16,12 +16,11 @@ public class Book_mono : MonoBehaviour
     }
     public void UIEvent_NextPage()
     {
-        Methods.Book_ChangePage_Next();
+        Methods.Book_TurnPage(true);
     }
-
     public void UIEvent_PreviousPage()
     {
-        Methods.Book_ChangePage_Previous();
+        Methods.Book_TurnPage(false);
     }
 
 }
