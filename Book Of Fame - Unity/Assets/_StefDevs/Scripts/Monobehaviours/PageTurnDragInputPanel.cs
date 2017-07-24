@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PageTurnDragInputPanel : MonoBehaviour {
+public class PageTurnDragInputPanel : MonoBehaviour
+{
     public void OnClick()
     {
         float mousePosition_viewport_x = Input.mousePosition.x / Screen.width;

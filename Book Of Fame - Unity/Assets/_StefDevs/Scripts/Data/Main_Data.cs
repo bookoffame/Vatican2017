@@ -22,6 +22,10 @@ namespace StefDevs
         public Book_mono book_mono;
         internal Book book;
 
+        public LookingGlass_mono lookingGlass_mono;
+        internal LookingGlass lookingGlass;
+        
+
         public AssetReferences assetReferences;
         public Agent_mono agentObject;
         internal User user;
@@ -58,11 +62,205 @@ namespace StefDevs
         };
 
         public VRInputModule inputModule;
+    }
 
-        internal User_Intent emptyIntent;
+    [Serializable]
+    public class AssetReferences
+    {
+        public User_Params_so userParams;
+        public TranscriptionRenderer_mono transcription_rendererFab;
+        public TranscriptionRenderer_Annotation_mono transcription_annotationFab;
+    }
+
+    [Serializable]
+    public class User_Params
+    {
+        public float move_maxSpeed = 1;
+        public float move_accel = 100;
+        public float move_decel = 40;
+        public float lookSensitivity = 2;
+        public float bookView_zoom_fov_min = 40;
+        public float bookView_zoom_fov_max = 60;
+        public float bookView_zoom_lerpSpeed = 5;
+        public float bookView_zoom_sensitivity = .1f;
+        public Vector2 bookView_offset_limit = new Vector2(.3f,.3f);
+        public float bookView_offset_sensitivity = 3;
+        public float bookView_offset_lerpSpeed = 3;
+
+        public float camera_toSocketLerpSpeed = 10;
 
     }
 
+    [Serializable]
+    public class User
+    {
+        internal Agent agent;
+        internal User_Intent intent = new User_Intent();
+        internal User_Params userParams;
+    }
+
+    [Serializable]
+    public struct User_Intent
+    {
+        internal static User_Intent emptyIntent;
+
+        internal Vector3 moveInput;
+        internal Vector3 moveIntent_locomotion;
+
+        internal Vector2 moveIntent_bookView;
+        internal float zoomIntent;
+        internal bool turnPage_right;
+        internal bool turnPage_left;
+
+        internal bool lookingGlass_toggle;
+    }
+
+    [Serializable]
+    public class Agent
+    {
+        public Camera camera_main;
+        public Camera camera_ui;
+        public Camera camera_transcription;
+        public Transform cameras_root;
+        public Transform cameras_parent;
+        public Transform cameraSocket;
+        public Transform transform;
+        public SpriteRenderer crosshair;
+        public Rigidbody rigidbody;
+        internal bool isViewingBook;
+        internal Agent_Camera_ControlData_LocomotionMode camera_control_locomotion = new Agent_Camera_ControlData_LocomotionMode();
+        internal Agent_Camera_ControlData_ViewingMode camera_control_bookViewing = new Agent_Camera_ControlData_ViewingMode();
+    }
+
+    public class Agent_Camera_ControlData_LocomotionMode
+    {
+        internal float pitch_current;
+        internal float yaw_current;
+    }
+
+    public class Agent_Camera_ControlData_ViewingMode
+    {
+        internal float zoom_current;
+        internal float zoom_target;
+        internal Transform viewPointAnchor;
+        internal Vector3 positionOffset_target;
+        //internal Vector3 positionOffset_current;
+    }
+
+    [Serializable]
+    public class LookingGlass
+    {
+        public Transform transform;
+        public GameObject gameObject;
+        public float distanceAboveBook = .2f;
+        public float lerpFactor = 3;
+        
+        internal Vector3 position_selectionOffset;
+        internal Vector3 position_target_worldSpace;
+
+        internal bool isActive;
+        internal bool isBeingDragged;
+        internal Plane positioningPlane ;
+    }
+
+    #region // Book
+    [Serializable]
+    public class Book
+    {
+        public Book_WorldRefs worldRefs;
+        public int openRectoRendererIndex = 3;
+        internal string manifestURL = "http://www.e-codices.unifr.ch/metadata/iiif/fmb-cb-0048/manifest.json";
+
+        internal IIIF_Manifest manifest = new IIIF_Manifest();
+
+        internal IIIF_EntryCoordinate minRectoEntry;
+        internal IIIF_EntryCoordinate maxRectoEntry;
+        internal IIIF_EntryCoordinate currentRectoEntry;
+        internal List<IIIF_EntryCoordinate> currentlyAccessibleEntries = new List<IIIF_EntryCoordinate>();
+        internal Dictionary<IIIF_EntryCoordinate, Book_Entry> entries = new Dictionary<IIIF_EntryCoordinate, Book_Entry>();
+        internal Dictionary<IIIF_EntryCoordinate, IIIF_ImageRequestParams> page_imageRequestParams = new Dictionary<IIIF_EntryCoordinate, IIIF_ImageRequestParams>();
+
+        internal List<Book_Entry> entriesDebugList;
+
+        public Book_UI_BookAccess ui_bookAccess;
+        public Book_UI_ViewModeUI ui_viewMode;
+
+        internal int nInitialDownloadJobs;
+
+        internal bool turnPageAnimationPlaying;
+        //internal bool turnPageAnimationPlaying_isReversed;
+
+        public Vector2[] pageRenderers_textureScales;
+
+        internal bool pageDrag_isDragging;
+        internal bool pageDrag_isLeftPage;
+        internal float pageDrag_mousePos_target_x;
+        internal float pageDrag_mousePos_start_x;
+        internal float pageDrag_progress;
+
+        
+    }
+
+    [Serializable]
+    public class Book_UI_ViewModeUI
+    {
+        public GameObject gameObject;
+        public TMP_Text pageNumber_next;
+        public TMP_Text pageNumber_previous;
+        public TMP_Text pageNumber_current_recto;
+        public TMP_Text pageNumber_current_verso;
+        public Button[] buttonsToToggle;
+        public Button pabeTurnButton_next;
+        public Button pabeTurnButton_previous;
+    }
+
+    [Serializable]
+    public class Book_UI_BookAccess
+    {
+        public GameObject gameObject;
+        public Button button;
+        public Animator animator;
+        public Image image_loadingBar;
+        public Color image_loadingBar_hue_empty;
+        public Color image_loadingBar_hue_full;
+        public Image image_lock;
+    }
+
+    [Serializable]
+    public class Book_WorldRefs
+    {
+        internal Transform transform;
+        public Animator animator;
+        public Renderer[] pageRenderers;
+        public Transform baseMeshSkeleton_root;
+        public Transform transcriptionMeshSkeleton_root;
+        internal Transform[] baseMeshSkeleton_transforms;
+        internal Transform[] transcriptionMeshSkeleton_transforms;
+        public Renderer[] pageRenderers_transcriptions;
+        public Book_PopupTheatre_mono popupTheatre;
+        public Transform cameraSocket;
+    }
+
+    [Serializable]
+    public class Book_Entry
+    {
+        internal IIIF_EntryCoordinate coordinate;
+        internal Texture2D pageImage_base;
+        internal Texture2D pageImage_transcription;
+        internal Material material_base;
+        internal Material material_transcription;
+        internal IIIF_Transcription_Element[] transcriptionElements;
+        // manifest
+    }
+
+    [Serializable]
+    public class Book_PopupTheatre
+    {
+        public GameObject gameObject;
+        public Animator animator;
+        public Transform popupCameraPos;
+        public ParticleSystem smoke;
+    }
 
     [Serializable]
     public class TranscriptionRenderer
@@ -78,7 +276,9 @@ namespace StefDevs
         public RectTransform transform;
         public TMPro.TMP_Text textMesh;
     }
+    #endregion // Book
 
+    #region // IIIF
     [Serializable]
     public struct IIIF_EntryCoordinate
     {
@@ -144,182 +344,6 @@ namespace StefDevs
             return leafNumber + (isVerso ? "v" : "r");
         }
     }
-
-    [Serializable]
-    public class Agent
-    {
-        public Camera camera_main;
-        public Camera camera_ui;
-        public Camera camera_transcription;
-        public Transform cameras_root;
-        public Transform cameras_parent;
-        public Transform cameraSocket;
-        public Transform transform;
-        public SpriteRenderer crosshair;
-        public Rigidbody rigidbody;
-        internal bool isViewingBook;
-        internal Agent_Camera_ControlData_LocomotionMode camera_control_locomotion = new Agent_Camera_ControlData_LocomotionMode();
-        internal Agent_Camera_ControlData_ViewingMode camera_control_bookViewing = new Agent_Camera_ControlData_ViewingMode();
-    }
-
-    public class Agent_Camera_ControlData_LocomotionMode
-    {
-        internal float pitch_current;
-        internal float yaw_current;
-    }
-    public class Agent_Camera_ControlData_ViewingMode
-    {
-        internal float zoom_current;
-        internal float zoom_target;
-        internal Transform viewPointAnchor;
-        internal Vector3 positionOffset_target;
-        //internal Vector3 positionOffset_current;
-    }
-
-    [Serializable]
-    public class User
-    {
-        internal Agent agent;
-        internal User_Intent intent = new User_Intent();
-        internal User_Params userParams;
-    }
-
-    [Serializable]
-    public struct User_Intent
-    {
-        internal Vector3 moveInput;
-        internal Vector3 moveIntent_locomotion;
-
-        internal Vector2 moveIntent_bookView;
-        internal float zoomIntent;
-        internal bool turnPage_right;
-        internal bool turnPage_left;
-    }
-
-
-    [Serializable]
-    public class User_Params
-    {
-        public float move_maxSpeed = 1;
-        public float move_accel = 100;
-        public float move_decel = 40;
-        public float lookSensitivity = 2;
-        public float bookView_zoom_fov_min = 40;
-        public float bookView_zoom_fov_max = 60;
-        public float bookView_zoom_lerpSpeed = 5;
-        public float bookView_zoom_sensitivity = .1f;
-        public Vector2 bookView_offset_limit = new Vector2(.3f,.3f);
-        public float bookView_offset_sensitivity = 3;
-        public float bookView_offset_lerpSpeed = 3;
-
-        public float camera_toSocketLerpSpeed = 10;
-
-    }
-
-    [Serializable]
-    public class AssetReferences
-    {
-        public User_Params_so userParams;
-        public TranscriptionRenderer_mono transcription_rendererFab;
-        public TranscriptionRenderer_Annotation_mono transcription_annotationFab;
-    }
-
-    [Serializable]
-    public class Book
-    {
-        public Book_WorldRefs worldRefs;
-        public int openRectoRendererIndex = 3;
-        internal string manifestURL = "http://www.e-codices.unifr.ch/metadata/iiif/fmb-cb-0048/manifest.json";
-
-        internal IIIF_Manifest manifest = new IIIF_Manifest();
-
-        internal IIIF_EntryCoordinate minRectoEntry;
-        internal IIIF_EntryCoordinate maxRectoEntry;
-        internal IIIF_EntryCoordinate currentRectoEntry;
-        internal List<IIIF_EntryCoordinate> currentlyAccessibleEntries = new List<IIIF_EntryCoordinate>();
-        internal Dictionary<IIIF_EntryCoordinate, Book_Entry> entries = new Dictionary<IIIF_EntryCoordinate, Book_Entry>();
-        internal Dictionary<IIIF_EntryCoordinate, IIIF_ImageRequestParams> page_imageRequestParams = new Dictionary<IIIF_EntryCoordinate, IIIF_ImageRequestParams>();
-
-        internal List<Book_Entry> entriesDebugList;
-
-        public Book_UI_BookAccess ui_bookAccess;
-        public Book_UI_ViewModeUI ui_viewMode;
-
-        internal int nInitialDownloadJobs;
-
-        internal bool turnPageAnimationPlaying;
-        //internal bool turnPageAnimationPlaying_isReversed;
-
-        public Vector2[] pageRenderers_textureScales;
-
-        internal bool pageDrag_isDragging;
-        internal bool pageDrag_isLeftPage;
-        internal float pageDrag_mousePos_target_x;
-        internal float pageDrag_mousePos_start_x;
-        internal float pageDrag_progress;
-    }
-
-    [Serializable]
-    public class Book_UI_ViewModeUI
-    {
-        public GameObject gameObject;
-        public TMP_Text pageNumber_next;
-        public TMP_Text pageNumber_previous;
-        public TMP_Text pageNumber_current_recto;
-        public TMP_Text pageNumber_current_verso;
-        public Button[] buttonsToToggle;
-        public Button pabeTurnButton_next;
-        public Button pabeTurnButton_previous;
-    }
-
-    [Serializable]
-    public class Book_UI_BookAccess
-    {
-        public GameObject gameObject;
-        public Button button;
-        public Animator animator;
-        public Image image_loadingBar;
-        public Color image_loadingBar_hue_empty;
-        public Color image_loadingBar_hue_full;
-        public Image image_lock;
-    }
-
-    [Serializable]
-    public class Book_WorldRefs
-    {
-        public Animator animator;
-        public Renderer[] pageRenderers;
-        public Transform baseMeshSkeleton_root;
-        public Transform transcriptionMeshSkeleton_root;
-        internal Transform[] baseMeshSkeleton_transforms;
-        internal Transform[] transcriptionMeshSkeleton_transforms;
-        public Renderer[] pageRenderers_transcriptions;
-        public Book_PopupTheatre_mono popupTheatre;
-        public Transform cameraSocket;
-    }
-
-    [Serializable]
-    public class Book_Entry
-    {
-        internal IIIF_EntryCoordinate coordinate;
-        internal Texture2D pageImage_base;
-        internal Texture2D pageImage_transcription;
-        internal Material material_base;
-        internal Material material_transcription;
-        internal IIIF_Transcription_Element[] transcriptionElements;
-        // manifest
-    }
-
-
-    [Serializable]
-    public class Book_PopupTheatre
-    {
-        public GameObject gameObject;
-        public Animator animator;
-        public Transform popupCameraPos;
-        public ParticleSystem smoke;
-    }
-
 
     [Serializable]
     public class IIIF_Transcription_Element
@@ -388,6 +412,7 @@ namespace StefDevs
         public IIIF_AnnotationManifestFromJSON_AnnotationElement_Resource resource;
         public string on;
     }
+
     [Serializable]
     public class IIIF_AnnotationManifestFromJSON_AnnotationElement_Resource
     {
@@ -396,4 +421,5 @@ namespace StefDevs
         public string chars;
         //public string language;
     }
+    #endregion // IIIF
 }

@@ -16,10 +16,17 @@ public static partial class Methods
         //    Debug.Log("Translated by " + i + ": " + IIIF_EntryCoordinate.Translate(new IIIF_EntryCoordinate() { leafNumber = 0, isVerso = false }, i));
         //}
 
+        #region // Init looking glass
+        gameData.lookingGlass = gameData.lookingGlass_mono.data;
+        gameData.lookingGlass.isActive = false;
+        gameData.lookingGlass.gameObject.SetActive(false);
+        #endregion // Init looking glass
+
         #region // Init book
         gameData.book = gameData.book_mono.data;
 
-        Book book = gameData.book;            
+        Book book = gameData.book;
+        book.worldRefs.transform = gameData.book_mono.transform;
         // Get the manifest describing our request
         WebClient client = new WebClient();
         // Download manifest into single string
@@ -454,9 +461,9 @@ public static partial class Methods
         Agent agent = user.agent;
 
         #region // User Intent
-        user.intent = gameData.emptyIntent;
+        user.intent = User_Intent.emptyIntent;
 
-        User_Intent newIntent = gameData.emptyIntent;
+        User_Intent newIntent = User_Intent.emptyIntent;
         User_Params userParams = user.userParams;
 
         #region /// Lateral movement intent
@@ -480,6 +487,8 @@ public static partial class Methods
             newIntent.zoomIntent = Input.mouseScrollDelta.y;
             // Move Intent
             newIntent.moveIntent_bookView = (Vector3.right * Input.GetAxis("Horizontal")) + (Vector3.up * Input.GetAxis("Vertical"));
+            // Toggle looking glass
+            newIntent.lookingGlass_toggle = Input.GetKeyDown(KeyCode.Space);
         }
         #endregion // Bookview intent
 
@@ -495,6 +504,71 @@ public static partial class Methods
                 Cursor.lockState = CursorLockMode.None;
             gameData.inputModule.m_cursorPos = Input.mousePosition;
 
+            LookingGlass lookingGlass = gameData.lookingGlass;
+            if(user.intent.lookingGlass_toggle)
+            {
+                if (lookingGlass.isActive)
+                {
+                    // Disable looking glass
+                    lookingGlass.isActive = false;
+                    lookingGlass.gameObject.SetActive(false);
+                }
+                else
+                {
+                    // Enable looking glass
+                    lookingGlass.isActive = true;
+                    lookingGlass.positioningPlane = new Plane(-gameData.book.worldRefs.transform.forward, gameData.book.worldRefs.transform.position - gameData.book.worldRefs.transform.forward * lookingGlass.distanceAboveBook);
+                    // Reset current position
+                    Vector3 glassStartPosition = gameData.book.worldRefs.transform.position
+                        - gameData.book.worldRefs.transform.forward * lookingGlass.distanceAboveBook
+                        - gameData.book.worldRefs.transform.up * .5f;
+                    lookingGlass.transform.position = glassStartPosition;
+
+                    // Reset target position
+                    lookingGlass.position_target_worldSpace = lookingGlass.positioningPlane.ClosestPointOnPlane(gameData.book.worldRefs.cameraSocket.position);
+                }
+                    lookingGlass.gameObject.SetActive(lookingGlass.isActive);
+            }
+
+            if (lookingGlass.isActive)
+            {
+                Camera refCamera = user.agent.camera_main;
+                Ray mouseRay = refCamera.ScreenPointToRay(Input.mousePosition);
+
+                // Detect dragging start
+                if (!lookingGlass.isBeingDragged && Input.GetMouseButtonDown(0))
+                {
+                    RaycastHit hit;
+                    if (Physics.Raycast(mouseRay, out hit) && hit.transform.gameObject.GetComponentInParent<LookingGlass_mono>() != null)
+                    {
+                        lookingGlass.isBeingDragged = true;
+                        float planeHitDistance;
+                        if (lookingGlass.positioningPlane.Raycast(mouseRay, out planeHitDistance))
+                        {
+                            lookingGlass.position_selectionOffset = lookingGlass.transform.position - (mouseRay.origin + mouseRay.direction * planeHitDistance);
+                        }
+                    }
+                }
+
+                // Detect dragging stop
+                if (lookingGlass.isBeingDragged && !Input.GetMouseButton(0))
+                {
+                    lookingGlass.isBeingDragged = false;
+                }
+
+                // Determine new target position
+                if (lookingGlass.isBeingDragged)
+                {
+                    float planeHitDistance;
+                    if (lookingGlass.positioningPlane.Raycast(mouseRay, out planeHitDistance))
+                    {
+                        lookingGlass.position_target_worldSpace = (mouseRay.origin + mouseRay.direction * planeHitDistance) + lookingGlass.position_selectionOffset;
+                    }
+                }
+
+                // Move the glass to it's target position
+                lookingGlass.transform.position = Vector3.Lerp(lookingGlass.transform.position, lookingGlass.position_target_worldSpace, lookingGlass.lerpFactor * Time.deltaTime);
+            }
 
             // Adjust target position offset
             agent.camera_control_bookViewing.positionOffset_target += (Vector3)newIntent.moveIntent_bookView * userParams.bookView_offset_sensitivity * Time.deltaTime;
@@ -528,8 +602,6 @@ public static partial class Methods
             if (Cursor.lockState != CursorLockMode.Locked)
                 Cursor.lockState = CursorLockMode.Locked;
             gameData.inputModule.m_cursorPos = Vector2.right * Screen.width / 2 + Vector2.up * Screen.height / 2;
-
-
 
             // Camera control
             agent.camera_control_locomotion.pitch_current += -Input.GetAxis("Mouse Y") * user.userParams.lookSensitivity;
@@ -622,8 +694,12 @@ public static partial class Methods
         // Enable access UI
         gameData.book.ui_bookAccess.gameObject.SetActive(true);
 
+        // Disable looking glass
+        gameData.lookingGlass.isActive = false;
+        gameData.lookingGlass.gameObject.SetActive(false);
 
-        if(playAnim)
+
+        if (playAnim)
             gameData.book.worldRefs.animator.Play("CloseState", 0);
         gameData.book.turnPageAnimationPlaying = false;
     }
@@ -673,6 +749,7 @@ public static partial class Methods
     public static void Start_Drag(GameData gameData, float mousePosition_viewport_x, float panelCenterPosition_viewport_x)
     {
         if (gameData.book.turnPageAnimationPlaying) return;
+        if (gameData.lookingGlass.isActive) return;
 
         bool isLeftPage = mousePosition_viewport_x < panelCenterPosition_viewport_x;
         if (isLeftPage && !Methods.Book_Can_Turn_Page_Previous(gameData.book)) return;
