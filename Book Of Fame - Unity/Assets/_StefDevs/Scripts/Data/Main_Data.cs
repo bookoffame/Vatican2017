@@ -163,6 +163,39 @@ namespace StefDevs
         internal Plane positioningPlane ;
     }
 
+
+    #region // Annotations
+
+    // List of annotations
+    // Highlight content in question for each annotation
+    // List annotations vertically aligned with annotation subject matter
+
+    public class UI_Annotation_Message
+    {
+        public RectTransform mainTransform;
+        public TMP_Text user_name_text;
+        public float spaceBetweenIconAndMessage;
+        public RectTransform message_box;
+        public Image message_box_image;
+        public float message_box_minWidth;
+        public Color message_box_color_other = Color.cyan;
+        public TMP_Text message_text;
+        public float message_text_padding;
+    }
+
+    [Serializable]
+    public class UI_Spark_Discussion_MessagePanel
+    {
+        public UI_Spark_Message_mono messageElementPrefab;
+        public RectTransform transform;
+        public Dropdown roomSelectionDropdown;
+        internal List<UI_Annotation_Message> messageElements = new List<UI_Annotation_Message>();
+        internal bool refreshQueued;
+        internal string currentDisplayedRoomID;
+        public Sprite defaultAvatarSprite;
+    }
+    #endregion
+
     #region // Book
     [Serializable]
     public class Book

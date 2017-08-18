@@ -806,4 +806,128 @@ public static partial class Methods
         book.ui_viewMode.pageNumber_current_recto.text = entryCoords[3].ToString();
         book.ui_viewMode.pageNumber_next.text = entryCoords[4].ToString();
     }
+
+
+
+
+    public static void UI_Spark_Message_EvaluateLayout(UI_Annotation_Message el, float contextWidth, float padding_horizontal)
+    {
+        el.mainTransform.anchorMin = Vector2.zero;
+        el.mainTransform.anchorMax = Vector2.zero;
+        el.mainTransform.sizeDelta = Vector2_NoAlloc(contextWidth - padding_horizontal - padding_horizontal, 100);
+        el.mainTransform.anchoredPosition = Vector2.right * padding_horizontal;
+
+        // Place user name
+        el.user_name_text.rectTransform.anchorMin = Vector2.zero;
+        el.user_name_text.rectTransform.anchorMax = Vector2.zero;
+        el.user_name_text.rectTransform.sizeDelta = Vector2_NoAlloc(el.mainTransform.sizeDelta.x, el.user_name_text.preferredHeight);
+        el.user_name_text.rectTransform.anchoredPosition = Vector2.zero;
+
+        // Place User icon
+        el.user_icon_root.anchorMin = Vector2.zero;
+        el.user_icon_root.anchorMax = Vector2.zero;
+        el.user_icon_root.sizeDelta = Vector2.one * el.user_icon_size;
+        el.user_icon_root.anchoredPosition = Vector2_NoAlloc(0, el.user_name_text.rectTransform.sizeDelta.y + el.user_icon_padding_vertical);
+
+        // message box min
+        el.message_box.anchorMin = Vector2.zero;
+        el.message_box.anchorMax = Vector2.zero;
+        el.message_box.anchoredPosition = Vector2_NoAlloc(el.user_icon_root.sizeDelta.x + el.spaceBetweenIconAndMessage, el.user_icon_root.anchoredPosition.y);
+
+        // message box right side
+        float box_width_max = el.mainTransform.sizeDelta.x - el.message_box.anchoredPosition.x;
+        float box_width_min = el.message_box_minWidth;
+        float box_width = Mathf.Clamp(el.message_text.preferredWidth, box_width_min, box_width_max);
+
+        el.message_box.sizeDelta = Vector2_NoAlloc(box_width, 100);
+
+        el.message_text.rectTransform.anchorMin = Vector2.zero;
+        el.message_text.rectTransform.anchorMax = Vector2.one;
+
+        // Set text size
+        el.message_text.rectTransform.offsetMin = Vector2.one * el.message_text_padding;
+        el.message_text.rectTransform.offsetMax = -Vector2.one * el.message_text_padding;
+
+        // Set text size again now that we have the height from setting the width
+        el.message_box.sizeDelta = Vector2_NoAlloc(box_width, el.message_text.preferredHeight + el.message_text_padding + el.message_text_padding);
+        el.message_text.rectTransform.offsetMin = Vector2.one * el.message_text_padding;
+        el.message_text.rectTransform.offsetMax = -Vector2.one * el.message_text_padding;
+
+        el.mainTransform.sizeDelta = Vector2_NoAlloc(el.mainTransform.sizeDelta.x, el.message_box.anchoredPosition.y + el.message_box.sizeDelta.y);
+
+        //
+        if (!el.isFromAnotherUser)
+            el.message_box.anchoredPosition = Vector2_NoAlloc(contextWidth - padding_horizontal - el.message_box.sizeDelta.x, el.message_box.anchoredPosition.y);
+        el.user_icon_root.gameObject.SetActive(el.isFromAnotherUser);
+        el.message_box_image.color = el.isFromAnotherUser ? el.message_box_color_other : el.message_box_color_me;
+        el.user_name_text.alignment = el.isFromAnotherUser ? TMPro.TextAlignmentOptions.TopLeft : TMPro.TextAlignmentOptions.TopRight;
+    }
+
+    public static void UI_Spark_Discussion_MessagePanel_EvaluateForMessages(UI_Spark_Discussion_MessagePanel messagePanel, List<Message> messages, Dictionary<string, Person> people_byPersonID)
+    {
+        // do we have enough elements cached?
+        int delta = messages.Count - messagePanel.messageElements.Count;
+        if (delta > 0)
+        {
+            // Add [delta] number of new panels
+            for (int i = 0; i < Mathf.Abs(delta); i++)
+            {
+                messagePanel.messageElements.Add((GameObject.Instantiate(messagePanel.messageElementPrefab, messagePanel.transform, false) as UI_Spark_Message_mono).data);
+            }
+        }
+        else if (delta < 0)
+        {
+            // disable last [delta] number of elements
+            for (int i = messagePanel.messageElements.Count - 1; i > messagePanel.messageElements.Count - 1 - Mathf.Abs(delta); i--)
+            {
+                messagePanel.messageElements[i].mainTransform.gameObject.SetActive(false);
+            }
+        }
+
+        messages = Spark_OrderMessageListByDateCreated(messages);
+        UI_Annotation_Message element;
+        for (int i = 0; i < messages.Count; i++)
+        {
+            element = messagePanel.messageElements[i];
+            // enable element object
+            element.mainTransform.gameObject.SetActive(true);
+            // place element at bottom
+            element.mainTransform.SetAsLastSibling();
+
+            // Set user name
+            element.user_name_text.text = people_byPersonID[messages[i].Author.Id].DisplayName;
+            // Set isOtherUser
+            if (Person.AuthenticatedUser != null)
+                element.isFromAnotherUser = messages[i].Author.Id != Person.AuthenticatedUser.Id;
+            else
+                element.isFromAnotherUser = messages[i].Author.Id != Spark.personID_STEF;
+
+            // Set text content
+            element.message_text.text = messages[i].Text;
+
+
+            // Set Icon
+            Sprite sprite = messagePanel.defaultAvatarSprite;
+            Person person = people_byPersonID[messages[i].Author.Id];
+            if (person.Avatar != null && person.Avatar.Sprite != null)
+                element.user_icon_image.sprite = people_byPersonID[messages[i].Author.Id].Avatar.Sprite;
+
+            // Evaluate layout
+            Methods.UI_Spark_Message_EvaluateLayout(element, messagePanel.transform.rect.width, 0);
+            //UnityEngine.UI.VerticalLayoutGroup group;
+
+        }
+    }
+
+    public static List<Message> Spark_OrderMessageListByDateCreated(List<Message> messages)
+    {
+        List<Message> result = messages;
+        result.Sort((message1, message2) => message1.Created.CompareTo(message2.Created));
+        return result;
+    }
+
+    public static Vector2 Vector2_NoAlloc(float x, float y)
+    {
+        return Vector2.right * x + Vector2.up * y;
+    }
 }
