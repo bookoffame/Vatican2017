@@ -8,8 +8,6 @@ using System.Net;
 using System.Text.RegularExpressions;
 using TMPro;
 
-namespace StefDevs
-{
     [Serializable]
     public class GameData
     {
@@ -477,4 +475,3 @@ namespace StefDevs
         //public string language;
     }
     #endregion // IIIF
-}
