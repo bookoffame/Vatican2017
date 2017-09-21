@@ -70,6 +70,8 @@ namespace StefDevs
         public User_Params_so userParams;
         public TranscriptionRenderer_mono transcription_rendererFab;
         public TranscriptionRenderer_Annotation_mono transcription_annotationFab;
+        public Annotation_GUI_Content_mono annotationGuiContentFab;
+        public Annotation_GUI_Highlight_mono annotationGuiHighlightFab;
     }
 
     [Serializable]
@@ -170,6 +172,28 @@ namespace StefDevs
     // Highlight content in question for each annotation
     // List annotations vertically aligned with annotation subject matter
 
+    [Serializable]
+    public struct Annotation
+    {
+        public IIIF_EntryCoordinate entryCoord;
+        public Vector2 subjectHighlight_topLeft;
+        public Vector2 subjectHighlight_bottomRight;
+        public string content;
+    }
+
+    [Serializable]
+    public struct Annotation_GUI
+    {
+
+    }
+
+    [Serializable]
+    public struct Annotation_GUI_ContentList
+    {
+        public Annotation_GUI_Content_mono mono;
+    }
+
+    [Serializable]
     public class UI_Annotation_Message
     {
         public RectTransform mainTransform;
@@ -186,13 +210,13 @@ namespace StefDevs
     [Serializable]
     public class UI_Spark_Discussion_MessagePanel
     {
-        public UI_Spark_Message_mono messageElementPrefab;
-        public RectTransform transform;
-        public Dropdown roomSelectionDropdown;
-        internal List<UI_Annotation_Message> messageElements = new List<UI_Annotation_Message>();
-        internal bool refreshQueued;
-        internal string currentDisplayedRoomID;
-        public Sprite defaultAvatarSprite;
+        //public UI_Spark_Message_mono messageElementPrefab;
+        //public RectTransform transform;
+        //public Dropdown roomSelectionDropdown;
+        //internal List<UI_Annotation_Message> messageElements = new List<UI_Annotation_Message>();
+        //internal bool refreshQueued;
+        //internal string currentDisplayedRoomID;
+        //public Sprite defaultAvatarSprite;
     }
     #endregion
 
@@ -315,10 +339,8 @@ namespace StefDevs
     [Serializable]
     public struct IIIF_EntryCoordinate
     {
-        //public enum PageLeafSide { RECTO, VERSO};
         public bool isVerso;
         public int leafNumber;
-        //public PageLeafSide leafSide;
 
         public static IIIF_EntryCoordinate Translate(IIIF_EntryCoordinate coord, int amount)
         {

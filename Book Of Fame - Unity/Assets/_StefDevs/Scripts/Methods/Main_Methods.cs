@@ -684,6 +684,44 @@ public static partial class Methods
 
     }
 
+    public static void Annotations_Genreate_Gui_For_Entry(
+          IIIF_EntryCoordinate entryCoord
+        , Annotation_GUI annotationGuiGroup
+        , Dictionary<IIIF_EntryCoordinate
+        , Annotation[]> annotationsByCoord
+        , Annotation_GUI_Content_mono annotationGuiContentFab
+        , Annotation_GUI_Highlight_mono annotationGuiHighlightFab)
+    {
+        Annotation[] annotations = annotationsByCoord[entryCoord];
+
+        /// TODO :: 
+        /// -> Build gui from saved
+        /// -> Make annotations editable (highlight rect (origin, ract max corner), content in list)
+        /// -> Holy fucking hell this is allot of work, how can we reduce scope? 
+        ///     -> Maybe just viewing pre-made annotations
+        /// -> Shift camera depending on annotation gui state
+        /// -> 
+        /// -> 
+        /// -> Loooking glass art
+        /// -> Loooking glass shading (with lighting)
+        /// -> New book art
+
+
+        for (int i = 0; i < annotations.Length; i++)
+        {
+            // place highlight corner
+            // place highlight rect
+            // create list entry
+        }
+
+        // Sort the list
+        // Layout the list
+        // Compresss/fold un-highlighted entries
+        // Evaluate verticle layout group layout manually upon changing element height
+        // Set content list transform height to fit entries + spacing
+
+    }
+
     public static void User_Enter_Mode_Locomotion(User user, bool playAnim = true)
     {
         GameData gameData = GameManager.gameDataInstance;
@@ -807,9 +845,7 @@ public static partial class Methods
         book.ui_viewMode.pageNumber_next.text = entryCoords[4].ToString();
     }
 
-
-
-
+    /*
     public static void UI_Spark_Message_EvaluateLayout(UI_Annotation_Message el, float contextWidth, float padding_horizontal)
     {
         el.mainTransform.anchorMin = Vector2.zero;
@@ -925,6 +961,7 @@ public static partial class Methods
         result.Sort((message1, message2) => message1.Created.CompareTo(message2.Created));
         return result;
     }
+    */
 
     public static Vector2 Vector2_NoAlloc(float x, float y)
     {
