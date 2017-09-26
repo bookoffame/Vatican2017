@@ -701,14 +701,15 @@ public static partial class Methods
         /// -> Shift camera depending on annotation gui state
         /// -> 
         /// -> 
-        /// -> Loooking glass art
-        /// -> Loooking glass shading (with lighting)
+        /// -> Looking glass art
+        /// -> Looking glass shading (with lighting)
         /// -> New book art
 
 
         for (int i = 0; i < annotations.Length; i++)
         {
             // place highlight corner
+
             // place highlight rect
             // create list entry
         }

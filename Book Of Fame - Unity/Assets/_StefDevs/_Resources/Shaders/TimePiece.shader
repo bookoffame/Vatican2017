@@ -3,7 +3,7 @@
 	Properties
 	{
 		_BumpMap("Normal", 2D) = "normal" {}
-	_Refraction("Refraction Magnitude", Range(-0.02, 0.02)) = 0.015
+	_Refraction("Refraction Magnitude", Range(-0.1, 0.1)) = 0.015
 	}
 		SubShader
 	{
