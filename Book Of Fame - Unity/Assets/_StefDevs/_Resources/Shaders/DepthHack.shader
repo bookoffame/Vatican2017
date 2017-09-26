@@ -7,9 +7,9 @@
 
 		Pass
 		{
-			ZTest Always
+			ZTest Off
 			Cull Off
-			ColorMask 0
+			//ColorMask 0
 	
 			CGPROGRAM
 			#pragma vertex vert
@@ -35,10 +35,15 @@
 				o.vertex.z = 0;
 				return o;
 			}
-			
-			fixed4 frag (v2f i) : SV_Target
+                    
+			float frag (v2f i) : DEPTH
 			{
+
+	#if defined(UNITY_REVERSED_Z)
 				return 0;
+    #else
+				return 1;
+	#endif
 			}
 			ENDCG
 		}
