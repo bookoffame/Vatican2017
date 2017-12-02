@@ -1,0 +1,8 @@
+TODO :: 
+
+Clean up some code
+Fix the physics shit
+Import looking glass model
+Move the looking glass shader forward
+Annotation UI
+Fix up book UVs n shit
