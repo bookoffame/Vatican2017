@@ -22,17 +22,20 @@ namespace UnityEngine.Rendering.PostProcessing
         [Range(1f, 10f), Tooltip("Changes the extent of veiling effects. For maximum quality stick to integer values. Because this value changes the internal iteration count, animating it isn't recommended as it may introduce small hiccups in the perceived radius.")]
         public FloatParameter diffusion = new FloatParameter { value = 7f };
 
+        [Range(-1f, 1f), Tooltip("Distorts the bloom to give an anamorphic look. Negative values distort vertically, positive values distort horizontally.")]
+        public FloatParameter anamorphicRatio = new FloatParameter { value = 0f };
+
         [ColorUsage(false, true, 0f, 8f, 0.125f, 3f), Tooltip("Global tint of the bloom filter.")]
         public ColorParameter color = new ColorParameter { value = Color.white };
 
         [Tooltip("Boost performances by lowering the effect quality. This settings is meant to be used on mobile and other low-end platforms.")]
         public BoolParameter mobileOptimized = new BoolParameter { value = false };
 
-        [Tooltip("Dirtiness texture to add smudges or dust to the lens."), DisplayName("Texture")]
-        public TextureParameter lensTexture = new TextureParameter { value = null };
+        [Tooltip("Dirtiness texture to add smudges or dust to the bloom effect."), DisplayName("Texture")]
+        public TextureParameter dirtTexture = new TextureParameter { value = null };
 
-        [Min(0f), Tooltip("Amount of lens dirtiness."), DisplayName("Intensity")]
-        public FloatParameter lensIntensity = new FloatParameter { value = 1f };
+        [Min(0f), Tooltip("Amount of dirtiness."), DisplayName("Intensity")]
+        public FloatParameter dirtIntensity = new FloatParameter { value = 0f };
 
         public override bool IsEnabledAndSupported(PostProcessRenderContext context)
         {
@@ -50,7 +53,10 @@ namespace UnityEngine.Rendering.PostProcessing
             Downsample13,
             Downsample4,
             UpsampleTent,
-            UpsampleBox
+            UpsampleBox,
+            DebugOverlayThreshold,
+            DebugOverlayTent,
+            DebugOverlayBox
         }
 
         // [down,up]
@@ -87,13 +93,18 @@ namespace UnityEngine.Rendering.PostProcessing
             // Apply auto exposure adjustment in the prefiltering pass
             sheet.properties.SetTexture(ShaderIDs.AutoExposureTex, context.autoExposureTexture);
 
+            // Negative anamorphic ratio values distort vertically - positive is horizontal
+            float ratio = Mathf.Clamp(settings.anamorphicRatio, -1, 1);
+            float rw = ratio < 0 ? -ratio : 0f;
+            float rh = ratio > 0 ?  ratio : 0f;
+
             // Do bloom on a half-res buffer, full-res doesn't bring much and kills performances on
             // fillrate limited platforms
             int tw = context.width / 2;
             int th = context.height / 2;
 
             // Determine the iteration count
-            int s = Mathf.Max(tw, th);
+            int s = Mathf.Max((Mathf.FloorToInt(context.screenWidth / (2f - rw))), (Mathf.FloorToInt(context.screenHeight / (2f - rh))));
             float logs = Mathf.Log(s, 2f) + Mathf.Min(settings.diffusion.value, 10f) - 10f;
             int logs_i = Mathf.FloorToInt(logs);
             int iterations = Mathf.Clamp(logs_i, 1, k_MaxPyramidSize);
@@ -109,7 +120,7 @@ namespace UnityEngine.Rendering.PostProcessing
             int qualityOffset = settings.mobileOptimized ? 1 : 0;
 
             // Downsample
-            var last = context.source;
+            var lastDown = context.source;
             for (int i = 0; i < iterations; i++)
             {
                 int mipDown = m_Pyramid[i].down;
@@ -118,52 +129,84 @@ namespace UnityEngine.Rendering.PostProcessing
                     ? (int)Pass.Prefilter13 + qualityOffset
                     : (int)Pass.Downsample13 + qualityOffset;
 
-                cmd.GetTemporaryRT(mipDown, tw, th, 0, FilterMode.Bilinear, context.sourceFormat);
-                cmd.GetTemporaryRT(mipUp, tw, th, 0, FilterMode.Bilinear, context.sourceFormat);
-                cmd.BlitFullscreenTriangle(last, mipDown, sheet, pass);
+                context.GetScreenSpaceTemporaryRT(cmd, mipDown, 0, context.sourceFormat, RenderTextureReadWrite.Default, FilterMode.Bilinear, tw, th);
+                context.GetScreenSpaceTemporaryRT(cmd, mipUp, 0, context.sourceFormat, RenderTextureReadWrite.Default, FilterMode.Bilinear, tw, th);
+                cmd.BlitFullscreenTriangle(lastDown, mipDown, sheet, pass);
 
-                last = mipDown;
+                lastDown = mipDown;
                 tw = Mathf.Max(tw / 2, 1);
                 th = Mathf.Max(th / 2, 1);
             }
 
             // Upsample
-            last = m_Pyramid[iterations - 1].down;
+            int lastUp = m_Pyramid[iterations - 1].down;
             for (int i = iterations - 2; i >= 0; i--)
             {
                 int mipDown = m_Pyramid[i].down;
                 int mipUp = m_Pyramid[i].up;
                 cmd.SetGlobalTexture(ShaderIDs.BloomTex, mipDown);
-                cmd.BlitFullscreenTriangle(last, mipUp, sheet, (int)Pass.UpsampleTent + qualityOffset);
-                last = mipUp;
+                cmd.BlitFullscreenTriangle(lastUp, mipUp, sheet, (int)Pass.UpsampleTent + qualityOffset);
+                lastUp = mipUp;
             }
 
-            var shaderSettings = new Vector4(
-                sampleScale,
-                RuntimeUtilities.Exp2(settings.intensity.value / 10f) - 1f,
-                settings.lensIntensity.value,
-                iterations
-            );
+            var linearColor = settings.color.value.linear;
+            float intensity = RuntimeUtilities.Exp2(settings.intensity.value / 10f) - 1f;
+            var shaderSettings = new Vector4(sampleScale, intensity, settings.dirtIntensity.value, iterations);
 
-            var dirtTexture = settings.lensTexture.value == null
+            // Debug overlays
+            if (context.IsDebugOverlayEnabled(DebugOverlay.BloomThreshold))
+            {
+                context.PushDebugOverlay(cmd, context.source, sheet, (int)Pass.DebugOverlayThreshold);
+            }
+            else if (context.IsDebugOverlayEnabled(DebugOverlay.BloomBuffer))
+            {
+                sheet.properties.SetVector(ShaderIDs.ColorIntensity, new Vector4(linearColor.r, linearColor.g, linearColor.b, intensity));
+                context.PushDebugOverlay(cmd, m_Pyramid[0].up, sheet, (int)Pass.DebugOverlayTent + qualityOffset);
+            }
+
+            // Lens dirtiness
+            // Keep the aspect ratio correct & center the dirt texture, we don't want it to be
+            // stretched or squashed
+            var dirtTexture = settings.dirtTexture.value == null
                 ? RuntimeUtilities.blackTexture
-                : settings.lensTexture.value;
+                : settings.dirtTexture.value;
 
+            var dirtRatio = (float)dirtTexture.width / (float)dirtTexture.height;
+            var screenRatio = (float)context.screenWidth / (float)context.screenHeight;
+            var dirtTileOffset = new Vector4(1f, 1f, 0f, 0f);
+
+            if (dirtRatio > screenRatio)
+            {
+                dirtTileOffset.x = screenRatio / dirtRatio;
+                dirtTileOffset.z = (1f - dirtTileOffset.x) * 0.5f;
+            }
+            else if (screenRatio > dirtRatio)
+            {
+                dirtTileOffset.y = dirtRatio / screenRatio;
+                dirtTileOffset.w = (1f - dirtTileOffset.y) * 0.5f;
+            }
+
+            // Shader properties
             var uberSheet = context.uberSheet;
             uberSheet.EnableKeyword("BLOOM");
+            uberSheet.properties.SetVector(ShaderIDs.Bloom_DirtTileOffset, dirtTileOffset);
             uberSheet.properties.SetVector(ShaderIDs.Bloom_Settings, shaderSettings);
-            uberSheet.properties.SetColor(ShaderIDs.Bloom_Color, settings.color.value.linear);
+            uberSheet.properties.SetColor(ShaderIDs.Bloom_Color, linearColor);
             uberSheet.properties.SetTexture(ShaderIDs.Bloom_DirtTex, dirtTexture);
-            cmd.SetGlobalTexture(ShaderIDs.BloomTex, m_Pyramid[0].up);
+            cmd.SetGlobalTexture(ShaderIDs.BloomTex, lastUp);
 
             // Cleanup
             for (int i = 0; i < iterations; i++)
             {
-                cmd.ReleaseTemporaryRT(m_Pyramid[i].down);
-                cmd.ReleaseTemporaryRT(m_Pyramid[i].up);
+                if (m_Pyramid[i].down != lastUp)
+                    cmd.ReleaseTemporaryRT(m_Pyramid[i].down);
+                if (m_Pyramid[i].up != lastUp)
+                    cmd.ReleaseTemporaryRT(m_Pyramid[i].up);
             }
 
             cmd.EndSample("BloomPyramid");
+
+            context.bloomBufferNameID = lastUp;
         }
     }
 }

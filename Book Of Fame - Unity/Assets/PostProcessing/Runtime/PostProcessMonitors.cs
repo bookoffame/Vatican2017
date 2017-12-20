@@ -1,82 +1,245 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 
 namespace UnityEngine.Rendering.PostProcessing
 {
-    [Serializable]
-    public sealed class PostProcessMonitors
+    public enum DebugOverlay
     {
+        None,
+        Depth,
+        Normals,
+        MotionVectors,
+        NANTracker,
+        ColorBlindnessSimulation,
+        _,
+        AmbientOcclusion,
+        BloomBuffer,
+        BloomThreshold,
+        DepthOfField
+    }
+
+    public enum ColorBlindnessType
+    {
+        Deuteranopia,
+        Protanopia,
+        Tritanopia
+    }
+
+    [Serializable]
+    public sealed class PostProcessDebugLayer
+    {
+        // Monitors
         public LightMeterMonitor lightMeter;
         public HistogramMonitor histogram;
         public WaveformMonitor waveform;
         public VectorscopeMonitor vectorscope;
 
+        Dictionary<MonitorType, Monitor> m_Monitors;
+
+        // Current frame size
+        int frameWidth;
+        int frameHeight;
+
+        public RenderTexture debugOverlayTarget { get; private set; }
+
+        // Set to true if the frame that was just drawn as a debug overlay enabled and rendered
+        public bool debugOverlayActive { get; private set; }
+        
+        // This is reset to None after rendering of post-processing has finished
+        public DebugOverlay debugOverlay { get; private set; }
+
+        // Overlay settings in a separate class to keep things separated
+        [Serializable]
+        public class OverlaySettings
+        {
+            [Range(0f, 16f)]
+            public float motionColorIntensity = 4f;
+
+            [Range(4, 128)]
+            public int motionGridSize = 64;
+
+            public ColorBlindnessType colorBlindnessType = ColorBlindnessType.Deuteranopia;
+
+            [Range(0f, 1f)]
+            public float colorBlindnessStrength = 1f;
+        }
+
+        public OverlaySettings overlaySettings;
+
         internal void OnEnable()
         {
-            if (lightMeter == null)
-                lightMeter = new LightMeterMonitor();
+            RuntimeUtilities.CreateIfNull(ref lightMeter);
+            RuntimeUtilities.CreateIfNull(ref histogram);
+            RuntimeUtilities.CreateIfNull(ref waveform);
+            RuntimeUtilities.CreateIfNull(ref vectorscope);
+            RuntimeUtilities.CreateIfNull(ref overlaySettings);
 
-            if (histogram == null)
-                histogram = new HistogramMonitor();
+            m_Monitors = new Dictionary<MonitorType, Monitor>
+            {
+                { MonitorType.LightMeter, lightMeter },
+                { MonitorType.Histogram, histogram },
+                { MonitorType.Waveform, waveform },
+                { MonitorType.Vectorscope, vectorscope }
+            };
 
-            if (waveform == null)
-                waveform = new WaveformMonitor();
-
-            if (vectorscope == null)
-                vectorscope = new VectorscopeMonitor();
-
-            lightMeter.OnEnable();
-            histogram.OnEnable();
-            waveform.OnEnable();
-            vectorscope.OnEnable();
+            foreach (var kvp in m_Monitors)
+                kvp.Value.OnEnable();
         }
 
         internal void OnDisable()
         {
-            lightMeter.OnDisable();
-            histogram.OnDisable();
-            waveform.OnDisable();
-            vectorscope.OnDisable();
+            foreach (var kvp in m_Monitors)
+                kvp.Value.OnDisable();
+
+            DestroyDebugOverlayTarget();
         }
 
-        internal void Render(PostProcessRenderContext context)
+        void DestroyDebugOverlayTarget()
         {
-            bool lightMeterActive = lightMeter.IsEnabledAndSupported();
-            bool histogramActive = histogram.IsEnabledAndSupported();
-            bool waveformActive = waveform.IsEnabledAndSupported();
-            bool vectorscopeActive = vectorscope.IsEnabledAndSupported();
-            bool needHalfRes = histogramActive || vectorscopeActive || waveformActive;
-            bool anyActive = lightMeterActive
-                || histogramActive
-                || waveformActive
-                || vectorscopeActive;
+            RuntimeUtilities.Destroy(debugOverlayTarget);
+            debugOverlayTarget = null;
+        }
+
+        // Per-frame requests
+        public void RequestMonitorPass(MonitorType monitor)
+        {
+            m_Monitors[monitor].requested = true;
+        }
+
+        public void RequestDebugOverlay(DebugOverlay mode)
+        {
+            debugOverlay = mode;
+        }
+
+        // Sets the current frame size - used to make sure the debug overlay target is always the
+        // correct size - mostly useful in the editor as the user can easily resize the gameview.
+        internal void SetFrameSize(int width, int height)
+        {
+            frameWidth = width;
+            frameHeight = height;
+            debugOverlayActive = false;
+        }
+
+        // Blits to the debug target and mark this frame as using a debug overlay
+        public void PushDebugOverlay(CommandBuffer cmd, RenderTargetIdentifier source, PropertySheet sheet, int pass)
+        {
+            if (debugOverlayTarget == null || !debugOverlayTarget.IsCreated() || debugOverlayTarget.width != frameWidth || debugOverlayTarget.height != frameHeight)
+            {
+                RuntimeUtilities.Destroy(debugOverlayTarget);
+
+                debugOverlayTarget = new RenderTexture(frameWidth, frameHeight, 0, RenderTextureFormat.ARGB32)
+                {
+                    name = "Debug Overlay Target",
+                    anisoLevel = 1,
+                    filterMode = FilterMode.Bilinear,
+                    wrapMode = TextureWrapMode.Clamp,
+                    hideFlags = HideFlags.HideAndDontSave
+                };
+                debugOverlayTarget.Create();
+            }
+
+            cmd.BlitFullscreenTriangle(source, debugOverlayTarget, sheet, pass);
+            debugOverlayActive = true;
+        }
+
+        internal DepthTextureMode GetCameraFlags()
+        {
+            if (debugOverlay == DebugOverlay.Depth)
+                return DepthTextureMode.Depth;
+
+            if (debugOverlay == DebugOverlay.Normals)
+                return DepthTextureMode.DepthNormals;
+
+            if (debugOverlay == DebugOverlay.MotionVectors)
+                return DepthTextureMode.MotionVectors | DepthTextureMode.Depth;
+
+            return DepthTextureMode.None;
+        }
+
+        internal void RenderMonitors(PostProcessRenderContext context)
+        {
+            // Monitors
+            bool anyActive = false;
+            bool needsHalfRes = false;
+
+            foreach (var kvp in m_Monitors)
+            {
+                bool active = kvp.Value.IsRequestedAndSupported();
+                anyActive |= active;
+                needsHalfRes |= active && kvp.Value.NeedsHalfRes();
+            }
+
+            if (!anyActive)
+                return;
 
             var cmd = context.command;
-            if (anyActive)
-                cmd.BeginSample("Monitors");
+            cmd.BeginSample("Monitors");
 
-            if (needHalfRes)
+            if (needsHalfRes)
             {
                 cmd.GetTemporaryRT(ShaderIDs.HalfResFinalCopy, context.width / 2, context.height / 2, 0, FilterMode.Bilinear, context.sourceFormat);
                 cmd.Blit(context.destination, ShaderIDs.HalfResFinalCopy);
             }
 
-            if (lightMeterActive)
-                lightMeter.Render(context);
+            foreach (var kvp in m_Monitors)
+            {
+                var monitor = kvp.Value;
 
-            if (histogramActive)
-                histogram.Render(context);
+                if (monitor.requested)
+                    monitor.Render(context);
+            }
 
-            if (waveformActive)
-                waveform.Render(context);
-
-            if (vectorscopeActive)
-                vectorscope.Render(context);
-
-            if (needHalfRes)
+            if (needsHalfRes)
                 cmd.ReleaseTemporaryRT(ShaderIDs.HalfResFinalCopy);
-            
-            if (anyActive)
-                cmd.EndSample("Monitors");
+
+            cmd.EndSample("Monitors");
+        }
+
+        internal void RenderSpecialOverlays(PostProcessRenderContext context)
+        {
+            if (debugOverlay == DebugOverlay.Depth)
+            {
+                var sheet = context.propertySheets.Get(context.resources.shaders.debugOverlays);
+                PushDebugOverlay(context.command, BuiltinRenderTextureType.None, sheet, 0);
+            }
+            else if (debugOverlay == DebugOverlay.Normals)
+            {
+                var sheet = context.propertySheets.Get(context.resources.shaders.debugOverlays);
+                sheet.ClearKeywords();
+
+                if (context.camera.actualRenderingPath == RenderingPath.DeferredLighting)
+                    sheet.EnableKeyword("SOURCE_GBUFFER");
+
+                PushDebugOverlay(context.command, BuiltinRenderTextureType.None, sheet, 1);
+            }
+            else if (debugOverlay == DebugOverlay.MotionVectors)
+            {
+                var sheet = context.propertySheets.Get(context.resources.shaders.debugOverlays);
+                sheet.properties.SetVector(ShaderIDs.Params, new Vector4(overlaySettings.motionColorIntensity, overlaySettings.motionGridSize, 0f, 0f));
+                PushDebugOverlay(context.command, context.source, sheet, 2);
+            }
+            else if (debugOverlay == DebugOverlay.NANTracker)
+            {
+                var sheet = context.propertySheets.Get(context.resources.shaders.debugOverlays);
+                PushDebugOverlay(context.command, context.source, sheet, 3);
+            }
+            else if (debugOverlay == DebugOverlay.ColorBlindnessSimulation)
+            {
+                var sheet = context.propertySheets.Get(context.resources.shaders.debugOverlays);
+                sheet.properties.SetVector(ShaderIDs.Params, new Vector4(overlaySettings.colorBlindnessStrength, 0f, 0f, 0f));
+                PushDebugOverlay(context.command, context.source, sheet, 4 + (int)overlaySettings.colorBlindnessType);
+            }
+        }
+
+        internal void EndFrame()
+        {
+            foreach (var kvp in m_Monitors)
+                kvp.Value.requested = false;
+
+            if (!debugOverlayActive)
+                DestroyDebugOverlayTarget();
+
+            debugOverlay = DebugOverlay.None;
         }
     }
 }

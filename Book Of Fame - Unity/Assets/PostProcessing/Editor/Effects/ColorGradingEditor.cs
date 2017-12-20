@@ -181,12 +181,12 @@ namespace UnityEditor.Rendering.PostProcessing
             {
                 if (QualitySettings.activeColorSpace == ColorSpace.Gamma)
                     EditorGUILayout.HelpBox("ColorSpace in project settings is set to Gamma, HDR color grading won't look correct. Switch to Linear or use LDR color grading mode instead.", MessageType.Warning);
+            }
 
-                if (m_GradingMode.overrideState.boolValue)
-                {
-                    if (!SystemInfo.supports3DRenderTextures || !SystemInfo.supportsComputeShaders)
-                        EditorGUILayout.HelpBox("HDR color grading requires compute shader & 3D render texture support.", MessageType.Warning);
-                }
+            if (m_GradingMode.overrideState.boolValue && gradingMode == GradingMode.External)
+            {
+                if (!SystemInfo.supports3DRenderTextures || !SystemInfo.supportsComputeShaders)
+                    EditorGUILayout.HelpBox("HDR color grading requires compute shader & 3D render texture support.", MessageType.Warning);
             }
 
             if (gradingMode == GradingMode.LowDefinitionRange)
@@ -215,6 +215,25 @@ namespace UnityEditor.Rendering.PostProcessing
         void DoExternalModeGUI()
         {
             PropertyField(m_ExternalLut);
+
+            var lut = m_ExternalLut.value.objectReferenceValue;
+            if (lut != null)
+            {
+                if (lut.GetType() == typeof(Texture3D))
+                {
+                    var o = (Texture3D)lut;
+                    if (o.width == o.height && o.height == o.depth)
+                        return;
+                }
+                else if (lut.GetType() == typeof(RenderTexture))
+                {
+                    var o = (RenderTexture)lut;
+                    if (o.width == o.height && o.height == o.volumeDepth)
+                        return;
+                }
+
+                EditorGUILayout.HelpBox("Custom LUTs have to be log-encoded 3D textures or 3D render textures with cube format.", MessageType.Warning);
+            }
         }
 
         void DoStandardModeGUI(bool hdr)

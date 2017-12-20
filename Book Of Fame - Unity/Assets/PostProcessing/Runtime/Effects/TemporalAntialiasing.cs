@@ -2,7 +2,6 @@ using System;
 
 namespace UnityEngine.Rendering.PostProcessing
 {
-    // TODO: VR support
     [Serializable]
     public sealed class TemporalAntialiasing
     {
@@ -10,9 +9,9 @@ namespace UnityEngine.Rendering.PostProcessing
         [Range(0.1f, 1f)]
         public float jitterSpread = 0.75f;
 
-        [Tooltip("Controls the amount of sharpening applied to the color buffer.")]
+        [Tooltip("Controls the amount of sharpening applied to the color buffer. High values may introduce dark-border artifacts.")]
         [Range(0f, 3f)]
-        public float sharpen = 0.25f;
+        public float sharpness = 0.25f;
 
         [Tooltip("The blend coefficient for a stationary fragment. Controls the percentage of history sample blended into the final color.")]
         [Range(0f, 0.99f)]
@@ -41,14 +40,20 @@ namespace UnityEngine.Rendering.PostProcessing
 
         // Ping-pong between two history textures as we can't read & write the same target in the
         // same pass
-        readonly RenderTexture[] m_HistoryTextures = new RenderTexture[2];
-        int m_HistoryPingPong;
+        const int k_NumEyes = 2;
+        const int k_NumHistoryTextures = 2;
+        readonly RenderTexture[][] m_HistoryTextures = new RenderTexture[k_NumEyes][];
+
+        int[] m_HistoryPingPong = new int [k_NumEyes];
 
         public bool IsSupported()
         {
             return SystemInfo.supportedRenderTargetCount >= 2
                 && SystemInfo.supportsMotionVectors
-                && !RuntimeUtilities.isSinglePassStereoEnabled;
+#if !UNITY_2017_3_OR_NEWER
+                && !RuntimeUtilities.isVREnabled
+#endif
+                && SystemInfo.graphicsDeviceType != GraphicsDeviceType.OpenGLES2;
         }
 
         internal DepthTextureMode GetCameraFlags()
@@ -63,9 +68,11 @@ namespace UnityEngine.Rendering.PostProcessing
 
         Vector2 GenerateRandomOffset()
         {
+            // The variance between 0 and the actual halton sequence values reveals noticeable instability
+            // in Unity's shadow maps, so we avoid index 0.
             var offset = new Vector2(
-                    HaltonSeq.Get(m_SampleIndex & 1023, 2),
-                    HaltonSeq.Get(m_SampleIndex & 1023, 3)
+                    HaltonSeq.Get((m_SampleIndex & 1023) + 1, 2) - 0.5f,
+                    HaltonSeq.Get((m_SampleIndex & 1023) + 1, 3) - 0.5f
                 );
 
             if (++m_SampleIndex >= k_SampleCount)
@@ -74,98 +81,88 @@ namespace UnityEngine.Rendering.PostProcessing
             return offset;
         }
 
-        // Adapted heavily from PlayDead's TAA code
-        // https://github.com/playdeadgames/temporal/blob/master/Assets/Scripts/Extensions.cs
-        Matrix4x4 GetPerspectiveProjectionMatrix(Camera camera, Vector2 offset)
+        public Matrix4x4 GetJitteredProjectionMatrix(Camera camera)
         {
-            float vertical = Mathf.Tan(0.5f * Mathf.Deg2Rad * camera.fieldOfView);
-            float horizontal = vertical * camera.aspect;
-            float near = camera.nearClipPlane;
-            float far = camera.farClipPlane;
-
-            offset.x *= horizontal / (0.5f * camera.pixelWidth);
-            offset.y *= vertical / (0.5f * camera.pixelHeight);
-
-            float left = (offset.x - horizontal) * near;
-            float right = (offset.x + horizontal) * near;
-            float top = (offset.y + vertical) * near;
-            float bottom = (offset.y - vertical) * near;
-
-            var matrix = new Matrix4x4();
-
-            matrix[0, 0] = (2f * near) / (right - left);
-            matrix[0, 1] = 0f;
-            matrix[0, 2] = (right + left) / (right - left);
-            matrix[0, 3] = 0f;
-
-            matrix[1, 0] = 0f;
-            matrix[1, 1] = (2f * near) / (top - bottom);
-            matrix[1, 2] = (top + bottom) / (top - bottom);
-            matrix[1, 3] = 0f;
-
-            matrix[2, 0] = 0f;
-            matrix[2, 1] = 0f;
-            matrix[2, 2] = -(far + near) / (far - near);
-            matrix[2, 3] = -(2f * far * near) / (far - near);
-
-            matrix[3, 0] = 0f;
-            matrix[3, 1] = 0f;
-            matrix[3, 2] = -1f;
-            matrix[3, 3] = 0f;
-
-            return matrix;
-        }
-
-        Matrix4x4 GetOrthographicProjectionMatrix(Camera camera, Vector2 offset)
-        {
-            float vertical = camera.orthographicSize;
-            float horizontal = vertical * camera.aspect;
-
-            offset.x *= horizontal / (0.5f * camera.pixelWidth);
-            offset.y *= vertical / (0.5f * camera.pixelHeight);
-
-            float left = offset.x - horizontal;
-            float right = offset.x + horizontal;
-            float top = offset.y + vertical;
-            float bottom = offset.y - vertical;
-
-            return Matrix4x4.Ortho(left, right, bottom, top, camera.nearClipPlane, camera.farClipPlane);
-        }
-
-        public void SetProjectionMatrix(Camera camera)
-        {
+            Matrix4x4 cameraProj;
             jitter = GenerateRandomOffset();
             jitter *= jitterSpread;
 
-            camera.nonJitteredProjectionMatrix = camera.projectionMatrix;
-
             if (jitteredMatrixFunc != null)
             {
-                camera.projectionMatrix = jitteredMatrixFunc(camera, jitter);
+                cameraProj = jitteredMatrixFunc(camera, jitter);
             }
             else
             {
-                camera.projectionMatrix = camera.orthographic
-                    ? GetOrthographicProjectionMatrix(camera, jitter)
-                    : GetPerspectiveProjectionMatrix(camera, jitter);
+                cameraProj = camera.orthographic
+                    ? RuntimeUtilities.GetJitteredOrthographicProjectionMatrix(camera, jitter)
+                    : RuntimeUtilities.GetJitteredPerspectiveProjectionMatrix(camera, jitter);
             }
 
-            camera.useJitteredProjectionMatrixForTransparentRendering = false;
             jitter = new Vector2(jitter.x / camera.pixelWidth, jitter.y / camera.pixelHeight);
+            return cameraProj;
+        }
+
+        public void ConfigureJitteredProjectionMatrix(PostProcessRenderContext context)
+        {
+            var camera = context.camera;
+            camera.nonJitteredProjectionMatrix = camera.projectionMatrix;
+            camera.projectionMatrix = GetJitteredProjectionMatrix(camera);
+            camera.useJitteredProjectionMatrixForTransparentRendering = false;
+        }
+
+        // TODO: We'll probably need to isolate most of this for SRPs
+        public void ConfigureStereoJitteredProjectionMatrices(PostProcessRenderContext context)
+        {
+#if  UNITY_2017_3_OR_NEWER
+            var camera = context.camera;
+            jitter = GenerateRandomOffset();
+            jitter *= jitterSpread;
+
+            for (var eye = Camera.StereoscopicEye.Left; eye <= Camera.StereoscopicEye.Right; eye++)
+            {
+                // This saves off the device generated projection matrices as non-jittered
+                context.camera.CopyStereoDeviceProjectionMatrixToNonJittered(eye);
+                var originalProj = context.camera.GetStereoNonJitteredProjectionMatrix(eye);
+
+                // Currently no support for custom jitter func, as VR devices would need to provide
+                // original projection matrix as input along with jitter 
+                var jitteredMatrix = RuntimeUtilities.GenerateJitteredProjectionMatrixFromOriginal(context, originalProj, jitter);
+                context.camera.SetStereoProjectionMatrix(eye, jitteredMatrix);
+            }
+
+            // jitter has to be scaled for the actual eye texture size, not just the intermediate texture size
+            // which could be double-wide in certain stereo rendering scenarios
+            jitter = new Vector2(jitter.x / context.screenWidth, jitter.y / context.screenHeight);
+            camera.useJitteredProjectionMatrixForTransparentRendering = false;
+#endif
+        }
+
+        void GenerateHistoryName(RenderTexture rt, int id, PostProcessRenderContext context)
+        {
+            rt.name = "Temporal Anti-aliasing History id #" + id;
+
+            if (context.stereoActive)
+                rt.name += " for eye " + context.xrActiveEye;
         }
 
         RenderTexture CheckHistory(int id, PostProcessRenderContext context)
         {
-            var rt = m_HistoryTextures[id];
+            int activeEye = context.xrActiveEye;
+
+            if (m_HistoryTextures[activeEye] == null)
+                m_HistoryTextures[activeEye] = new RenderTexture[k_NumHistoryTextures];
+
+            var rt = m_HistoryTextures[activeEye][id];
 
             if (m_ResetHistory || rt == null || !rt.IsCreated())
             {
                 RenderTexture.ReleaseTemporary(rt);
 
-                rt = RenderTexture.GetTemporary(context.width, context.height, 0, context.sourceFormat);
-                rt.name = "Temporal Anti-aliasing History";
+                rt = context.GetScreenSpaceTemporaryRT(0, context.sourceFormat);
+                GenerateHistoryName(rt, id, context);
+
                 rt.filterMode = FilterMode.Bilinear;
-                m_HistoryTextures[id] = rt;
+                m_HistoryTextures[activeEye][id] = rt;
 
                 context.command.BlitFullscreenTriangle(context.source, rt);
             }
@@ -173,16 +170,17 @@ namespace UnityEngine.Rendering.PostProcessing
             {
                 // On size change, simply copy the old history to the new one. This looks better
                 // than completely discarding the history and seeing a few aliased frames.
-                var rt2 = RenderTexture.GetTemporary(context.width, context.height, 0, context.sourceFormat);
-                rt2.name = "Temporal Anti-aliasing History";
+                var rt2 = context.GetScreenSpaceTemporaryRT(0, context.sourceFormat);
+                GenerateHistoryName(rt2, id, context);
+
                 rt2.filterMode = FilterMode.Bilinear;
-                m_HistoryTextures[id] = rt2;
+                m_HistoryTextures[activeEye][id] = rt2;
 
                 context.command.BlitFullscreenTriangle(rt, rt2);
                 RenderTexture.ReleaseTemporary(rt);
             }
 
-            return m_HistoryTextures[id];
+            return m_HistoryTextures[activeEye][id];
         }
 
         internal void Render(PostProcessRenderContext context)
@@ -192,16 +190,18 @@ namespace UnityEngine.Rendering.PostProcessing
             var cmd = context.command;
             cmd.BeginSample("TemporalAntialiasing");
 
-            int pp = m_HistoryPingPong;
+            int pp = m_HistoryPingPong[context.xrActiveEye];
             var historyRead = CheckHistory(++pp % 2, context);
             var historyWrite = CheckHistory(++pp % 2, context);
-            m_HistoryPingPong = ++pp % 2;
+            m_HistoryPingPong[context.xrActiveEye] = ++pp % 2;
 
             const float kMotionAmplification = 100f * 60f;
             sheet.properties.SetVector(ShaderIDs.Jitter, jitter);
-            sheet.properties.SetFloat(ShaderIDs.SharpenParameters, sharpen);
+            sheet.properties.SetFloat(ShaderIDs.Sharpness, sharpness);
             sheet.properties.SetVector(ShaderIDs.FinalBlendParameters, new Vector4(stationaryBlending, motionBlending, kMotionAmplification, 0f));
             sheet.properties.SetTexture(ShaderIDs.HistoryTex, historyRead);
+
+            // TODO: Account for different possible RenderViewportScale value from previous frame...
 
             int pass = context.camera.orthographic ? (int)Pass.SolverNoDilate : (int)Pass.SolverDilate;
             m_Mrt[0] = context.destination;
@@ -215,14 +215,26 @@ namespace UnityEngine.Rendering.PostProcessing
 
         internal void Release()
         {
-            for (int i = 0; i < m_HistoryTextures.Length; i++)
+            if (m_HistoryTextures != null)
             {
-                RenderTexture.ReleaseTemporary(m_HistoryTextures[i]);
-                m_HistoryTextures[i] = null;
+                for (int i = 0; i < m_HistoryTextures.Length; i++)
+                {
+                    if (m_HistoryTextures[i] == null)
+                        continue;
+                    
+                    for (int j = 0; j < m_HistoryTextures[i].Length; j++)
+                    {
+                        RenderTexture.ReleaseTemporary(m_HistoryTextures[i][j]);
+                        m_HistoryTextures[i][j] = null;
+                    }
+
+                    m_HistoryTextures[i] = null;
+                }
             }
 
             m_SampleIndex = 0;
-            m_HistoryPingPong = 0;
+            m_HistoryPingPong[0] = 0;
+            m_HistoryPingPong[1] = 0;
             
             ResetHistory();
         }

@@ -4,6 +4,7 @@ Shader "Hidden/PostProcessing/FinalPass"
 
         #pragma multi_compile __ UNITY_COLORSPACE_GAMMA
         #pragma multi_compile __ FXAA FXAA_LOW
+        #pragma multi_compile __ FXAA_KEEP_ALPHA
         #include "../StdLib.hlsl"
         #include "../Colors.hlsl"
         #include "Dithering.hlsl"
@@ -11,8 +12,13 @@ Shader "Hidden/PostProcessing/FinalPass"
         // PS3 and XBOX360 aren't supported in Unity anymore, only use the PC variant
         #define FXAA_PC 1
 
-        // Luma is encoded in alpha after the first Uber pass
-        #define FXAA_GREEN_AS_LUMA 0
+        #if FXAA_KEEP_ALPHA
+            // Luma hasn't been encoded in alpha
+            #define FXAA_GREEN_AS_LUMA 1
+        #else
+            // Luma is encoded in alpha after the first Uber pass
+            #define FXAA_GREEN_AS_LUMA 0
+        #endif
 
         #if FXAA_LOW
             #define FXAA_QUALITY__PRESET 28
@@ -34,7 +40,6 @@ Shader "Hidden/PostProcessing/FinalPass"
         float4 Frag(VaryingsDefault i) : SV_Target
         {
             half4 color = 0.0;
-            float2 uvSPR = UnityStereoTransformScreenSpaceTex(i.texcoord);
 
             // Fast Approximate Anti-aliasing
             #if FXAA || FXAA_LOW
@@ -65,15 +70,21 @@ Shader "Hidden/PostProcessing/FinalPass"
                     0.0,                        // fxaaConsoleEdgeThresholdMin (unused)
                     0.0                         // fxaaConsole360ConstDir (unused)
                 );
+
+                #if FXAA_KEEP_ALPHA
+                {
+                    color.a = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoordStereo).a;
+                }
+                #endif
             }
             #else
             {
-                color = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uvSPR);
+                color = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoordStereo);
             }
             #endif
 
             color.rgb = Dither(color.rgb, i.texcoord);
-            return float4(color.rgb, 1.0);
+            return color;
         }
 
     ENDHLSL
