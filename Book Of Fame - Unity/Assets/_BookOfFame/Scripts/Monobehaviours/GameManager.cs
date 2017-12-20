@@ -1,25 +1,26 @@
 ﻿using UnityEngine;
-using BookOfFame;
-
-public class GameManager : MonoBehaviour
+namespace BookOfFame
 {
-    public GameState gameState;
-    public GameParams_so gameParams;
-    public SceneReferences sceneReferences;
-
-    void Start()
+    public class GameManager : MonoBehaviour
     {
-        sceneReferences.book_mono.gameManager = this;
-        Methods.Main_Initialize(ref gameState, ref gameParams.data, sceneReferences);
-    }
+        public GameState gameState;
+        public GameParams_so gameParams;
+        public SceneReferences sceneReferences;
 
-    void Update()
-    {
-        Methods.Main_Update(ref gameState, gameParams.data);
-    }
+        void Start()
+        {
+            sceneReferences.book_mono.gameManager = this;
+            Methods.Main_Initialize(ref gameState, ref gameParams.data, sceneReferences);
+        }
 
-    private void FixedUpdate()
-    {
-        Methods.Main_FixedUpdate(ref gameState, gameParams.data, Time.fixedDeltaTime);
+        void Update()
+        {
+            Methods.Main_Update(ref gameState, gameParams.data);
+        }
+
+        private void FixedUpdate()
+        {
+            Methods.Main_FixedUpdate(ref gameState, gameParams.data, Time.fixedDeltaTime);
+        }
     }
 }

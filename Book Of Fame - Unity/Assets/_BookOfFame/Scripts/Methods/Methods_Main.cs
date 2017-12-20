@@ -478,7 +478,6 @@ public static partial class Methods
         #endregion // Page turning
 
         #region // User simulation
-
         User user = gameState.user;
         Agent agent = user.agent;
 
@@ -516,7 +515,6 @@ public static partial class Methods
         user.intent = newIntent;
 
         #endregion // User Intent
-
 
         float fov;
         if (user.agent.isViewingBook)
@@ -657,6 +655,7 @@ public static partial class Methods
 
     public static void Main_FixedUpdate(ref GameState gameState, GameParams gameParams, float deltaTime)
     {
+        //deltaTime = Mathf.Clamp(deltaTime, 0, gameParams.maxPhysicsTimeStep);
         Physics.Simulate(deltaTime);
 
         User user = gameState.user;
@@ -672,9 +671,9 @@ public static partial class Methods
             {
                 float currentTargetSpeed = user.intent.moveIntent_locomotion.magnitude * user.userParams.move_maxSpeed;
                 float accelAmount = user.userParams.move_accel;
-                Vector3 projectedVelocity = agent.rigidbody.velocity + (user.intent.moveIntent_locomotion.normalized * accelAmount * Time.fixedDeltaTime);
+                Vector3 projectedVelocity = agent.rigidbody.velocity + (user.intent.moveIntent_locomotion.normalized * accelAmount * deltaTime);
                 projectedVelocity = projectedVelocity.normalized * Mathf.Clamp(projectedVelocity.magnitude, 0, currentTargetSpeed);
-                acceleration += (projectedVelocity - agent.rigidbody.velocity) / Time.fixedDeltaTime;
+                acceleration += (projectedVelocity - agent.rigidbody.velocity) / deltaTime;
             }
             else
             {
@@ -682,7 +681,7 @@ public static partial class Methods
             }
 
             // Velocity
-            agent.rigidbody.velocity += acceleration * Time.fixedDeltaTime;
+            agent.rigidbody.velocity += acceleration * deltaTime;
             #endregion // Player locomotion
 
             // Camera direction application

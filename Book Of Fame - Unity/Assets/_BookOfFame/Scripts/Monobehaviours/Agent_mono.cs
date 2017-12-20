@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
-using BookOfFame;
 
-public class Agent_mono : MonoBehaviour {
-    public Agent data;
+namespace BookOfFame
+{
+    public class Agent_mono : MonoBehaviour
+    {
+        public Agent data;
+    }
 }

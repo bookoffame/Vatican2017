@@ -1,18 +1,21 @@
 ﻿using UnityEngine;
 
-public class PageTurnDragInputPanel : MonoBehaviour
+namespace BookOfFame
 {
-    public GameManager gameManager;
-
-    private void Awake()
+    public class PageTurnDragInputPanel : MonoBehaviour
     {
-        gameManager = FindObjectOfType<GameManager>();
-    }
+        public GameManager gameManager;
 
-    public void OnClick()
-    {
-        float mousePosition_viewport_x = Input.mousePosition.x / Screen.width;
-        float panelCenterPosition_viewport_x = Camera.main.WorldToViewportPoint(transform.position).x;
-        Methods.Start_Drag(gameManager.gameState, mousePosition_viewport_x, panelCenterPosition_viewport_x);
+        private void Awake()
+        {
+            gameManager = FindObjectOfType<GameManager>();
+        }
+
+        public void OnClick()
+        {
+            float mousePosition_viewport_x = Input.mousePosition.x / Screen.width;
+            float panelCenterPosition_viewport_x = Camera.main.WorldToViewportPoint(transform.position).x;
+            Methods.Start_Drag(gameManager.gameState, mousePosition_viewport_x, panelCenterPosition_viewport_x);
+        }
     }
 }

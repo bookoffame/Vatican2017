@@ -45,6 +45,7 @@ namespace BookOfFame
     public struct GameParams
     {
         public bool debug_onlyDLOnePage;
+        //public float maxPhysicsTimeStep;
         public static Regex manifest_regex { get { return new Regex("\"@id\":\"([^\"]*?)\",\"@type\":\"dctypes:Image\""); } }
         public static string book_manifestURL = "http://www.e-codices.unifr.ch/metadata/iiif/fmb-cb-0048/manifest.json";
         public AssetReferences_so assetReferences_so;
@@ -238,7 +239,6 @@ namespace BookOfFame
         internal Transform[] baseMeshSkeleton_transforms;
         internal Transform[] transcriptionMeshSkeleton_transforms;
         public Renderer[] pageRenderers_transcriptions;
-        public Book_PopupTheatre_mono popupTheatre;
         public Transform cameraSocket;
     }
 
@@ -252,15 +252,6 @@ namespace BookOfFame
         internal Material material_transcription;
         internal IIIF_Transcription_Element[] transcriptionElements;
         // manifest
-    }
-
-    [Serializable]
-    public class Book_PopupTheatre
-    {
-        public GameObject gameObject;
-        public Animator animator;
-        public Transform popupCameraPos;
-        public ParticleSystem smoke;
     }
 
     [Serializable]
