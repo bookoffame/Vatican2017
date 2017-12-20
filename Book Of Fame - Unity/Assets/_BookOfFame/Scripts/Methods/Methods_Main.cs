@@ -7,11 +7,16 @@ using BookOfFame;
 
 public static partial class Methods
 {
-    public static void Main_Initialize(ref GameState gameState, GameParams gameParams, SceneReferences sceneRefs)
+    public static void Main_Initialize(ref GameState gameState, ref GameParams gameParams, SceneReferences sceneRefs)
     {
+        Physics.autoSimulation = false;
+        Physics.autoSyncTransforms = false;
+
         gameState.clock = new Clock();
 
-
+        gameState.sceneReferences = sceneRefs;
+        gameParams.assetReferences = gameParams.assetReferences_so.data;
+        gameState.imageDownload_jobQueue = new Queue<IIIF_ImageDownloadJob>();
 
         #region // Init looking glass
         gameState.lookingGlass = sceneRefs.lookingGlass_mono.data;
@@ -113,7 +118,7 @@ public static partial class Methods
         #region // Get all transcription annotations
         // Load the transcription annotation manifest
         IIIF_AnnotationManifestFromJSON transcriptionManifest = new IIIF_AnnotationManifestFromJSON();
-        JsonUtility.FromJsonOverwrite(Resources.Load<TextAsset>("Transcriptions/anno").text, transcriptionManifest);
+        JsonUtility.FromJsonOverwrite(gameParams.annotationsSource.text, transcriptionManifest);
         Dictionary<IIIF_EntryCoordinate, List<IIIF_Transcription_Element>> transcriptionAnnotations = new Dictionary<IIIF_EntryCoordinate, List<IIIF_Transcription_Element>>();
 
         for (int ann = 0; ann < transcriptionManifest.resources.Length; ann++)
@@ -233,7 +238,7 @@ public static partial class Methods
         book.currentRectoEntry = book.minRectoEntry;
 
         // Change out page images when page turn animation is complete
-        Methods.Book_Update_Page_Materials(book);
+        Methods.Book_Update_Page_Materials(book, gameParams.assetReferences);
 
         // Turn off left and right buttons if we have hit boundary of available pages
         book.ui_viewMode.pabeTurnButton_next.interactable = Methods.Book_Can_Turn_Page_Next(book);
@@ -250,7 +255,7 @@ public static partial class Methods
         };
         //gameData.user.agent.currentPosition = gameData.user.agent.transform.position;
 
-        Methods.User_Enter_Mode_Locomotion(gameState.user, false);
+        Methods.User_Enter_Mode_Locomotion(gameState.user, gameState.book, gameState.lookingGlass, false);
 
         gameState.user.agent.camera_control_locomotion.pitch_current = gameState.user.agent.camera_main.transform.eulerAngles.x;
         gameState.user.agent.camera_control_locomotion.yaw_current = gameState.user.agent.camera_main.transform.eulerAngles.y;
@@ -260,6 +265,27 @@ public static partial class Methods
     public static void Main_Update(ref GameState gameState, GameParams gameParams)
     {
         Book book = gameState.book;
+
+        #region // Handle and clear incoming ui messages
+        if ((gameState.uiEvents & UIEvents.OPEN_BOOK) != 0)
+        {
+            Methods.User_Enter_Mode_Book_Viewing(gameState.user, gameState.book);
+        }
+        if ((gameState.uiEvents & UIEvents.CLOSE_BOOK) != 0)
+        {
+            Methods.User_Enter_Mode_Locomotion(gameState.user, gameState.book, gameState.lookingGlass);
+        }
+        if ((gameState.uiEvents & UIEvents.NEXT_PAGE) != 0)
+        {
+            Methods.Book_TurnPage(gameState.book, true);
+        }
+        if ((gameState.uiEvents & UIEvents.PREV_PAGE) != 0)
+        {
+            Methods.Book_TurnPage(gameState.book, false);
+        }
+        // Clear UI events
+        gameState.uiEvents = 0;
+        #endregion // Handle incoming ui interactions
 
         #region // Image download job maintenance
         if (gameState.imageDownload_currentJob != null)
@@ -378,7 +404,7 @@ public static partial class Methods
                     book.ui_viewMode.pabeTurnButton_previous.interactable = Methods.Book_Can_Turn_Page_Previous(book);
 
                     // Change out page images when page turn animation is complete
-                    Methods.Book_Update_Page_Materials(book);
+                    Methods.Book_Update_Page_Materials(book, gameParams.assetReferences);
 
                     // Set book back to opened animation state
                     book.worldRefs.animator.Play("Opened", 0);
@@ -410,7 +436,7 @@ public static partial class Methods
                     book.currentRectoEntry = IIIF_EntryCoordinate.Translate(gameState.book.currentRectoEntry, 2);
 
                 // Update materials
-                Methods.Book_Update_Page_Materials(book);
+                Methods.Book_Update_Page_Materials(book, gameParams.assetReferences);
 
                 // Turn off left and right buttons if we have hit boundary of available pages
                 book.ui_viewMode.pabeTurnButton_next.interactable = Methods.Book_Can_Turn_Page_Next(book);
@@ -497,7 +523,7 @@ public static partial class Methods
         {
             if (Cursor.lockState != CursorLockMode.None)
                 Cursor.lockState = CursorLockMode.None;
-            gameState.inputModule.m_cursorPos = Input.mousePosition;
+            gameState.sceneReferences.inputModule.m_cursorPos = Input.mousePosition;
 
             LookingGlass lookingGlass = gameState.lookingGlass;
             if(user.intent.lookingGlass_toggle)
@@ -596,7 +622,7 @@ public static partial class Methods
         {
             if (Cursor.lockState != CursorLockMode.Locked)
                 Cursor.lockState = CursorLockMode.Locked;
-            gameState.inputModule.m_cursorPos = Vector2.right * Screen.width / 2 + Vector2.up * Screen.height / 2;
+            gameState.sceneReferences.inputModule.m_cursorPos = Vector2.right * Screen.width / 2 + Vector2.up * Screen.height / 2;
 
             // Camera control
             agent.camera_control_locomotion.pitch_current += -Input.GetAxis("Mouse Y") * user.userParams.lookSensitivity;
@@ -629,8 +655,10 @@ public static partial class Methods
         #endregion // User simulation
     }
 
-    public static void Main_FixedUpdate(ref GameState gameState, GameParams gameParams)
+    public static void Main_FixedUpdate(ref GameState gameState, GameParams gameParams, float deltaTime)
     {
+        Physics.Simulate(deltaTime);
+
         User user = gameState.user;
         Agent agent = user.agent;
 
@@ -694,20 +722,18 @@ public static partial class Methods
         book.turnPageAnimationPlaying = false;
     }
 
-    public static void Book_TurnPage(bool targetIsNext)
+    public static void Book_TurnPage(Book book, bool targetIsNext)
     {
-        GameState gameData = GameManager.gameDataInstance;
-        Book book = gameData.book;        
-        IIIF_EntryCoordinate newRectoCoord = IIIF_EntryCoordinate.Translate(gameData.book.currentRectoEntry, targetIsNext  ? 2 : -2);
-        if (!gameData.book.currentlyAccessibleEntries.Contains(newRectoCoord))
+        IIIF_EntryCoordinate newRectoCoord = IIIF_EntryCoordinate.Translate(book.currentRectoEntry, targetIsNext  ? 2 : -2);
+        if (!book.currentlyAccessibleEntries.Contains(newRectoCoord))
         {
-            newRectoCoord = targetIsNext  ? gameData.book.maxRectoEntry : gameData.book.minRectoEntry;
+            newRectoCoord = targetIsNext  ? book.maxRectoEntry : book.minRectoEntry;
         }
-        if (newRectoCoord == gameData.book.currentRectoEntry) return;
+        if (newRectoCoord == book.currentRectoEntry) return;
 
         // Trigger page turn animation
-        gameData.book.worldRefs.animator.Play(targetIsNext ? "TurnPageLeft" : "TurnPageRight", 0);
-        gameData.book.turnPageAnimationPlaying = true;
+        book.worldRefs.animator.Play(targetIsNext ? "TurnPageLeft" : "TurnPageRight", 0);
+        book.turnPageAnimationPlaying = true;
 
         // Disable all buttons until page animation is complete
         for (int i = 0; i < book.ui_viewMode.buttonsToToggle.Length; i++)
@@ -731,19 +757,17 @@ public static partial class Methods
 
     public static void Book_ChangePageToRectoPage(IIIF_EntryCoordinate newRectoPageCoord)
     {
-        GameState gameData = GameManager.gameDataInstance;
-
 
     }
 
-    public static void Start_Drag(GameState gameData, float mousePosition_viewport_x, float panelCenterPosition_viewport_x)
+    public static void Start_Drag(GameState gameState, float mousePosition_viewport_x, float panelCenterPosition_viewport_x)
     {
-        if (gameData.book.turnPageAnimationPlaying) return;
-        if (gameData.lookingGlass.isActive) return;
+        if (gameState.book.turnPageAnimationPlaying) return;
+        if (gameState.lookingGlass.isActive) return;
 
         bool isLeftPage = mousePosition_viewport_x < panelCenterPosition_viewport_x;
-        if (isLeftPage && !Methods.Book_Can_Turn_Page_Previous(gameData.book)) return;
-        if (!isLeftPage && !Methods.Book_Can_Turn_Page_Next(gameData.book)) return;
+        if (isLeftPage && !Methods.Book_Can_Turn_Page_Previous(gameState.book)) return;
+        if (!isLeftPage && !Methods.Book_Can_Turn_Page_Next(gameState.book)) return;
 
         float panelCenterToMousePos = mousePosition_viewport_x - panelCenterPosition_viewport_x;
         float distanceToComplete = Mathf.Abs(panelCenterToMousePos);
@@ -752,15 +776,15 @@ public static partial class Methods
             distanceToComplete = minDistance;
         float targetX = panelCenterPosition_viewport_x + (isLeftPage ? distanceToComplete : -distanceToComplete);
 
-        gameData.book.pageDrag_isDragging = true;
-        gameData.book.pageDrag_isLeftPage = isLeftPage;
-        gameData.book.pageDrag_mousePos_start_x = mousePosition_viewport_x;
-        gameData.book.pageDrag_mousePos_target_x = targetX;
+        gameState.book.pageDrag_isDragging = true;
+        gameState.book.pageDrag_isLeftPage = isLeftPage;
+        gameState.book.pageDrag_mousePos_start_x = mousePosition_viewport_x;
+        gameState.book.pageDrag_mousePos_target_x = targetX;
 
         //Debug.Log("Starting drag " + (isLeftPage ? "left" : "right"));
     }
 
-    public static void Book_Update_Page_Materials(Book book)
+    public static void Book_Update_Page_Materials(Book book, AssetReferences assetRefs)
     {
         // Determine whart images to place at each renderer
         IIIF_EntryCoordinate[] entryCoords = new IIIF_EntryCoordinate[book.worldRefs.pageRenderers.Length];
@@ -784,8 +808,8 @@ public static partial class Methods
             }
             else
             {
-                book.worldRefs.pageRenderers[i].material = GameManager.gameDataInstance.bookEntryBaseMaterial;
-                book.worldRefs.pageRenderers_transcriptions[i].material = GameManager.gameDataInstance.bookEntryBaseTranscriptionMaterial;
+                book.worldRefs.pageRenderers[i].material = assetRefs.bookEntryBaseMaterial;
+                book.worldRefs.pageRenderers_transcriptions[i].material = assetRefs.bookEntryBaseTranscriptionMaterial;
             }
         }
 

@@ -37,8 +37,8 @@ namespace BookOfFame
         internal bool allDownloadJobsFinished;
         internal float timeOfLastProgressUpdate;
         internal User user;
-        public VRInputModule inputModule;
         internal UIEvents uiEvents;
+        internal SceneReferences sceneReferences;
     }
 
     [Serializable]
@@ -47,8 +47,9 @@ namespace BookOfFame
         public bool debug_onlyDLOnePage;
         public static Regex manifest_regex { get { return new Regex("\"@id\":\"([^\"]*?)\",\"@type\":\"dctypes:Image\""); } }
         public static string book_manifestURL = "http://www.e-codices.unifr.ch/metadata/iiif/fmb-cb-0048/manifest.json";
-        public string LocalAnnotationFile { get { return Application.persistentDataPath + "/anno.json"; } }
-        public AssetReferences assetReferences;
+        public AssetReferences_so assetReferences_so;
+        internal AssetReferences assetReferences;
+        public TextAsset annotationsSource;
     }
 
     [Serializable]
@@ -57,6 +58,7 @@ namespace BookOfFame
         public Book_mono book_mono;
         public Agent_mono agentObject;
         public LookingGlass_mono lookingGlass_mono;
+        public VRInputModule inputModule;
     }
 
     [Serializable]
