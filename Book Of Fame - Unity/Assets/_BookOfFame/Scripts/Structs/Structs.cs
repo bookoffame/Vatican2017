@@ -136,6 +136,7 @@ namespace BookOfFame
 
     public class Agent_Camera_ControlData_LocomotionMode
     {
+        internal float initialFoV;
         internal float pitch_current;
         internal float yaw_current;
     }
@@ -154,6 +155,7 @@ namespace BookOfFame
     {
         public Transform transform;
         public GameObject gameObject;
+        public Collider collider;
         public float distanceAboveBook = .2f;
         public float lerpFactor = 3;
         

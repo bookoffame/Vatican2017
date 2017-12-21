@@ -253,7 +253,8 @@ public static partial class Methods
             userParams = gameParams.assetReferences.userParams.data,
             intent = new User_Intent()
         };
-        //gameData.user.agent.currentPosition = gameData.user.agent.transform.position;
+
+        gameState.user.agent.camera_control_locomotion.initialFoV = gameState.user.agent.camera_main.fieldOfView;
 
         Methods.User_Enter_Mode_Locomotion(gameState.user, gameState.book, gameState.lookingGlass, false);
 
@@ -553,12 +554,12 @@ public static partial class Methods
             {
                 Camera refCamera = user.agent.camera_main;
                 Ray mouseRay = refCamera.ScreenPointToRay(Input.mousePosition);
-
                 // Detect dragging start
                 if (!lookingGlass.isBeingDragged && Input.GetMouseButtonDown(0))
                 {
+                    Debug.DrawRay(mouseRay.origin, mouseRay.direction, Color.green, 10);
                     RaycastHit hit;
-                    if (Physics.Raycast(mouseRay, out hit) && hit.transform.gameObject.GetComponentInParent<LookingGlass_mono>() != null)
+                    if (lookingGlass.collider.Raycast(mouseRay,out hit, 100))
                     {
                         lookingGlass.isBeingDragged = true;
                         float planeHitDistance;
@@ -628,8 +629,8 @@ public static partial class Methods
             agent.camera_control_locomotion.yaw_current += Input.GetAxis("Mouse X") * user.userParams.lookSensitivity;
             agent.camera_control_locomotion.yaw_current %= 360;
 
-            // Move towards max fov
-            fov = Mathf.Lerp(agent.camera_main.fieldOfView, userParams.bookView_zoom_fov_max, userParams.bookView_zoom_lerpSpeed * Time.deltaTime);
+            // Move towards initial fov
+            fov = Mathf.Lerp(agent.camera_main.fieldOfView, agent.camera_control_locomotion.initialFoV, userParams.bookView_zoom_lerpSpeed * Time.deltaTime);
         }
 
         // Camera root rotation and position move toward current socket
