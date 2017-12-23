@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Net;
 using System.Text.RegularExpressions;
 using BookOfFame;
-
+using System.IO;
 public static partial class Methods
 {
     public static void Main_Initialize(ref GameState gameState, ref GameParams gameParams, SceneReferences sceneRefs)
@@ -318,13 +318,17 @@ public static partial class Methods
                     //imageTest.gameObject.name = "Image Test - " + downloadJob.targetPageCoordinate;
                     //imageTest.transform.position = (Vector3.up * 1.1f * (downloadJob.targetPageCoordinate.leafNumber - 81 - (downloadJob.targetPageCoordinate.isVerso ? 0 : 1))) + Vector3.right * .4f * (downloadJob.targetPageCoordinate.isVerso ? -1 : 1);
                     //imageTest.renderer.material = book.entries[downloadJob.targetPageCoordinate].material_base;
+
+                    // Save to disk
+                    //byte[] bytes = downloadJob.iiif_www.texture.EncodeToPNG();
+                    //System.IO.Stream stream = System.IO.File.Create(Application.dataPath + "/" + downloadJob.targetPageCoordinate.ToString() + ".png");
+                    //stream.Write(bytes, 0, bytes.Length);
+                    //stream.Dispose();
                 }
 
                 // Discard download job
                 gameState.imageDownload_jobQueue.Dequeue();
                 gameState.imageDownload_currentJob = null;
-
-
             }
             else
             {
@@ -520,6 +524,7 @@ public static partial class Methods
         float fov;
         if (user.agent.isViewingBook)
         {
+            #region // Looking Glass
             if (Cursor.lockState != CursorLockMode.None)
                 Cursor.lockState = CursorLockMode.None;
             gameState.sceneReferences.inputModule.m_cursorPos = Input.mousePosition;
@@ -589,7 +594,13 @@ public static partial class Methods
                 // Move the glass to it's target position
                 lookingGlass.transform.position = Vector3.Lerp(lookingGlass.transform.position, lookingGlass.position_target_worldSpace, lookingGlass.lerpFactor * Time.deltaTime);
             }
+            #endregion // Looking Glass
 
+            #region // Annotation raycast
+            // If right click raycast currently open (target) left and right page
+            #endregion // Annotation raycast
+
+            #region // Camera control
             // Adjust target position offset
             agent.camera_control_bookViewing.positionOffset_target += (Vector3)newIntent.moveIntent_bookView * userParams.bookView_offset_sensitivity * Time.deltaTime;
             agent.camera_control_bookViewing.positionOffset_target.x = Mathf.Clamp(agent.camera_control_bookViewing.positionOffset_target.x, -userParams.bookView_offset_limit.x, userParams.bookView_offset_limit.x);
@@ -615,7 +626,7 @@ public static partial class Methods
             newEulerAngles_parent.y = Mathf.Lerp(newEulerAngles_parent.y, 0, Mathf.Clamp01(userParams.camera_toSocketLerpSpeed * Time.deltaTime));
             newEulerAngles_parent.z = 0;
             agent.cameras_parent.localEulerAngles = Vector3.zero;
-
+            #endregion // Camera control
         }
         else
         {
