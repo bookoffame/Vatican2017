@@ -5,6 +5,9 @@ using System.Net;
 using System.Text.RegularExpressions;
 using BookOfFame;
 using System.IO;
+using UnityEngine.Animations;
+using UnityEngine.Playables;
+
 public static partial class Methods
 {
     public static void Main_Initialize(ref GameState gameState, ref GameParams gameParams, SceneReferences sceneRefs)
@@ -29,17 +32,47 @@ public static partial class Methods
 
         Book book = gameState.book;
         book.worldRefs.transform = sceneRefs.book_mono.transform;
-        // Get the manifest describing our request
-        WebClient client = new WebClient();
-        // Download manifest into single string
-        book.manifest.manifestString = client.DownloadString(GameParams.book_manifestURL);
+
+        #region // Get Manifest
+        if (!gameParams.fetchNewManifest && gameParams.assetReferences.cachedManifest != null)
+        {
+            // Read manifest from that
+            book.manifest.manifestString = gameParams.assetReferences.cachedManifest.text;
+        }
+        else
+        {
+            // Get the manifest describing our request
+            WebClient client = new WebClient();
+            // Download manifest into single string
+            book.manifest.manifestString = client.DownloadString(GameParams.book_manifestURL);
+
+            if (gameParams.fetchNewManifest)
+            {
+                string path = Application.dataPath + "Manifest.txt";
+#if UNITY_EDITOR
+                if (gameParams.assetReferences.cachedManifest != null)
+                {
+                    path = UnityEditor.AssetDatabase.GetAssetPath(gameParams.assetReferences.cachedManifest);
+                }
+#endif
+                using (StreamWriter sw = new StreamWriter(path))
+                {
+                    // Add some text to the file.
+                    sw.Write(book.manifest.manifestString);
+                }
+            }
+        }
+        #endregion // Get Manifest
+
         // Parse string for page descriptions using a defined regex
         book.manifest.pageDescriptions = GameParams.manifest_regex.Matches(book.manifest.manifestString);
 
         #region // Create book entries
         /// TODO (Stef) :: replace this assumption making hack (specifying desired page description indicies manually) with proper parsing of manifest to determine which page descriptions to download 
         IIIF_ImageRequestParams imageRequestParams = IIIF_ImageRequestParams.Default;
-        IIIF_EntryCoordinate currentEntryCoordinate = new IIIF_EntryCoordinate() { isVerso = true, leafNumber = 81 };
+        gameState.book.firstEntry = new IIIF_EntryCoordinate() { isVerso = true, leafNumber = 81 };
+        gameState.book.lastEntry = new IIIF_EntryCoordinate() { isVerso = false, leafNumber = 88 };
+        IIIF_EntryCoordinate currentEntryCoordinate = gameState.book.firstEntry;
         int descriptionIndex_first = 167; // 81 verso
         int descriptionIndex_last = 178; // 88 recto
         Book_Entry newPage;
@@ -76,7 +109,7 @@ public static partial class Methods
             // Add to indexed collection of entries
             book.entries.Add(newPage.coordinate, newPage);
             // Add to culminative list of entries (do we need this?)
-            book.currentlyAccessibleEntries.Add(newPage.coordinate);
+            //book.currentlyAccessibleEntries.Add(newPage.coordinate);
 
 
             #region // Create and queue manuscript image download job
@@ -102,7 +135,7 @@ public static partial class Methods
             };
 
             // Add it to the job queue
-            if(!gameParams.debug_onlyDLOnePage || i == descriptionIndex_first)
+            if (!gameParams.debug_onlyDLOnePage || i == descriptionIndex_first)
                 gameState.imageDownload_jobQueue.Enqueue(downloadJob);
             #endregion 
 
@@ -132,7 +165,7 @@ public static partial class Methods
             IIIF_EntryCoordinate coord = new IIIF_EntryCoordinate()
             {
                 isVerso = coordString.Contains("v"),
-                leafNumber = int.Parse(coordString.Substring(0, 3))
+                leafNumber = uint.Parse(coordString.Substring(0, 3))
             };
 
             // If we dont have a list of annotations for this entry/page, create/add one
@@ -169,7 +202,7 @@ public static partial class Methods
         #endregion // Get all transcription annotations
 
         #region // Generate transcription images
-        RenderTexture renderTexture = new RenderTexture(imageRequestParams.targetWidth, imageRequestParams.targetHeight,0);
+        RenderTexture renderTexture = new RenderTexture(imageRequestParams.targetWidth, imageRequestParams.targetHeight, 0);
         renderTexture.Create();
         RenderTexture.active = renderTexture;
         TranscriptionRenderer transcriptionRenderer = (GameObject.Instantiate(gameParams.assetReferences.transcription_rendererFab) as TranscriptionRenderer_mono).data;
@@ -185,8 +218,8 @@ public static partial class Methods
             foreach (IIIF_Transcription_Element annotation in annotations)
             {
                 newAnnotationUIElement = (GameObject.Instantiate(gameParams.assetReferences.transcription_annotationFab, transcriptionRenderer.canvas.transform, false) as TranscriptionRenderer_Annotation_mono).data;
-                newAnnotationUIElement.transform.offsetMin = Vector2.Scale(annotation.boundingBox_normalizedInPageSpace.min, transcriptionRenderer.canvas.pixelRect.size) ;
-                newAnnotationUIElement.transform.offsetMax = Vector2.Scale(annotation.boundingBox_normalizedInPageSpace.max, transcriptionRenderer.canvas.pixelRect.size) ;
+                newAnnotationUIElement.transform.offsetMin = Vector2.Scale(annotation.boundingBox_normalizedInPageSpace.min, transcriptionRenderer.canvas.pixelRect.size);
+                newAnnotationUIElement.transform.offsetMax = Vector2.Scale(annotation.boundingBox_normalizedInPageSpace.max, transcriptionRenderer.canvas.pixelRect.size);
                 newAnnotationUIElement.textMesh.text = annotation.content;
                 annotationUIObjects.Add(newAnnotationUIElement.transform.gameObject);
             }
@@ -232,18 +265,20 @@ public static partial class Methods
         book.worldRefs.transcriptionMeshSkeleton_transforms = book.worldRefs.transcriptionMeshSkeleton_root.GetComponentsInChildren<Transform>();
 
         // Set initial page
-        /// NOTE (Stef) :: This assumes that the first entry in the list is a verso entry
-        book.minRectoEntry = book.currentlyAccessibleEntries[1];
-        book.maxRectoEntry = book.currentlyAccessibleEntries[book.currentlyAccessibleEntries.Count  - 1];
-        book.currentRectoEntry = book.minRectoEntry;
+        book.leaves_active_firstLeafNumber = gameState.book.firstEntry.leafNumber;
 
-        // Change out page images when page turn animation is complete
-        Methods.Book_Update_Page_Materials(book, gameParams.assetReferences);
+        book.leaves_pool = new Stack<Book_Leaf>();
+
+        #region // Create book leaves
+        book.leaves_active_normal = new List<Book_Leaf>();
+        book.leaves_active_transcription = new List<Book_Leaf>();
+        Book_AddLeaf(book, gameParams.assetReferences, true);
+        Book_AddLeaf(book, gameParams.assetReferences, false);
+        #endregion // Create book leaves
 
         // Turn off left and right buttons if we have hit boundary of available pages
-        book.ui_viewMode.pabeTurnButton_next.interactable = Methods.Book_Can_Turn_Page_Next(book);
-        book.ui_viewMode.pabeTurnButton_previous.interactable = Methods.Book_Can_Turn_Page_Previous(book);
-
+        book.ui_viewMode.pageTurnButton_next.interactable = Methods.Book_Can_Turn_Page_Next(book);
+        book.ui_viewMode.pageTurnButton_previous.interactable = Methods.Book_Can_Turn_Page_Previous(book);
         #endregion // Init book
 
         #region // Init user
@@ -261,7 +296,7 @@ public static partial class Methods
         gameState.user.agent.camera_control_locomotion.pitch_current = gameState.user.agent.camera_main.transform.eulerAngles.x;
         gameState.user.agent.camera_control_locomotion.yaw_current = gameState.user.agent.camera_main.transform.eulerAngles.y;
         #endregion // Init user
-    }
+    }    
 
     public static void Main_Update(ref GameState gameState, GameParams gameParams)
     {
@@ -278,11 +313,11 @@ public static partial class Methods
         }
         if ((gameState.uiEvents & UIEvents.NEXT_PAGE) != 0)
         {
-            Methods.Book_TurnPage(gameState.book, true);
+            Methods.Book_TurnPage(gameState.book, gameParams.assetReferences, false);
         }
         if ((gameState.uiEvents & UIEvents.PREV_PAGE) != 0)
         {
-            Methods.Book_TurnPage(gameState.book, false);
+            Methods.Book_TurnPage(gameState.book, gameParams.assetReferences, true);
         }
         // Clear UI events
         gameState.uiEvents = 0;
@@ -311,6 +346,22 @@ public static partial class Methods
                     targetEntry.pageImage_base = downloadJob.iiif_www.texture;
                     targetEntry.material_base.mainTexture = targetEntry.pageImage_base;
                     targetEntry.material_base.name = "Generated Manuscript Mat - " + targetEntry.coordinate;
+
+                    if (downloadJob.targetPageCoordinate.leafNumber >= book.leaves_active_firstLeafNumber
+                        && downloadJob.targetPageCoordinate.leafNumber < book.leaves_active_firstLeafNumber + book.leaves_active_normal.Count)
+                    {
+                        uint index = downloadJob.targetPageCoordinate.leafNumber - book.leaves_active_firstLeafNumber;
+                        if (downloadJob.targetPageCoordinate.isVerso)
+                        {
+                            book.leaves_active_normal[(int)index].renderer_verso.material = targetEntry.material_base;
+                            //book.leaves_active_transcription[(int)index].renderer_verso.material = targetEntry.material_transcription;
+                        }
+                        else
+                        {
+                            book.leaves_active_normal[(int)index].renderer_recto.material = targetEntry.material_base;
+                            //book.leaves_active_transcription[(int)index].renderer_recto.material = targetEntry.material_transcription;
+                        }
+                    }
 
                     // Image test
                     //ImageTestPage_mono imageTest = GameObject.Instantiate(gameData.imageTestPrefab) as ImageTestPage_mono;
@@ -372,114 +423,122 @@ public static partial class Methods
         }
         #endregion // Image download job maintenance
 
-        // Syncronize base book and transcription book
+        #region // Syncronize base book and transcription book
+        // Skeletal
         for (int i = 0; i < book.worldRefs.baseMeshSkeleton_transforms.Length; i++)
         {
             book.worldRefs.transcriptionMeshSkeleton_transforms[i].localRotation = book.worldRefs.baseMeshSkeleton_transforms[i].localRotation;
             book.worldRefs.transcriptionMeshSkeleton_transforms[i].localPosition = book.worldRefs.baseMeshSkeleton_transforms[i].localPosition;
         }
+        // Leaves
+        for (int i = 0; i < book.leaves_active_normal.Count; i++)
+        {
+            book.leaves_active_transcription[i].playableOutput.GetSourcePlayable().SetTime(
+                book.leaves_active_normal[i].playableOutput.GetSourcePlayable().GetTime()
+                );
+        }
+        #endregion // Syncronize base book and transcription book
 
         #region // Page turning
-        if (book.turnPageAnimationPlaying)
+
+        // Start page drag
+        if (gameState.pageDragStartEvent.queued)
         {
-            // Detect book animation finishing
-            if (book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).IsName("TurnPageRight") 
-                || book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).IsName("TurnPageLeft_Reversed")
-                || book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).IsName("TurnPageRight_Reversed")
-                || book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).IsName("TurnPageLeft"))
+            gameState.pageDragStartEvent.queued = false;
+            if (!gameState.lookingGlass.isActive)
             {
-                bool animationFinished;
-                //if (book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).speed > 0)
-                    animationFinished = book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1;
-                //else
-                //    animationFinished = book.worldRefs.animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0;
+                bool isLeftPage = gameState.pageDragStartEvent.mousePosition_viewport_x < gameState.pageDragStartEvent.panelCenterPosition_viewport_x;
+                bool nextLeafIsAvailable = isLeftPage ? Book_Can_Turn_Page_Previous(gameState.book) : Book_Can_Turn_Page_Next(gameState.book);
 
-                if (animationFinished)
+                if (nextLeafIsAvailable)
                 {
-                    book.turnPageAnimationPlaying = false;
+                    float panelCenterToMousePos = gameState.pageDragStartEvent.mousePosition_viewport_x - gameState.pageDragStartEvent.panelCenterPosition_viewport_x;
+                    float distanceToComplete = Mathf.Abs(panelCenterToMousePos);
+                    float minDistance = .25f;
+                    if (distanceToComplete < minDistance)
+                        distanceToComplete = minDistance;
 
-                    // Turn all the buttons back on
-                    for (int i = 0; i < book.ui_viewMode.buttonsToToggle.Length; i++)
+                    gameState.book.pageDrag_mousePos_start_x = gameState.pageDragStartEvent.mousePosition_viewport_x;
+                    gameState.book.pageDrag_mousePos_target_x = gameState.pageDragStartEvent.panelCenterPosition_viewport_x + (isLeftPage ? distanceToComplete : -distanceToComplete);
+
+                    Book_AddLeaf(gameState.book, gameParams.assetReferences, isLeftPage);
+                }
+            }
+        }
+
+        if (gameParams.pageTurnTime <= 0) gameParams.pageTurnTime = .01f;
+        // Move leaves towards target animation state
+        bool anyLeavesReachedRestingPosition = false;
+        for (int i = 0; i < book.leaves_active_normal.Count; i++)
+        {
+            Book_Leaf leaf = book.leaves_active_normal[i];
+            double pageTurnSpeed = leaf.animState_current.clipDuration / (double)gameParams.pageTurnTime;
+
+            if (leaf.isBeingDragged)
+            {
+                #region // Page Drag
+                if (Input.GetMouseButton(0))
+                {
+                    book.pageDrag_progress = Mathf.InverseLerp(book.pageDrag_mousePos_start_x, book.pageDrag_mousePos_target_x, Input.mousePosition.x / Screen.width);
+
+                    // Detect drag completion
+                    if (book.pageDrag_progress >= 1)
                     {
-                        book.ui_viewMode.buttonsToToggle[i].interactable = true;
+                        // Initialize as at rest opposite of the side that it started on
+                        Book_Leaf_InitializeAsAtRest(leaf, leaf.animState_current == leaf.animState_rightToLeft);
+                        anyLeavesReachedRestingPosition = true;
                     }
-
-                    // Turn off left and right buttons if we have hit boundary of available pages
-                    book.ui_viewMode.pabeTurnButton_next.interactable = Methods.Book_Can_Turn_Page_Next(book);
-                    book.ui_viewMode.pabeTurnButton_previous.interactable = Methods.Book_Can_Turn_Page_Previous(book);
-
-                    // Change out page images when page turn animation is complete
-                    Methods.Book_Update_Page_Materials(book, gameParams.assetReferences);
-
-                    // Set book back to opened animation state
-                    book.worldRefs.animator.Play("Opened", 0);
-                }
-            }
-        }
-        else if (book.pageDrag_isDragging)
-        {
-            // Continue drag
-            book.pageDrag_progress = Mathf.InverseLerp(book.pageDrag_mousePos_start_x, book.pageDrag_mousePos_target_x, Input.mousePosition.x / Screen.width);
-            string pageTurnAnimationName = book.pageDrag_isLeftPage ?  "TurnPageRight" : "TurnPageLeft";
-            book.worldRefs.animator.Play(pageTurnAnimationName, 0, book.pageDrag_progress);
-
-            bool mouseButtonDown = Input.GetMouseButton(0);
-
-            float dragCompletionThreshold = .5f;
-            // Detect drag ending
-            if (book.pageDrag_progress >= 1)
-            {
-                book.pageDrag_isDragging = false;
-
-                // Set animation state to opened
-                book.worldRefs.animator.Play("Opened", 0);
-
-                // Increment / decrement page number
-                if (book.pageDrag_isLeftPage)
-                   book.currentRectoEntry =  IIIF_EntryCoordinate.Translate(gameState.book.currentRectoEntry, -2);
-                else
-                    book.currentRectoEntry = IIIF_EntryCoordinate.Translate(gameState.book.currentRectoEntry, 2);
-
-                // Update materials
-                Methods.Book_Update_Page_Materials(book, gameParams.assetReferences);
-
-                // Turn off left and right buttons if we have hit boundary of available pages
-                book.ui_viewMode.pabeTurnButton_next.interactable = Methods.Book_Can_Turn_Page_Next(book);
-                book.ui_viewMode.pabeTurnButton_previous.interactable = Methods.Book_Can_Turn_Page_Previous(book);
-
-            }
-            else if (!mouseButtonDown)
-            {
-                book.pageDrag_isDragging = false;
-
-                if (book.pageDrag_progress >= dragCompletionThreshold)
-                {
-                    // Play animation from wherever it is back to correct position
-                    book.worldRefs.animator.Play(pageTurnAnimationName, 0, book.pageDrag_progress);
-                    book.turnPageAnimationPlaying = true;
-                    // Disable all buttons until page animation is complete
-                    for (int i = 0; i < book.ui_viewMode.buttonsToToggle.Length; i++)
-                        book.ui_viewMode.buttonsToToggle[i].interactable = false;
-
-                    // Increment / decrement page number
-                    if (book.pageDrag_isLeftPage)
-                        book.currentRectoEntry = IIIF_EntryCoordinate.Translate(gameState.book.currentRectoEntry, -2);
                     else
-                        book.currentRectoEntry = IIIF_EntryCoordinate.Translate(gameState.book.currentRectoEntry, 2);
-
+                    {
+                        leaf.animState_current.targetTime = book.pageDrag_progress * leaf.animState_current.clipDuration;
+                        leaf.animState_current.currentTime = leaf.animState_current.targetTime;
+                        leaf.animState_current.playableClip.SetTime(leaf.animState_current.currentTime);
+                    }
                 }
                 else
                 {
-                    // Play animation IN REVERSE back to its original position
-                    book.worldRefs.animator.Play(pageTurnAnimationName + "_Reversed", 0, 1 - book.pageDrag_progress);
-                    book.turnPageAnimationPlaying = true;
-                    // Disable all buttons until page animation is complete
-                    for (int i = 0; i < book.ui_viewMode.buttonsToToggle.Length; i++)
-                        book.ui_viewMode.buttonsToToggle[i].interactable = false;
+                    // Target nearest side and let go of page
+                    leaf.animState_current.targetTime = Mathf.Round(Mathf.Clamp01(book.pageDrag_progress)) * leaf.animState_current.clipDuration;
+                    leaf.isBeingDragged = false;
                 }
+                #endregion
+            }
+            else if (!leaf.animState_current.atRest)
+            {
+                #region // Automatically turn page toward target
+                //if (currentTime != leaf.pageTurnAnim_targetTime)
+                {
+                    // Move towards target
+                    leaf.animState_current.currentTime = MoveTowards(leaf.animState_current.currentTime, leaf.animState_current.targetTime, pageTurnSpeed * Time.deltaTime);
+                    leaf.animState_current.playableClip.SetTime(leaf.animState_current.currentTime);
+
+                    // Detect page finished turning
+                    if (leaf.animState_current.currentTime == leaf.animState_current.targetTime)
+                    {
+                        if (leaf.animState_current.targetTime == 0)
+                        {
+                            // put in same state
+                            Book_Leaf_InitializeAsAtRest(leaf, leaf.animState_current == leaf.animState_leftToRight);
+                            anyLeavesReachedRestingPosition = true;
+                        }
+                        else if (leaf.animState_current.targetTime == leaf.animState_current.clipDuration)
+                        {
+                            // Put in opposit state
+                            Book_Leaf_InitializeAsAtRest(leaf, leaf.animState_current == leaf.animState_rightToLeft);
+                            anyLeavesReachedRestingPosition = true;
+                        }
+                    }
+                }
+                #endregion // Automatically turn page toward target
             }
 
+            // Push changes to leaf data on the heap
+            book.leaves_active_normal[i] = leaf;
         }
+
+        /// TODO :: Update / validate pages if any leaves reached their resting position (we likely want to remove or add leaves)
+
+
         #endregion // Page turning
 
         #region // User simulation
@@ -530,7 +589,7 @@ public static partial class Methods
             gameState.sceneReferences.inputModule.m_cursorPos = Input.mousePosition;
 
             LookingGlass lookingGlass = gameState.lookingGlass;
-            if(user.intent.lookingGlass_toggle)
+            if (user.intent.lookingGlass_toggle)
             {
                 if (lookingGlass.isActive)
                 {
@@ -552,7 +611,7 @@ public static partial class Methods
                     // Reset target position
                     lookingGlass.position_target_worldSpace = lookingGlass.positioningPlane.ClosestPointOnPlane(gameState.book.worldRefs.cameraSocket.position);
                 }
-                    lookingGlass.gameObject.SetActive(lookingGlass.isActive);
+                lookingGlass.gameObject.SetActive(lookingGlass.isActive);
             }
 
             if (lookingGlass.isActive)
@@ -564,7 +623,7 @@ public static partial class Methods
                 {
                     Debug.DrawRay(mouseRay.origin, mouseRay.direction, Color.green, 10);
                     RaycastHit hit;
-                    if (lookingGlass.collider.Raycast(mouseRay,out hit, 100))
+                    if (lookingGlass.collider.Raycast(mouseRay, out hit, 100))
                     {
                         lookingGlass.isBeingDragged = true;
                         float planeHitDistance;
@@ -675,7 +734,7 @@ public static partial class Methods
 
         if (!user.agent.isViewingBook)
         {
-            #region // Player locomotion
+#region // Player locomotion
             Vector3 acceleration = Vector3.zero;
 
             // Acceleration
@@ -694,7 +753,7 @@ public static partial class Methods
 
             // Velocity
             agent.rigidbody.velocity += acceleration * deltaTime;
-            #endregion // Player locomotion
+#endregion // Player locomotion
 
             // Camera direction application
             agent.cameras_parent.localEulerAngles = (Vector3.right * agent.camera_control_locomotion.pitch_current) + (Vector3.up * agent.camera_control_locomotion.yaw_current);
@@ -710,8 +769,7 @@ public static partial class Methods
         // Disable access UI
         book.ui_bookAccess.gameObject.SetActive(false);
         // Trigger book animation
-        book.worldRefs.animator.Play("Opening", 0);
-        book.turnPageAnimationPlaying = false;
+        AnimationPlayableUtilities.PlayClip(book.worldRefs.animator, book.closedToOpen, out book.playableGraph);
     }
 
     public static void User_Enter_Mode_Locomotion(User user, Book book, LookingGlass lookingGlass, bool playAnim = true)
@@ -729,105 +787,209 @@ public static partial class Methods
 
 
         if (playAnim)
-            book.worldRefs.animator.Play("CloseState", 0);
-        book.turnPageAnimationPlaying = false;
+            AnimationPlayableUtilities.PlayClip(book.worldRefs.animator, book.openToClosed, out book.playableGraph);
+
+
+        //immediately complete any transitioning pages
     }
 
-    public static void Book_TurnPage(Book book, bool targetIsNext)
+    public static void Book_TurnPage(Book book, AssetReferences assetRefs, bool directionIsLeft)
     {
-        IIIF_EntryCoordinate newRectoCoord = IIIF_EntryCoordinate.Translate(book.currentRectoEntry, targetIsNext  ? 2 : -2);
-        if (!book.currentlyAccessibleEntries.Contains(newRectoCoord))
+        if (directionIsLeft ? !Book_Can_Turn_Page_Previous(book) : !Book_Can_Turn_Page_Next(book))
+            return;
+
+        // Turn off left and right buttons if we have hit boundary of available pages
+        book.ui_viewMode.pageTurnButton_next.interactable = Methods.Book_Can_Turn_Page_Next(book);
+        book.ui_viewMode.pageTurnButton_previous.interactable = Methods.Book_Can_Turn_Page_Previous(book);
+
+        /// TODO :: Only use "secon left-most if it is turing in the right direction
+
+        // Start moving the right or left most leaf
+        Book_Leaf leaf;
+        if (directionIsLeft)
         {
-            newRectoCoord = targetIsNext  ? book.maxRectoEntry : book.minRectoEntry;
+            // Selection priority :: 2nd left most > left-most > right-most
+            if (book.leaves_active_normal.Count == 2)
+            {
+                // Left-most
+                leaf = book.leaves_active_normal[0];
+                // create new leaf in its place and give it the necessary materials
+                Book_AddLeaf(book, assetRefs, directionIsLeft);
+            }
+            else
+            {
+                // Second left-most
+                leaf = book.leaves_active_normal[1];
+            }
         }
-        if (newRectoCoord == book.currentRectoEntry) return;
+        else
+        {
+            // Selection priority :: 2nd right most > right-most > left-most
+            if (book.leaves_active_normal.Count == 2)
+            {
+                // Right-most
+                leaf = book.leaves_active_normal[1];
+                // create new leaf in its place and give it the necessary materials
+                Book_AddLeaf(book, assetRefs, directionIsLeft);
+            }
+            else
+            {
+                // Second right-most
+                leaf = book.leaves_active_normal[book.leaves_active_normal.Count - 2];
+            }
+        }
 
-        // Trigger page turn animation
-        book.worldRefs.animator.Play(targetIsNext ? "TurnPageLeft" : "TurnPageRight", 0);
-        book.turnPageAnimationPlaying = true;
-
-        // Disable all buttons until page animation is complete
-        for (int i = 0; i < book.ui_viewMode.buttonsToToggle.Length; i++)
-            book.ui_viewMode.buttonsToToggle[i].interactable = false;
-
-        // Change current recto entry
-        book.currentRectoEntry = newRectoCoord;
+        leaf.animState_current.atRest = false;
+        leaf.animState_current.targetTime = leaf.animState_current.clipDuration;
     }
 
     public static bool Book_Can_Turn_Page_Previous(Book book)
     {
-        IIIF_EntryCoordinate newRectoCoord = IIIF_EntryCoordinate.Translate(book.currentRectoEntry, -2);
-        return book.currentlyAccessibleEntries.Contains(newRectoCoord);
+        return book.leaves_active_firstLeafNumber - 1 >= book.firstEntry.leafNumber;
     }
 
     public static bool Book_Can_Turn_Page_Next(Book book)
     {
-        IIIF_EntryCoordinate newRectoCoord = IIIF_EntryCoordinate.Translate(book.currentRectoEntry, 2);
-        return book.currentlyAccessibleEntries.Contains(newRectoCoord);
+        return book.leaves_active_lastLeafNumber + 1 <= book.lastEntry.leafNumber;
     }
 
-    public static void Book_ChangePageToRectoPage(IIIF_EntryCoordinate newRectoPageCoord)
+    public static void Book_AddLeaf(Book book, AssetReferences assetRefs, bool left)
     {
-
-    }
-
-    public static void Start_Drag(GameState gameState, float mousePosition_viewport_x, float panelCenterPosition_viewport_x)
-    {
-        if (gameState.book.turnPageAnimationPlaying) return;
-        if (gameState.lookingGlass.isActive) return;
-
-        bool isLeftPage = mousePosition_viewport_x < panelCenterPosition_viewport_x;
-        if (isLeftPage && !Methods.Book_Can_Turn_Page_Previous(gameState.book)) return;
-        if (!isLeftPage && !Methods.Book_Can_Turn_Page_Next(gameState.book)) return;
-
-        float panelCenterToMousePos = mousePosition_viewport_x - panelCenterPosition_viewport_x;
-        float distanceToComplete = Mathf.Abs(panelCenterToMousePos);
-        float minDistance = .25f;
-        if (distanceToComplete < minDistance)
-            distanceToComplete = minDistance;
-        float targetX = panelCenterPosition_viewport_x + (isLeftPage ? distanceToComplete : -distanceToComplete);
-
-        gameState.book.pageDrag_isDragging = true;
-        gameState.book.pageDrag_isLeftPage = isLeftPage;
-        gameState.book.pageDrag_mousePos_start_x = mousePosition_viewport_x;
-        gameState.book.pageDrag_mousePos_target_x = targetX;
-
-        //Debug.Log("Starting drag " + (isLeftPage ? "left" : "right"));
-    }
-
-    public static void Book_Update_Page_Materials(Book book, AssetReferences assetRefs)
-    {
-        // Determine whart images to place at each renderer
-        IIIF_EntryCoordinate[] entryCoords = new IIIF_EntryCoordinate[book.worldRefs.pageRenderers.Length];
-        
-        //Debug.Log("Current: " + book.currentRectoEntry);
-        //Debug.Log("OpenRectoRendererIndex: " + book.openRectoRendererIndex);
-        int delta;
-        for (int i = 0; i < book.worldRefs.pageRenderers.Length; i++)
+        Book_Leaf newLeaf_normal;
+        if(book.leaves_pool.Count > 0)
         {
-            delta = i - book.openRectoRendererIndex;
-            entryCoords[i] = IIIF_EntryCoordinate.Translate(book.currentRectoEntry, delta);
+            newLeaf_normal = book.leaves_pool.Pop();
+        }
+        else
+        {
+            newLeaf_normal = GameObject.Instantiate(assetRefs.bookLeafPrefab, book.worldRefs.leafParent_normal, false).data;
+            newLeaf_normal.gameObject.transform.localPosition = Vector3.zero;
+            newLeaf_normal.gameObject.transform.localRotation = Quaternion.identity;
+            Book_Leaf_InitializeAnimationGraph(newLeaf_normal, left);
+        }
+        Book_Leaf_InitializeAsAtRest(newLeaf_normal, left);
 
-            //Debug.Log("i: " + i + "   delta: " + delta + "   Result coord: " + entryCoords[i]);
+        Book_Leaf newLeaf_transcription;
+        if (book.leaves_pool.Count > 0)
+        {
+            newLeaf_transcription = book.leaves_pool.Pop();
+        }
+        else
+        {
+            newLeaf_transcription = GameObject.Instantiate(assetRefs.bookLeafPrefab, book.worldRefs.leafParent_transcription, false).data;
+            newLeaf_transcription.gameObject.transform.localPosition = Vector3.zero;
+            newLeaf_transcription.gameObject.transform.localRotation = Quaternion.identity;
+            Book_Leaf_InitializeAnimationGraph(newLeaf_transcription, left);
+        }
+        Book_Leaf_InitializeAsAtRest(newLeaf_transcription, left);
 
-            if (book.entries.ContainsKey(entryCoords[i]))
-            {
-                book.entries[entryCoords[i]].material_base.mainTextureScale = book.pageRenderers_textureScales[i];
-                book.entries[entryCoords[i]].material_transcription.mainTextureScale = book.pageRenderers_textureScales[i];
-                book.worldRefs.pageRenderers[i].material = book.entries[entryCoords[i]].material_base;
-                book.worldRefs.pageRenderers_transcriptions[i].material = book.entries[entryCoords[i]].material_transcription;
-            }
-            else
-            {
-                book.worldRefs.pageRenderers[i].material = assetRefs.bookEntryBaseMaterial;
-                book.worldRefs.pageRenderers_transcriptions[i].material = assetRefs.bookEntryBaseTranscriptionMaterial;
-            }
+        if (left)
+        {
+            book.leaves_active_normal.Insert(0, newLeaf_normal);
+            book.leaves_active_transcription.Insert(0, newLeaf_transcription);
+            //book.leaves_active_firstLeafNumber--;
+        }
+        else
+        {
+            book.leaves_active_normal.Add(newLeaf_normal);
+            book.leaves_active_transcription.Add(newLeaf_transcription);
         }
 
+        // Set materials;
+        uint leafNumber = left ? book.leaves_active_firstLeafNumber : book.leaves_active_firstLeafNumber + (uint)book.leaves_active_normal.Count - 1;
+        IIIF_EntryCoordinate coord = new IIIF_EntryCoordinate { leafNumber = leafNumber, isVerso = false };
+
+        newLeaf_normal.renderer_recto.material = book.entries.ContainsKey(coord) ? book.entries[coord].material_base : assetRefs.bookEntryBaseMaterial;
+        newLeaf_transcription.renderer_recto.material = book.entries.ContainsKey(coord) ? book.entries[coord].material_transcription : assetRefs.bookEntryBaseTranscriptionMaterial;
+
+        coord.isVerso = true;
+        newLeaf_normal.renderer_verso.material = book.entries.ContainsKey(coord) ? book.entries[coord].material_base : assetRefs.bookEntryBaseMaterial;
+        newLeaf_transcription.renderer_verso.material = book.entries.ContainsKey(coord) ? book.entries[coord].material_transcription : assetRefs.bookEntryBaseTranscriptionMaterial;
+    }
+
+    public static void Book_RemoveLeaf(Book book, int indexInActiveList)
+    {
+        book.leaves_active_normal[indexInActiveList].gameObject.SetActive(false);
+        book.leaves_pool.Push(book.leaves_active_normal[indexInActiveList]);
+        book.leaves_active_normal.RemoveAt(indexInActiveList);
+
+        book.leaves_active_transcription[indexInActiveList].gameObject.SetActive(false);
+        book.leaves_pool.Push(book.leaves_active_transcription[indexInActiveList]);
+        book.leaves_active_transcription.RemoveAt(indexInActiveList);
+    }
+
+    public static void Book_Leaf_InitializeAnimationGraph(Book_Leaf leaf, bool startOnLeft)
+    {
+        // Create graph
+        leaf.animationGraph = PlayableGraph.Create();
+        GraphVisualizerClient.Show(leaf.animationGraph, leaf.gameObject.name + " " + leaf.gameObject.transform.GetInstanceID());
+        //leaf.animationGraph.SetTimeUpdateMode(DirectorUpdateMode.Manual);
+        leaf.playableOutput = AnimationPlayableOutput.Create(leaf.animationGraph, "", leaf.animator);
+        leaf.mixer = AnimationMixerPlayable.Create(leaf.animationGraph, 2, true);
+        leaf.playableOutput.SetSourcePlayable(leaf.mixer);
+
+        {
+            leaf.animState_leftToRight = new PageTurnAnimationState
+            {
+                mixerIndex = 0,
+                playableClip = AnimationClipPlayable.Create(leaf.animationGraph, leaf.animationClip_leftToRight),
+                clipDuration = leaf.animationClip_leftToRight.length,
+                currentTime = 0,
+                targetTime = 0,
+                atRest = true
+            };
+            leaf.animState_leftToRight.playableClip.SetPlayState(PlayState.Paused);
+            leaf.animState_leftToRight.playableClip.SetDuration(leaf.animState_leftToRight.clipDuration);
+            leaf.animationGraph.Connect(leaf.animState_leftToRight.playableClip, 0, leaf.mixer, leaf.animState_leftToRight.mixerIndex);
+        }
+
+        {
+            leaf.animState_rightToLeft = new PageTurnAnimationState
+            {
+                mixerIndex = 1,
+                playableClip = AnimationClipPlayable.Create(leaf.animationGraph, leaf.animationClip_rightToLeft),
+                clipDuration = leaf.animationClip_rightToLeft.length,
+                currentTime = 0,
+                targetTime = 0,
+                atRest = true
+            };
+            leaf.animState_rightToLeft.playableClip.SetPlayState(PlayState.Paused);
+            leaf.animState_rightToLeft.playableClip.SetDuration(leaf.animState_rightToLeft.clipDuration);
+            leaf.animationGraph.Connect(leaf.animState_rightToLeft.playableClip, 0, leaf.mixer, leaf.animState_rightToLeft.mixerIndex);
+        }
+
+        Book_Leaf_SetCurrentAnimState(leaf, startOnLeft);
+        leaf.animationGraph.Play();
+    }
+
+    public static void Book_Leaf_SetCurrentAnimState(Book_Leaf leaf, bool left)
+    {
+        leaf.animState_current = left ? leaf.animState_leftToRight : leaf.animState_rightToLeft;
+        leaf.mixer.SetInputWeight(leaf.animState_current.mixerIndex, 1);
+    }
+
+    public static void Book_Leaf_InitializeAsAtRest(Book_Leaf leaf, bool left)
+    {
+        Book_Leaf_SetCurrentAnimState(leaf, left);
+        leaf.animState_current.currentTime = 0;
+        leaf.animState_current.targetTime = 0;
+        leaf.animState_current.atRest = true;
+        leaf.isBeingDragged = false;
+    }
+
+    public static void Book_EvaluateUserPosition(Book book)
+    {
         // Update page numbers
-        book.ui_viewMode.pageNumber_previous.text = entryCoords[1].ToString();
-        book.ui_viewMode.pageNumber_current_verso.text = entryCoords[2].ToString();
-        book.ui_viewMode.pageNumber_current_recto.text = entryCoords[3].ToString();
-        book.ui_viewMode.pageNumber_next.text = entryCoords[4].ToString();
+        book.ui_viewMode.pageNumber_previous.text = book.leaves_active_firstLeafNumber.ToString();
+        book.ui_viewMode.pageNumber_next.text = book.leaves_active_lastLeafNumber.ToString();
+    }
+
+    public static double MoveTowards(this double current, double target, double maxAbsDelta)
+    {
+        double delta = target - current;
+
+        if (System.Math.Abs(delta) > maxAbsDelta)
+            delta = maxAbsDelta * System.Math.Sign(delta);
+        return current + delta;
     }
 }

@@ -13,9 +13,12 @@ namespace BookOfFame
 
         public void OnClick()
         {
-            float mousePosition_viewport_x = Input.mousePosition.x / Screen.width;
-            float panelCenterPosition_viewport_x = Camera.main.WorldToViewportPoint(transform.position).x;
-            Methods.Start_Drag(gameManager.gameState, mousePosition_viewport_x, panelCenterPosition_viewport_x);
+            gameManager.gameState.pageDragStartEvent = new PageDragStartEvent
+            {
+                queued = true,
+                mousePosition_viewport_x = Input.mousePosition.x / Screen.width,
+                panelCenterPosition_viewport_x = Camera.main.WorldToViewportPoint(transform.position).x
+            };
         }
     }
 }

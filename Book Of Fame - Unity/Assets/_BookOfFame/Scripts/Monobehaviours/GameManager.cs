@@ -7,7 +7,7 @@ namespace BookOfFame
         public GameParams_so gameParams;
         public SceneReferences sceneReferences;
 
-        void Start()
+        void Awake()
         {
             sceneReferences.book_mono.gameManager = this;
             Methods.Main_Initialize(ref gameState, ref gameParams.data, sceneReferences);

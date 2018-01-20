@@ -7,6 +7,9 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using TMPro;
+using UnityEngine.Playables;
+using UnityEngine.Animations;
+
 
 namespace BookOfFame
 {
@@ -39,6 +42,14 @@ namespace BookOfFame
         internal User user;
         internal UIEvents uiEvents;
         internal SceneReferences sceneReferences;
+        internal PageDragStartEvent pageDragStartEvent;
+    }
+
+    public struct PageDragStartEvent
+    {
+        internal bool queued;
+        internal float mousePosition_viewport_x;
+        internal float panelCenterPosition_viewport_x;
     }
 
     [Serializable]
@@ -51,6 +62,8 @@ namespace BookOfFame
         public AssetReferences_so assetReferences_so;
         internal AssetReferences assetReferences;
         public TextAsset annotationsSource;
+        public float pageTurnTime;
+        public bool fetchNewManifest;
     }
 
     [Serializable]
@@ -72,7 +85,9 @@ namespace BookOfFame
         public Material bookEntryBaseMaterial;
         public Material bookEntryBaseTranscriptionMaterial;
         public Texture2D book_page_placeholderTexture;
-    }
+        public Book_Leaf_mono bookLeafPrefab;
+        public TextAsset cachedManifest;
+    }    
 
     [Serializable]
     public class User_Params
@@ -96,7 +111,7 @@ namespace BookOfFame
     [Serializable]
     public class User
     {
-        internal Agent agent;
+        internal Agent agent = new Agent();
         internal User_Intent intent = new User_Intent();
         internal User_Params userParams;
     }
@@ -173,36 +188,76 @@ namespace BookOfFame
     {
         public Book_WorldRefs worldRefs;
         public int openRectoRendererIndex = 3;
-        internal string manifestURL = "http://www.e-codices.unifr.ch/metadata/iiif/fmb-cb-0048/manifest.json";
-
-        internal IIIF_Manifest manifest = new IIIF_Manifest();
-
-        internal IIIF_EntryCoordinate minRectoEntry;
-        internal IIIF_EntryCoordinate maxRectoEntry;
-        internal IIIF_EntryCoordinate currentRectoEntry;
-        internal List<IIIF_EntryCoordinate> currentlyAccessibleEntries = new List<IIIF_EntryCoordinate>();
-        internal Dictionary<IIIF_EntryCoordinate, Book_Entry> entries = new Dictionary<IIIF_EntryCoordinate, Book_Entry>();
-        internal Dictionary<IIIF_EntryCoordinate, IIIF_ImageRequestParams> page_imageRequestParams = new Dictionary<IIIF_EntryCoordinate, IIIF_ImageRequestParams>();
-
-        internal List<Book_Entry> entriesDebugList;
-
         public Book_UI_BookAccess ui_bookAccess;
         public Book_UI_ViewModeUI ui_viewMode;
+        public AnimationClip closedToOpen;
+        public AnimationClip openToClosed;
+        internal PlayableGraph playableGraph;
+        internal string manifestURL = "http://www.e-codices.unifr.ch/metadata/iiif/fmb-cb-0048/manifest.json";
+        internal IIIF_Manifest manifest = new IIIF_Manifest();
+
+        internal IIIF_EntryCoordinate firstEntry;
+        internal IIIF_EntryCoordinate lastEntry;
+        //internal List<IIIF_EntryCoordinate> currentlyAccessibleEntries = new List<IIIF_EntryCoordinate>();
+        internal Dictionary<IIIF_EntryCoordinate, Book_Entry> entries = new Dictionary<IIIF_EntryCoordinate, Book_Entry>();
+        // Currently visible entries
+        internal uint leaves_active_firstLeafNumber;
+        internal uint leaves_active_lastLeafNumber { get { return leaves_active_firstLeafNumber + (uint)leaves_active_normal.Count; } }
+        internal List<Book_Leaf> leaves_active_normal;
+        internal List<Book_Leaf> leaves_active_transcription;
+        internal Stack<Book_Leaf> leaves_pool;
+        //internal Dictionary<uint, Book_Leaf> leaves = new Dictionary<uint, Book_Leaf>();
+        internal Dictionary<IIIF_EntryCoordinate, IIIF_ImageRequestParams> page_imageRequestParams = new Dictionary<IIIF_EntryCoordinate, IIIF_ImageRequestParams>();
+        internal List<Book_Entry> entriesDebugList;
 
         internal int nInitialDownloadJobs;
-
-        internal bool turnPageAnimationPlaying;
-        //internal bool turnPageAnimationPlaying_isReversed;
-
-        public Vector2[] pageRenderers_textureScales;
-
-        internal bool pageDrag_isDragging;
-        internal bool pageDrag_isLeftPage;
+        //internal bool turnPageAnimationPlaying;
         internal float pageDrag_mousePos_target_x;
         internal float pageDrag_mousePos_start_x;
         internal float pageDrag_progress;
+    }
 
-        
+    [Serializable]
+    public class Book_WorldRefs
+    {
+        internal Transform transform;
+        public Transform leafParent_normal;
+        public Transform leafParent_transcription;
+        public Animator animator;
+        public Transform baseMeshSkeleton_root;
+        public Transform transcriptionMeshSkeleton_root;
+        internal Transform[] baseMeshSkeleton_transforms;
+        internal Transform[] transcriptionMeshSkeleton_transforms;
+        public Transform cameraSocket;
+    }
+
+    [Serializable]
+    public class Book_Leaf
+    {
+        public GameObject gameObject;
+        public Animator animator;
+        public Renderer renderer_verso;
+        public Renderer renderer_recto;
+        public AnimationClip animationClip_leftToRight;
+        public AnimationClip animationClip_rightToLeft;
+        internal PlayableGraph animationGraph;
+        internal AnimationPlayableOutput playableOutput;
+        internal AnimationMixerPlayable mixer;
+        internal bool isBeingDragged;
+        internal PageTurnAnimationState animState_leftToRight;
+        internal PageTurnAnimationState animState_rightToLeft;
+        internal PageTurnAnimationState animState_current;
+    }
+
+    [Serializable]
+    public class PageTurnAnimationState
+    {
+        internal int mixerIndex;
+        internal AnimationClipPlayable playableClip;
+        internal double clipDuration;
+        internal double currentTime;
+        internal double targetTime;
+        internal bool atRest;
     }
 
     [Serializable]
@@ -214,8 +269,8 @@ namespace BookOfFame
         public TMP_Text pageNumber_current_recto;
         public TMP_Text pageNumber_current_verso;
         public Button[] buttonsToToggle;
-        public Button pabeTurnButton_next;
-        public Button pabeTurnButton_previous;
+        public Button pageTurnButton_next;
+        public Button pageTurnButton_previous;
     }
 
     [Serializable]
@@ -228,20 +283,6 @@ namespace BookOfFame
         public Color image_loadingBar_hue_empty;
         public Color image_loadingBar_hue_full;
         public Image image_lock;
-    }
-
-    [Serializable]
-    public class Book_WorldRefs
-    {
-        internal Transform transform;
-        public Animator animator;
-        public Renderer[] pageRenderers;
-        public Transform baseMeshSkeleton_root;
-        public Transform transcriptionMeshSkeleton_root;
-        internal Transform[] baseMeshSkeleton_transforms;
-        internal Transform[] transcriptionMeshSkeleton_transforms;
-        public Renderer[] pageRenderers_transcriptions;
-        public Transform cameraSocket;
     }
 
     [Serializable]
@@ -278,7 +319,7 @@ namespace BookOfFame
     {
         //public enum PageLeafSide { RECTO, VERSO};
         public bool isVerso;
-        public int leafNumber;
+        public uint leafNumber;
         //public PageLeafSide leafSide;
 
         public static IIIF_EntryCoordinate Translate(IIIF_EntryCoordinate coord, int amount)
@@ -331,6 +372,29 @@ namespace BookOfFame
         public static bool operator !=(IIIF_EntryCoordinate coord1, IIIF_EntryCoordinate coord2)
         {
             return coord1.isVerso != coord2.isVerso || coord1.leafNumber != coord2.leafNumber;
+        }
+
+        public static bool operator > (IIIF_EntryCoordinate coord1, IIIF_EntryCoordinate coord2)
+        {
+            if(coord1.leafNumber == coord2.leafNumber)
+                return !coord1.isVerso && coord2.isVerso;
+            else
+                return coord1.leafNumber > coord2.leafNumber;
+        }
+        public static bool operator < (IIIF_EntryCoordinate coord1, IIIF_EntryCoordinate coord2)
+        {
+            if (coord1.leafNumber == coord2.leafNumber)
+                return coord1.isVerso && !coord2.isVerso;
+            else
+                return coord1.leafNumber < coord2.leafNumber;
+        }
+        public static bool operator <=(IIIF_EntryCoordinate coord1, IIIF_EntryCoordinate coord2)
+        {
+            return coord1 == coord2 || coord1 < coord2;
+        }
+        public static bool operator >=(IIIF_EntryCoordinate coord1, IIIF_EntryCoordinate coord2)
+        {
+            return coord1 == coord2 || coord1 > coord2;
         }
 
         public override string ToString()
