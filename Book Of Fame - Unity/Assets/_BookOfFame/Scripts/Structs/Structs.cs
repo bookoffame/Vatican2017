@@ -187,7 +187,6 @@ namespace BookOfFame
     public class Book
     {
         public Book_WorldRefs worldRefs;
-        public int openRectoRendererIndex = 3;
         public Book_UI_BookAccess ui_bookAccess;
         public Book_UI_ViewModeUI ui_viewMode;
         public AnimationClip closedToOpen;
@@ -196,14 +195,14 @@ namespace BookOfFame
         internal string manifestURL = "http://www.e-codices.unifr.ch/metadata/iiif/fmb-cb-0048/manifest.json";
         internal IIIF_Manifest manifest = new IIIF_Manifest();
 
-        internal IIIF_EntryCoordinate firstEntry;
-        internal IIIF_EntryCoordinate lastEntry;
+        public IIIF_EntryCoordinate firstEntry;
+        public IIIF_EntryCoordinate lastEntry;
         //internal List<IIIF_EntryCoordinate> currentlyAccessibleEntries = new List<IIIF_EntryCoordinate>();
         internal Dictionary<IIIF_EntryCoordinate, Book_Entry> entries = new Dictionary<IIIF_EntryCoordinate, Book_Entry>();
         // Currently visible entries
-        internal uint leaves_active_firstLeafNumber;
+        public uint leaves_active_firstLeafNumber;
         internal uint leaves_active_lastLeafNumber { get { return leaves_active_firstLeafNumber + (uint)leaves_active_normal.Count; } }
-        internal List<Book_Leaf> leaves_active_normal;
+        public List<Book_Leaf> leaves_active_normal;
         internal List<Book_Leaf> leaves_active_transcription;
         internal Stack<Book_Leaf> leaves_pool;
         //internal Dictionary<uint, Book_Leaf> leaves = new Dictionary<uint, Book_Leaf>();
@@ -247,6 +246,7 @@ namespace BookOfFame
         internal PageTurnAnimationState animState_leftToRight;
         internal PageTurnAnimationState animState_rightToLeft;
         internal PageTurnAnimationState animState_current;
+        internal uint leafNumber;
     }
 
     [Serializable]

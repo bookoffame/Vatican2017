@@ -8,6 +8,10 @@ using System.IO;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
 
+/// TODO :: 
+/// - Properly initialize the first pages
+/// - Page drag
+
 public static partial class Methods
 {
     public static void Main_Initialize(ref GameState gameState, ref GameParams gameParams, SceneReferences sceneRefs)
@@ -467,8 +471,8 @@ public static partial class Methods
         }
 
         if (gameParams.pageTurnTime <= 0) gameParams.pageTurnTime = .01f;
+        List<int> taggedForRemoval = new List<int>();
         // Move leaves towards target animation state
-        bool anyLeavesReachedRestingPosition = false;
         for (int i = 0; i < book.leaves_active_normal.Count; i++)
         {
             Book_Leaf leaf = book.leaves_active_normal[i];
@@ -486,7 +490,6 @@ public static partial class Methods
                     {
                         // Initialize as at rest opposite of the side that it started on
                         Book_Leaf_InitializeAsAtRest(leaf, leaf.animState_current == leaf.animState_rightToLeft);
-                        anyLeavesReachedRestingPosition = true;
                     }
                     else
                     {
@@ -515,30 +518,42 @@ public static partial class Methods
                     // Detect page finished turning
                     if (leaf.animState_current.currentTime == leaf.animState_current.targetTime)
                     {
-                        if (leaf.animState_current.targetTime == 0)
+                        // Landing on left
+                        if (leaf.animState_current == leaf.animState_leftToRight && leaf.animState_current.targetTime == 0
+                         || leaf.animState_current == leaf.animState_rightToLeft && leaf.animState_current.targetTime == leaf.animState_current.clipDuration)
                         {
-                            // put in same state
-                            Book_Leaf_InitializeAsAtRest(leaf, leaf.animState_current == leaf.animState_leftToRight);
-                            anyLeavesReachedRestingPosition = true;
+                            Book_Leaf_InitializeAsAtRest(leaf, true);
+                            taggedForRemoval.Add(0);
                         }
-                        else if (leaf.animState_current.targetTime == leaf.animState_current.clipDuration)
+                        // Landing on right
+                        else if (leaf.animState_current == leaf.animState_rightToLeft && leaf.animState_current.targetTime == 0
+                              || leaf.animState_current == leaf.animState_leftToRight && leaf.animState_current.targetTime == leaf.animState_current.clipDuration)
                         {
-                            // Put in opposit state
-                            Book_Leaf_InitializeAsAtRest(leaf, leaf.animState_current == leaf.animState_rightToLeft);
-                            anyLeavesReachedRestingPosition = true;
+                            Book_Leaf_InitializeAsAtRest(leaf, false);
+                            taggedForRemoval.Add(book.leaves_active_normal.Count - 1);
                         }
+
+                        // Turn off left and right buttons if we have hit boundary of available pages
+                        book.ui_viewMode.pageTurnButton_next.interactable = Methods.Book_Can_Turn_Page_Next(book);
+                        book.ui_viewMode.pageTurnButton_previous.interactable = Methods.Book_Can_Turn_Page_Previous(book);
                     }
                 }
                 #endregion // Automatically turn page toward target
             }
-
             // Push changes to leaf data on the heap
             book.leaves_active_normal[i] = leaf;
         }
 
-        /// TODO :: Update / validate pages if any leaves reached their resting position (we likely want to remove or add leaves)
-
-
+        // Remove tagged leaves from highest to lowest index 
+        if (taggedForRemoval.Count > 0)
+        {
+            taggedForRemoval.Sort();
+            taggedForRemoval.Reverse();
+            foreach (int index in taggedForRemoval)
+            {
+                Book_RemoveLeaf(book, index);
+            }
+        }
         #endregion // Page turning
 
         #region // User simulation
@@ -796,51 +811,69 @@ public static partial class Methods
     public static void Book_TurnPage(Book book, AssetReferences assetRefs, bool directionIsLeft)
     {
         if (directionIsLeft ? !Book_Can_Turn_Page_Previous(book) : !Book_Can_Turn_Page_Next(book))
-            return;
+            return;        
 
-        // Turn off left and right buttons if we have hit boundary of available pages
-        book.ui_viewMode.pageTurnButton_next.interactable = Methods.Book_Can_Turn_Page_Next(book);
-        book.ui_viewMode.pageTurnButton_previous.interactable = Methods.Book_Can_Turn_Page_Previous(book);
-
-        /// TODO :: Only use "secon left-most if it is turing in the right direction
-
-        // Start moving the right or left most leaf
-        Book_Leaf leaf;
+        Book_Leaf leaf = null;
         if (directionIsLeft)
         {
-            // Selection priority :: 2nd left most > left-most > right-most
-            if (book.leaves_active_normal.Count == 2)
+            // Search right to left for a leaf that is turning to the left or is resting on the left
+            Book_Leaf l;
+            for (int i = book.leaves_active_normal.Count - 1; i >= 0; i--)
             {
-                // Left-most
-                leaf = book.leaves_active_normal[0];
-                // create new leaf in its place and give it the necessary materials
-                Book_AddLeaf(book, assetRefs, directionIsLeft);
-            }
-            else
-            {
-                // Second left-most
-                leaf = book.leaves_active_normal[1];
+                l = book.leaves_active_normal[i];
+                if (!l.animState_current.atRest && l.animState_current == l.animState_rightToLeft)
+                {
+                    leaf = l;
+                    break;
+                }
+                else if (l.animState_current.atRest && l.animState_current == l.animState_leftToRight)
+                {
+                    leaf = l;
+                    // Replace resting leaf on left
+                    Book_AddLeaf(book, assetRefs, true);
+                    break;
+                }
             }
         }
         else
         {
-            // Selection priority :: 2nd right most > right-most > left-most
-            if (book.leaves_active_normal.Count == 2)
+            // Search left to right for a leaf that is turning to the right or is resting on the right
+            Book_Leaf l;
+            for (int i = 0; i < book.leaves_active_normal.Count; i++)
             {
-                // Right-most
-                leaf = book.leaves_active_normal[1];
-                // create new leaf in its place and give it the necessary materials
-                Book_AddLeaf(book, assetRefs, directionIsLeft);
-            }
-            else
-            {
-                // Second right-most
-                leaf = book.leaves_active_normal[book.leaves_active_normal.Count - 2];
+                l = book.leaves_active_normal[i];
+                if (!l.animState_current.atRest && l.animState_current == l.animState_leftToRight)
+                {
+                    leaf = l;
+                    break;
+                }
+                else if (l.animState_current.atRest && l.animState_current == l.animState_rightToLeft)
+                {
+                    leaf = l;
+                    // Replace resting leaf on right
+                    Book_AddLeaf(book, assetRefs, false);
+                    break;
+                }
             }
         }
 
-        leaf.animState_current.atRest = false;
-        leaf.animState_current.targetTime = leaf.animState_current.clipDuration;
+        if(leaf != null)
+        {
+            // Set the leaf's in motion towards target side
+            leaf.animState_current.atRest = false;
+            if (leaf.animState_current == leaf.animState_rightToLeft)
+            {
+                leaf.animState_current.targetTime = !directionIsLeft ? leaf.animState_current.clipDuration : 0;
+            }
+            else
+            {
+                leaf.animState_current.targetTime = directionIsLeft ? leaf.animState_current.clipDuration : 0;
+            }
+        }
+
+        // Turn off left and right buttons if we have hit boundary of available pages
+        book.ui_viewMode.pageTurnButton_next.interactable = Methods.Book_Can_Turn_Page_Next(book);
+        book.ui_viewMode.pageTurnButton_previous.interactable = Methods.Book_Can_Turn_Page_Previous(book);
     }
 
     public static bool Book_Can_Turn_Page_Previous(Book book)
@@ -856,38 +889,50 @@ public static partial class Methods
     public static void Book_AddLeaf(Book book, AssetReferences assetRefs, bool left)
     {
         Book_Leaf newLeaf_normal;
-        if(book.leaves_pool.Count > 0)
         {
-            newLeaf_normal = book.leaves_pool.Pop();
-        }
-        else
-        {
-            newLeaf_normal = GameObject.Instantiate(assetRefs.bookLeafPrefab, book.worldRefs.leafParent_normal, false).data;
+            if (book.leaves_pool.Count > 0)
+            {
+                newLeaf_normal = book.leaves_pool.Pop();
+            }
+            else
+            {
+                newLeaf_normal = GameObject.Instantiate(assetRefs.bookLeafPrefab).data;
+                Book_Leaf_InitializeAnimationGraph(newLeaf_normal, left);
+            }
+            newLeaf_normal.gameObject.SetActive(true);
+            newLeaf_normal.gameObject.transform.parent = book.worldRefs.leafParent_normal;
             newLeaf_normal.gameObject.transform.localPosition = Vector3.zero;
             newLeaf_normal.gameObject.transform.localRotation = Quaternion.identity;
-            Book_Leaf_InitializeAnimationGraph(newLeaf_normal, left);
+            newLeaf_normal.gameObject.layer = book.worldRefs.leafParent_normal.gameObject.layer;
+            Book_Leaf_InitializeAsAtRest(newLeaf_normal, left);
         }
-        Book_Leaf_InitializeAsAtRest(newLeaf_normal, left);
 
         Book_Leaf newLeaf_transcription;
-        if (book.leaves_pool.Count > 0)
         {
-            newLeaf_transcription = book.leaves_pool.Pop();
-        }
-        else
-        {
-            newLeaf_transcription = GameObject.Instantiate(assetRefs.bookLeafPrefab, book.worldRefs.leafParent_transcription, false).data;
+            if (book.leaves_pool.Count > 0)
+            {
+                newLeaf_transcription = book.leaves_pool.Pop();
+            }
+            else
+            {
+                newLeaf_transcription = GameObject.Instantiate(assetRefs.bookLeafPrefab, book.worldRefs.leafParent_transcription, false).data;
+                Book_Leaf_InitializeAnimationGraph(newLeaf_transcription, left);
+            }
+            newLeaf_transcription.gameObject.SetActive(true);
+            newLeaf_transcription.gameObject.transform.parent = book.worldRefs.leafParent_transcription;
             newLeaf_transcription.gameObject.transform.localPosition = Vector3.zero;
             newLeaf_transcription.gameObject.transform.localRotation = Quaternion.identity;
-            Book_Leaf_InitializeAnimationGraph(newLeaf_transcription, left);
+            newLeaf_transcription.gameObject.layer = book.worldRefs.leafParent_transcription.gameObject.layer;
+            Book_Leaf_InitializeAsAtRest(newLeaf_transcription, left);
         }
-        Book_Leaf_InitializeAsAtRest(newLeaf_transcription, left);
 
         if (left)
         {
+            if(book.leaves_active_normal.Count > 0)
+                book.leaves_active_firstLeafNumber--;
             book.leaves_active_normal.Insert(0, newLeaf_normal);
             book.leaves_active_transcription.Insert(0, newLeaf_transcription);
-            //book.leaves_active_firstLeafNumber--;
+
         }
         else
         {
@@ -896,7 +941,16 @@ public static partial class Methods
         }
 
         // Set materials;
-        uint leafNumber = left ? book.leaves_active_firstLeafNumber : book.leaves_active_firstLeafNumber + (uint)book.leaves_active_normal.Count - 1;
+        uint leafNumber;
+        if (left)
+        {
+            leafNumber = book.leaves_active_firstLeafNumber;
+        }
+        else
+        {
+            leafNumber = book.leaves_active_firstLeafNumber + (uint)book.leaves_active_normal.Count;
+        }
+
         IIIF_EntryCoordinate coord = new IIIF_EntryCoordinate { leafNumber = leafNumber, isVerso = false };
 
         newLeaf_normal.renderer_recto.material = book.entries.ContainsKey(coord) ? book.entries[coord].material_base : assetRefs.bookEntryBaseMaterial;
@@ -909,6 +963,7 @@ public static partial class Methods
 
     public static void Book_RemoveLeaf(Book book, int indexInActiveList)
     {
+        book.leaves_active_firstLeafNumber++;
         book.leaves_active_normal[indexInActiveList].gameObject.SetActive(false);
         book.leaves_pool.Push(book.leaves_active_normal[indexInActiveList]);
         book.leaves_active_normal.RemoveAt(indexInActiveList);
@@ -925,7 +980,7 @@ public static partial class Methods
         GraphVisualizerClient.Show(leaf.animationGraph, leaf.gameObject.name + " " + leaf.gameObject.transform.GetInstanceID());
         //leaf.animationGraph.SetTimeUpdateMode(DirectorUpdateMode.Manual);
         leaf.playableOutput = AnimationPlayableOutput.Create(leaf.animationGraph, "", leaf.animator);
-        leaf.mixer = AnimationMixerPlayable.Create(leaf.animationGraph, 2, true);
+        leaf.mixer = AnimationMixerPlayable.Create(leaf.animationGraph, 2);
         leaf.playableOutput.SetSourcePlayable(leaf.mixer);
 
         {
@@ -965,13 +1020,15 @@ public static partial class Methods
     public static void Book_Leaf_SetCurrentAnimState(Book_Leaf leaf, bool left)
     {
         leaf.animState_current = left ? leaf.animState_leftToRight : leaf.animState_rightToLeft;
-        leaf.mixer.SetInputWeight(leaf.animState_current.mixerIndex, 1);
+        leaf.mixer.SetInputWeight(0, left ? 1 : 0);
+        leaf.mixer.SetInputWeight(1, left ? 0 : 1);
     }
 
     public static void Book_Leaf_InitializeAsAtRest(Book_Leaf leaf, bool left)
     {
         Book_Leaf_SetCurrentAnimState(leaf, left);
         leaf.animState_current.currentTime = 0;
+        leaf.animState_current.playableClip.SetTime(leaf.animState_current.currentTime);
         leaf.animState_current.targetTime = 0;
         leaf.animState_current.atRest = true;
         leaf.isBeingDragged = false;
