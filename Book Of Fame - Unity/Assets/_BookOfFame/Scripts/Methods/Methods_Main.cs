@@ -11,6 +11,8 @@ using UnityEngine.Playables;
 /// TODO :: 
 /// - Properly initialize the first pages
 /// - Page drag
+/// - button activation
+/// - Rendering when book is closed
 
 public static partial class Methods
 {
@@ -97,18 +99,6 @@ public static partial class Methods
                     name = "Placeholder Transcription Mat - " + currentEntryCoordinate
                 },
             };
-
-            //// Flip verso pages horizontally and all pages vertically
-            //if (newPage.coordinate.isVerso)
-            //{
-            //    newPage.material_base.mainTextureScale = new Vector2(-1, -1);
-            //    newPage.material_transcription.mainTextureScale = new Vector2(-1, -1);
-            //}
-            //else
-            //{
-            //    newPage.material_base.mainTextureScale = new Vector2(1, -1);
-            //    newPage.material_transcription.mainTextureScale = new Vector2(1, -1);
-            //}
 
             // Add to indexed collection of entries
             book.entries.Add(newPage.coordinate, newPage);
@@ -268,14 +258,25 @@ public static partial class Methods
         book.worldRefs.baseMeshSkeleton_transforms = book.worldRefs.baseMeshSkeleton_root.GetComponentsInChildren<Transform>();
         book.worldRefs.transcriptionMeshSkeleton_transforms = book.worldRefs.transcriptionMeshSkeleton_root.GetComponentsInChildren<Transform>();
 
-        // Set initial page
-        book.leaves_active_firstLeafNumber = gameState.book.firstEntry.leafNumber;
 
         book.leaves_pool = new Stack<Book_Leaf>();
 
         #region // Create book leaves
         book.leaves_active_normal = new List<Book_Leaf>();
         book.leaves_active_transcription = new List<Book_Leaf>();
+
+        if (gameState.book.firstEntry.isVerso)
+        {
+            // Start with first entry open on right
+            // Set initial page
+            book.leaves_active_firstLeafNumber = gameState.book.firstEntry.leafNumber - 1;
+        }
+        else
+        {
+            // Start with first entry open on left
+            book.leaves_active_firstLeafNumber = gameState.book.firstEntry.leafNumber;
+        }
+
         Book_AddLeaf(book, gameParams.assetReferences, true);
         Book_AddLeaf(book, gameParams.assetReferences, false);
         #endregion // Create book leaves
@@ -427,22 +428,6 @@ public static partial class Methods
         }
         #endregion // Image download job maintenance
 
-        #region // Syncronize base book and transcription book
-        // Skeletal
-        for (int i = 0; i < book.worldRefs.baseMeshSkeleton_transforms.Length; i++)
-        {
-            book.worldRefs.transcriptionMeshSkeleton_transforms[i].localRotation = book.worldRefs.baseMeshSkeleton_transforms[i].localRotation;
-            book.worldRefs.transcriptionMeshSkeleton_transforms[i].localPosition = book.worldRefs.baseMeshSkeleton_transforms[i].localPosition;
-        }
-        // Leaves
-        for (int i = 0; i < book.leaves_active_normal.Count; i++)
-        {
-            book.leaves_active_transcription[i].playableOutput.GetSourcePlayable().SetTime(
-                book.leaves_active_normal[i].playableOutput.GetSourcePlayable().GetTime()
-                );
-        }
-        #endregion // Syncronize base book and transcription book
-
         #region // Page turning
 
         // Start page drag
@@ -466,6 +451,8 @@ public static partial class Methods
                     gameState.book.pageDrag_mousePos_target_x = gameState.pageDragStartEvent.panelCenterPosition_viewport_x + (isLeftPage ? distanceToComplete : -distanceToComplete);
 
                     Book_AddLeaf(gameState.book, gameParams.assetReferences, isLeftPage);
+                    if(isLeftPage)
+                        book.leaves_active_firstLeafNumber--;
                 }
             }
         }
@@ -552,9 +539,26 @@ public static partial class Methods
             foreach (int index in taggedForRemoval)
             {
                 Book_RemoveLeaf(book, index);
+                if(index == 0)
+                    book.leaves_active_firstLeafNumber++;
             }
         }
         #endregion // Page turning
+
+        #region // Syncronize base book and transcription book
+        // Cover
+        for (int i = 0; i < book.worldRefs.baseMeshSkeleton_transforms.Length; i++)
+        {
+            book.worldRefs.transcriptionMeshSkeleton_transforms[i].localRotation = book.worldRefs.baseMeshSkeleton_transforms[i].localRotation;
+            book.worldRefs.transcriptionMeshSkeleton_transforms[i].localPosition = book.worldRefs.baseMeshSkeleton_transforms[i].localPosition;
+        }
+        // Leaves
+        for (int i = 0; i < book.leaves_active_transcription.Count; i++)
+        {
+            Book_Leaf_SetCurrentAnimState(book.leaves_active_transcription[i], book.leaves_active_normal[i].animState_current == book.leaves_active_normal[i].animState_leftToRight);
+            book.leaves_active_transcription[i].animState_current.playableClip.SetTime(book.leaves_active_normal[i].animState_current.currentTime);
+        }
+        #endregion // Syncronize base book and transcription book
 
         #region // User simulation
         User user = gameState.user;
@@ -831,6 +835,7 @@ public static partial class Methods
                     leaf = l;
                     // Replace resting leaf on left
                     Book_AddLeaf(book, assetRefs, true);
+                    book.leaves_active_firstLeafNumber--;
                     break;
                 }
             }
@@ -888,6 +893,7 @@ public static partial class Methods
 
     public static void Book_AddLeaf(Book book, AssetReferences assetRefs, bool left)
     {
+        #region // Create
         Book_Leaf newLeaf_normal;
         {
             if (book.leaves_pool.Count > 0)
@@ -904,6 +910,8 @@ public static partial class Methods
             newLeaf_normal.gameObject.transform.localPosition = Vector3.zero;
             newLeaf_normal.gameObject.transform.localRotation = Quaternion.identity;
             newLeaf_normal.gameObject.layer = book.worldRefs.leafParent_normal.gameObject.layer;
+            foreach (Transform trans in newLeaf_normal.gameObject.GetComponentsInChildren<Transform>())
+                trans.gameObject.layer = book.worldRefs.leafParent_normal.gameObject.layer;
             Book_Leaf_InitializeAsAtRest(newLeaf_normal, left);
         }
 
@@ -923,13 +931,17 @@ public static partial class Methods
             newLeaf_transcription.gameObject.transform.localPosition = Vector3.zero;
             newLeaf_transcription.gameObject.transform.localRotation = Quaternion.identity;
             newLeaf_transcription.gameObject.layer = book.worldRefs.leafParent_transcription.gameObject.layer;
+            foreach(Transform trans in newLeaf_transcription.gameObject.GetComponentsInChildren<Transform>())
+                trans.gameObject.layer = book.worldRefs.leafParent_transcription.gameObject.layer;
             Book_Leaf_InitializeAsAtRest(newLeaf_transcription, left);
         }
+        #endregion // Create 
 
+        
+
+        #region // Add to collection
         if (left)
-        {
-            if(book.leaves_active_normal.Count > 0)
-                book.leaves_active_firstLeafNumber--;
+        {        
             book.leaves_active_normal.Insert(0, newLeaf_normal);
             book.leaves_active_transcription.Insert(0, newLeaf_transcription);
 
@@ -939,8 +951,9 @@ public static partial class Methods
             book.leaves_active_normal.Add(newLeaf_normal);
             book.leaves_active_transcription.Add(newLeaf_transcription);
         }
+        #endregion // Add to collection
 
-        // Set materials;
+        #region // Set materials;
         uint leafNumber;
         if (left)
         {
@@ -959,11 +972,11 @@ public static partial class Methods
         coord.isVerso = true;
         newLeaf_normal.renderer_verso.material = book.entries.ContainsKey(coord) ? book.entries[coord].material_base : assetRefs.bookEntryBaseMaterial;
         newLeaf_transcription.renderer_verso.material = book.entries.ContainsKey(coord) ? book.entries[coord].material_transcription : assetRefs.bookEntryBaseTranscriptionMaterial;
+        #endregion // Set materials;
     }
 
     public static void Book_RemoveLeaf(Book book, int indexInActiveList)
     {
-        book.leaves_active_firstLeafNumber++;
         book.leaves_active_normal[indexInActiveList].gameObject.SetActive(false);
         book.leaves_pool.Push(book.leaves_active_normal[indexInActiveList]);
         book.leaves_active_normal.RemoveAt(indexInActiveList);
