@@ -197,11 +197,11 @@ namespace BookOfFame
 
         public IIIF_EntryCoordinate firstEntry;
         public IIIF_EntryCoordinate lastEntry;
+        internal uint firstAallowedLeaf;
+        internal uint lastAllowedLeaf;
         //internal List<IIIF_EntryCoordinate> currentlyAccessibleEntries = new List<IIIF_EntryCoordinate>();
         internal Dictionary<IIIF_EntryCoordinate, Book_Entry> entries = new Dictionary<IIIF_EntryCoordinate, Book_Entry>();
         // Currently visible entries
-        public uint leaves_active_firstLeafNumber;
-        internal uint leaves_active_lastLeafNumber { get { return leaves_active_firstLeafNumber + (uint)leaves_active_normal.Count; } }
         public List<Book_Leaf> leaves_active_normal;
         internal List<Book_Leaf> leaves_active_transcription;
         internal Stack<Book_Leaf> leaves_pool;
