@@ -10,8 +10,15 @@ using UnityEngine.Playables;
 
 /// TODO :: 
 /// - Page drag
+///     - 
 /// - book close/open
+///     - When closing - 
+///     - Wait for all pages to complete their transition until they are at rest
+///     - Parent the left page to the last joint of the book using a position and rotation offset
+///         - Left leaf parent and right leaf parent? Change parent when crossing half-way point of animation
 /// - Page turn flicker on finish
+///     - Page at the end of right-to-left doesn't exactly match up with that start of left-to-right
+///         - Animation blending? Enable/disable early? Get isaac to fix the shit?
 public static partial class Methods
 {
     public static void Main_Initialize(ref GameState gameState, ref GameParams gameParams, SceneReferences sceneRefs)
@@ -443,7 +450,7 @@ public static partial class Methods
         if (gameState.pageDragStartEvent.queued)
         {
             gameState.pageDragStartEvent.queued = false;
-            if (!gameState.lookingGlass.isActive)
+            if (!gameState.lookingGlass.isActive && book.leaves_active_normal.Count == 2)
             {
                 bool isLeftPage = gameState.pageDragStartEvent.mousePosition_viewport_x < gameState.pageDragStartEvent.panelCenterPosition_viewport_x;
                 bool nextLeafIsAvailable = isLeftPage ? Book_Can_Turn_Page_Previous(gameState.book) : Book_Can_Turn_Page_Next(gameState.book);
@@ -458,6 +465,9 @@ public static partial class Methods
 
                     gameState.book.pageDrag_mousePos_start_x = gameState.pageDragStartEvent.mousePosition_viewport_x;
                     gameState.book.pageDrag_mousePos_target_x = gameState.pageDragStartEvent.panelCenterPosition_viewport_x + (isLeftPage ? distanceToComplete : -distanceToComplete);
+
+                    Book_Leaf leaf = isLeftPage ? book.leaves_active_normal[0] : book.leaves_active_normal[book.leaves_active_normal.Count - 1];
+                    leaf.isBeingDragged = true;
 
                     Book_AddLeaf(gameState.book, gameParams.assetReferences, isLeftPage);
                 }
@@ -484,7 +494,12 @@ public static partial class Methods
                     if (book.pageDrag_progress >= 1)
                     {
                         // Initialize as at rest opposite of the side that it started on
-                        Book_Leaf_InitializeAsAtRest(leaf, leaf.animState_current == leaf.animState_rightToLeft);
+                        bool landingOnLeft = leaf.animState_current == leaf.animState_rightToLeft;
+                        Book_Leaf_InitializeAsAtRest(leaf, landingOnLeft);
+                        if(landingOnLeft)
+                            nLeavesToRemove_left++;
+                        else
+                            nLeavesToRemove_right++;
                     }
                     else
                     {
@@ -498,6 +513,7 @@ public static partial class Methods
                     // Target nearest side and let go of page
                     leaf.animState_current.targetTime = Mathf.Round(Mathf.Clamp01(book.pageDrag_progress)) * leaf.animState_current.clipDuration;
                     leaf.isBeingDragged = false;
+                    leaf.animState_current.atRest = false;
                 }
                 #endregion
             }
