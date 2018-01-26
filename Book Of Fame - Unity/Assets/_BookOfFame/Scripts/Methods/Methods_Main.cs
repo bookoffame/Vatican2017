@@ -70,7 +70,6 @@ public static partial class Methods
         }
         #endregion // Get Manifest
 
-
         #region // Map page descriptions to entry coordinates
         // Parse string for page descriptions using a defined regex
         book.manifest.pageDescriptions = GameParams.manifest_regex.Matches(book.manifest.manifestString);
@@ -208,7 +207,8 @@ public static partial class Methods
                         //boundingBox_normalizedInPageSpace = new Rect(numbers[0], numbers[1], numbers[2], numbers[3])
                         boundingBox_normalizedInPageSpace = new Rect(
                             (float)numbers[0] / imageRequestParams.cropWidth,
-                            (float)numbers[1] / imageRequestParams.cropHeight,
+                            // Convert y pos from top-down to bottom-up
+                            (float)(imageRequestParams.cropHeight - numbers[1]) / imageRequestParams.cropHeight,
                             (float)numbers[2] / imageRequestParams.cropWidth,
                             (float)numbers[3] / imageRequestParams.cropHeight
                             )
@@ -256,8 +256,8 @@ public static partial class Methods
             book.entries[key].material_transcription.mainTexture = book.entries[key].pageImage_transcription;
             book.entries[key].material_transcription.name = "Generated Transcription Mat - " + key;
 
-            // Image test
-            //ImageTestPage_mono imageTest = GameObject.Instantiate(gameData.imageTestPrefab) as ImageTestPage_mono;
+            ////Image test
+            //ImageTestPage_mono imageTest = GameObject.Instantiate(gameParams.assetReferences.imageTestPrefab) as ImageTestPage_mono;
             //imageTest.transform.localScale = new Vector3((float)texture.width / (float)texture.height, 1, 1);
             //imageTest.gameObject.name = "Image Test - " + key;
             //imageTest.transform.position = (Vector3.up * 1.1f * (key.leafNumber - 81 - (key.isVerso ? 0 : 1))) + Vector3.right * .4f * (key.isVerso ? -1 : 1);
