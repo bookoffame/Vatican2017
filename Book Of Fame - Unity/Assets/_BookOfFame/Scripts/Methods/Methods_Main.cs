@@ -9,11 +9,9 @@ using UnityEngine.Animations;
 using UnityEngine.Playables;
 
 /// TODO :: 
-/// - Properly initialize the first pages
 /// - Page drag
-/// - button activation
-/// - Rendering when book is closed
-
+/// - book close/open
+/// - Page turn flicker on finish
 public static partial class Methods
 {
     public static void Main_Initialize(ref GameState gameState, ref GameParams gameParams, SceneReferences sceneRefs)
@@ -38,6 +36,9 @@ public static partial class Methods
 
         Book book = gameState.book;
         book.worldRefs.transform = sceneRefs.book_mono.transform;
+
+        gameState.book.firstEntry = new IIIF_EntryCoordinate() { isVerso = true, leafNumber = 81 };
+        gameState.book.lastEntry = new IIIF_EntryCoordinate() { isVerso = false, leafNumber = 87 };
 
         #region // Get Manifest
         if (!gameParams.fetchNewManifest && gameParams.assetReferences.cachedManifest != null)
@@ -104,8 +105,6 @@ public static partial class Methods
 
         #region // Create book entries
         IIIF_ImageRequestParams imageRequestParams = IIIF_ImageRequestParams.Default;
-        gameState.book.firstEntry = new IIIF_EntryCoordinate() { isVerso = true, leafNumber = 81 };
-        gameState.book.lastEntry = new IIIF_EntryCoordinate() { isVerso = false, leafNumber = 88 };
         
         Book_Entry newPage;
         List<IIIF_Transcription_Element> transcriptionAnnotationList = new List<IIIF_Transcription_Element>();
