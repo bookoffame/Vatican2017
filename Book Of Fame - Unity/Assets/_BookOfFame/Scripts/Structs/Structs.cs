@@ -63,6 +63,8 @@ namespace BookOfFame
         public TextAsset annotationsSource;
         public float pageTurnTime;
         public bool fetchNewManifest;
+        public float pageDragMinProgress;
+        public double pageTurnStartAndEndFudge;
     }
 
     [Serializable]

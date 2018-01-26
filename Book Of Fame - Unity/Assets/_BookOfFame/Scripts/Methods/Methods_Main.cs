@@ -332,11 +332,11 @@ public static partial class Methods
         }
         if ((gameState.uiEvents & UIEvents.NEXT_PAGE) != 0)
         {
-            Methods.Book_TurnPage(gameState.book, gameParams.assetReferences, false);
+            Methods.Book_TurnPage(gameState.book, gameParams.assetReferences, gameParams, false);
         }
         if ((gameState.uiEvents & UIEvents.PREV_PAGE) != 0)
         {
-            Methods.Book_TurnPage(gameState.book, gameParams.assetReferences, true);
+            Methods.Book_TurnPage(gameState.book, gameParams.assetReferences, gameParams, true);
         }
         // Clear UI events
         gameState.uiEvents = 0;
@@ -444,7 +444,7 @@ public static partial class Methods
 
         #region // Page turning
 
-        // Start page drag
+        #region // Start page drag
         if (gameState.pageDragStartEvent.queued)
         {
             gameState.pageDragStartEvent.queued = false;
@@ -471,6 +471,7 @@ public static partial class Methods
                 }
             }
         }
+        #endregion // Start page drag
 
         if (gameParams.pageTurnTime <= 0) gameParams.pageTurnTime = .01f;
         uint nLeavesToRemove_left = 0;
@@ -487,6 +488,9 @@ public static partial class Methods
                 if (Input.GetMouseButton(0))
                 {
                     book.pageDrag_progress = Mathf.InverseLerp(book.pageDrag_mousePos_start_x, book.pageDrag_mousePos_target_x, Input.mousePosition.x / Screen.width);
+
+                    // Hack to avoid z-fighting at start of animation
+                    book.pageDrag_progress = Mathf.Clamp(book.pageDrag_progress, gameParams.pageDragMinProgress, float.PositiveInfinity);
 
                     // Detect drag completion
                     if (book.pageDrag_progress >= 1)
@@ -525,7 +529,7 @@ public static partial class Methods
                     leaf.animState_current.playableClip.SetTime(leaf.animState_current.currentTime);
 
                     // Detect page finished turning
-                    if (leaf.animState_current.currentTime == leaf.animState_current.targetTime)
+                    if (System.Math.Abs(leaf.animState_current.targetTime - leaf.animState_current.currentTime) <= gameParams.pageTurnStartAndEndFudge)
                     {
                         // Landing on left
                         if (leaf.animState_current == leaf.animState_leftToRight && leaf.animState_current.targetTime == 0
@@ -824,7 +828,7 @@ public static partial class Methods
         //immediately complete any transitioning pages
     }
 
-    public static void Book_TurnPage(Book book, AssetReferences assetRefs, bool directionIsLeft)
+    public static void Book_TurnPage(Book book, AssetReferences assetRefs, GameParams gameParams, bool directionIsLeft)
     {
         //if (directionIsLeft ? !Book_Can_Turn_Page_Previous(book) : !Book_Can_Turn_Page_Next(book))
         //    return;        
@@ -876,7 +880,11 @@ public static partial class Methods
         if(leaf != null)
         {
             // Set the leaf's in motion towards target side
-            leaf.animState_current.atRest = false;
+            if (leaf.animState_current.atRest)
+            {
+                leaf.animState_current.atRest = false;
+                leaf.animState_current.currentTime = gameParams.pageTurnStartAndEndFudge;
+            }
             if (leaf.animState_current == leaf.animState_rightToLeft)
             {
                 leaf.animState_current.targetTime = !directionIsLeft ? leaf.animState_current.clipDuration : 0;
