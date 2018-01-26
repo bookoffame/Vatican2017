@@ -9,8 +9,6 @@ using UnityEngine.Animations;
 using UnityEngine.Playables;
 
 /// TODO :: 
-/// - Page drag
-///     - 
 /// - book close/open
 ///     - When closing - 
 ///     - Wait for all pages to complete their transition until they are at rest
@@ -1050,13 +1048,6 @@ public static partial class Methods
         leaf.animationGraph.Play();
     }
 
-    public static void Book_Leaf_SetCurrentAnimState(Book_Leaf leaf, bool left)
-    {
-        leaf.animState_current = left ? leaf.animState_leftToRight : leaf.animState_rightToLeft;
-        leaf.mixer.SetInputWeight(0, left ? 1 : 0);
-        leaf.mixer.SetInputWeight(1, left ? 0 : 1);
-    }
-
     public static void Book_Leaf_InitializeAsAtRest(Book_Leaf leaf, bool left)
     {
         Book_Leaf_SetCurrentAnimState(leaf, left);
@@ -1065,6 +1056,14 @@ public static partial class Methods
         leaf.animState_current.targetTime = 0;
         leaf.animState_current.atRest = true;
         leaf.isBeingDragged = false;
+    }
+
+    public static void Book_Leaf_SetCurrentAnimState(Book_Leaf leaf, bool left)
+    {
+        leaf.animState_current = left ? leaf.animState_leftToRight : leaf.animState_rightToLeft;
+        leaf.mixer.SetInputWeight(0, left ? 1 : 0);
+        leaf.mixer.SetInputWeight(1, left ? 0 : 1);
+        leaf.debug_currentAnimStateIsLeftToRight = left;
     }
 
     public static double MoveTowards(this double current, double target, double maxAbsDelta)

@@ -38,7 +38,6 @@ namespace BookOfFame
         internal Queue<IIIF_ImageDownloadJob> imageDownload_jobQueue;
         internal IIIF_ImageDownloadJob imageDownload_currentJob;
         internal bool allDownloadJobsFinished;
-        internal float timeOfLastProgressUpdate;
         internal User user;
         internal UIEvents uiEvents;
         internal SceneReferences sceneReferences;
@@ -247,6 +246,7 @@ namespace BookOfFame
         internal PageTurnAnimationState animState_rightToLeft;
         internal PageTurnAnimationState animState_current;
         internal uint leafNumber;
+        public bool debug_currentAnimStateIsLeftToRight;
     }
 
     [Serializable]
