@@ -70,34 +70,59 @@ public static partial class Methods
         }
         #endregion // Get Manifest
 
+
+        #region // Map page descriptions to entry coordinates
         // Parse string for page descriptions using a defined regex
         book.manifest.pageDescriptions = GameParams.manifest_regex.Matches(book.manifest.manifestString);
+        Dictionary<IIIF_EntryCoordinate, string> entryWebAdresses = new Dictionary<IIIF_EntryCoordinate, string>();
+
+        /// TODO (Stef) :: Current parsing of manifest does the job for now, but is probably fragile
+        // Current pattern:
+        // Find instance of an image file path and read to the left of the file extension for the page number and side
+        // "@id":"http://www.e-codices.unifr.ch/loris/fmb/fmb-cb-0048/fmb-cb-0048_028v.jp2"
+        //                                                                        ^  ^^- file extention index
+        //                                                                        |  |- page side
+        //                                                                        |- leaf number
+        int index;
+        string address;
+        IIIF_EntryCoordinate matchCoord = new IIIF_EntryCoordinate();
+        foreach (Match match in book.manifest.pageDescriptions)
+        {
+            address = Methods.IIIF_Remove_Tail_From_Web_Address(match.Groups[1].Value);
+            index = address.IndexOf(".jp2");
+            if (index < 0) continue;
+            if (address[index - 1] == 'v')
+                matchCoord.isVerso = true;
+            else if (address[index - 1] == 'r')
+                matchCoord.isVerso = false;
+            else
+                continue;
+
+            matchCoord.leafNumber = uint.Parse(address.Substring(index - 4, 3));
+            entryWebAdresses.Add(matchCoord, address);
+        }
+        #endregion // Map page descriptions to entry coordinates
 
         #region // Create book entries
-        /// TODO (Stef) :: replace this assumption making hack (specifying desired page description indicies manually) with proper parsing of manifest to determine which page descriptions to download 
         IIIF_ImageRequestParams imageRequestParams = IIIF_ImageRequestParams.Default;
         gameState.book.firstEntry = new IIIF_EntryCoordinate() { isVerso = true, leafNumber = 81 };
         gameState.book.lastEntry = new IIIF_EntryCoordinate() { isVerso = false, leafNumber = 88 };
         
-        IIIF_EntryCoordinate currentEntryCoordinate = gameState.book.firstEntry;
-        int descriptionIndex_first = 167; // 81 verso
-        int descriptionIndex_last = 178; // 88 recto
         Book_Entry newPage;
         List<IIIF_Transcription_Element> transcriptionAnnotationList = new List<IIIF_Transcription_Element>();
-        for (int i = descriptionIndex_first; i <= descriptionIndex_last; i++)
+        for (IIIF_EntryCoordinate entryCoord = gameState.book.firstEntry; entryCoord <= gameState.book.lastEntry; entryCoord++)
         {
-
             // creat a new entry
             newPage = new Book_Entry()
             {
-                coordinate = currentEntryCoordinate,
+                coordinate = entryCoord,
                 material_base = new Material(gameParams.assetReferences.bookEntryBaseMaterial)
                 {
-                    name = "Placeholder Manuscript Mat - " + currentEntryCoordinate
+                    name = "Placeholder Manuscript Mat - " + entryCoord
                 },
                 material_transcription = new Material(gameParams.assetReferences.bookEntryBaseTranscriptionMaterial)
                 {
-                    name = "Placeholder Transcription Mat - " + currentEntryCoordinate
+                    name = "Placeholder Transcription Mat - " + entryCoord
                 },
             };
 
@@ -112,7 +137,7 @@ public static partial class Methods
             #region // Create image request params for manuscript image
             // verso images get offset of 60, recto gets 175
             imageRequestParams.cropOffsetX = newPage.coordinate.isVerso ? 175 : 60;
-            imageRequestParams.webAddress = Methods.IIIF_Remove_Tail_From_Web_Address(book.manifest.pageDescriptions[i].Groups[1].Value);
+            imageRequestParams.webAddress = entryWebAdresses[entryCoord];
 
             // Store request params for later use
             book.page_imageRequestParams.Add(newPage.coordinate, imageRequestParams);
@@ -122,7 +147,7 @@ public static partial class Methods
             IIIF_ImageDownloadJob downloadJob = new IIIF_ImageDownloadJob()
             {
                 imageRequestParams = imageRequestParams,
-                targetPageCoordinate = currentEntryCoordinate,
+                targetPageCoordinate = entryCoord,
                 resultTexture = new Texture2D(imageRequestParams.targetWidth, imageRequestParams.targetHeight),
                 targetUrl = IIIF_Determine_Web_Address_For_Image(imageRequestParams),
                 // NOTE (Stef) :: Don't create www object until ready to start downloading
@@ -130,13 +155,9 @@ public static partial class Methods
             };
 
             // Add it to the job queue
-            if (!gameParams.debug_onlyDLOnePage || i == descriptionIndex_first)
+            if (!gameParams.debug_onlyDLOnePage || entryCoord == gameState.book.firstEntry)
                 gameState.imageDownload_jobQueue.Enqueue(downloadJob);
             #endregion 
-
-
-
-            currentEntryCoordinate++;
         }
         book.nInitialDownloadJobs = gameState.imageDownload_jobQueue.Count;
         gameState.allDownloadJobsFinished = false;
@@ -263,8 +284,8 @@ public static partial class Methods
         book.leaves_pool = new Stack<Book_Leaf>();
 
         #region // Create book leaves
-        book.firstAallowedLeaf = book.firstEntry.isVerso ? book.firstEntry.leafNumber - 1 : book.firstEntry.leafNumber;
-        book.lastAllowedLeaf = book.lastEntry.isVerso ? book.lastEntry.leafNumber : book.lastEntry.leafNumber + 1;
+        book.firstAallowedLeaf = book.firstEntry.isVerso ? book.firstEntry.leafNumber : book.firstEntry.leafNumber - 1;
+        book.lastAllowedLeaf = book.lastEntry.isVerso ? book.lastEntry.leafNumber + 1 : book.lastEntry.leafNumber;
 
         book.leaves_active_normal = new List<Book_Leaf>();
         book.leaves_active_transcription = new List<Book_Leaf>();
@@ -870,8 +891,8 @@ public static partial class Methods
         book.ui_viewMode.pageTurnButton_next.interactable = Methods.Book_Can_Turn_Page_Next(book);
         book.ui_viewMode.pageTurnButton_previous.interactable = Methods.Book_Can_Turn_Page_Previous(book);
         
-        book.ui_viewMode.pageNumber_previous.text = book.leaves_active_normal[0].leafNumber.ToString() + "r";
-        book.ui_viewMode.pageNumber_next.text = book.leaves_active_normal[book.leaves_active_normal.Count - 1].leafNumber.ToString() + "v";
+        book.ui_viewMode.pageNumber_previous.text = book.leaves_active_normal[0].leafNumber.ToString() + "v";
+        book.ui_viewMode.pageNumber_next.text = book.leaves_active_normal[book.leaves_active_normal.Count - 1].leafNumber.ToString() + "r";
     }
 
     public static void Book_AddLeaf(Book book, AssetReferences assetRefs, bool left)
