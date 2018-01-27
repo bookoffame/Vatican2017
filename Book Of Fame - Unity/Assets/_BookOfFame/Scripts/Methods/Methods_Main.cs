@@ -207,7 +207,7 @@ public static partial class Methods
                         boundingBox_normalizedInPageSpace = new Rect(
                             (float)numbers[0] / imageRequestParams.cropWidth,
                             // Convert y pos from top-down to bottom-up
-                            (float)(imageRequestParams.cropHeight - numbers[1]) / imageRequestParams.cropHeight,
+                            (float)(imageRequestParams.cropHeight - numbers[1] + 100) / imageRequestParams.cropHeight,
                             (float)numbers[2] / imageRequestParams.cropWidth,
                             (float)numbers[3] / imageRequestParams.cropHeight
                             )
