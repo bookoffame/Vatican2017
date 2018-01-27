@@ -61,6 +61,7 @@ namespace BookOfFame
         public AssetReferences_so assetReferences_so;
         internal AssetReferences assetReferences;
         public TextAsset annotationsSource;
+        public float bookopenTime;
         public float pageTurnTime;
         public bool fetchNewManifest;
         public float pageDragMinProgress;
@@ -192,7 +193,6 @@ namespace BookOfFame
         public Book_UI_ViewModeUI ui_viewMode;
         public AnimationClip closedToOpen;
         public AnimationClip openToClosed;
-        internal PlayableGraph playableGraph;
         internal string manifestURL = "http://www.e-codices.unifr.ch/metadata/iiif/fmb-cb-0048/manifest.json";
         internal IIIF_Manifest manifest = new IIIF_Manifest();
 
@@ -215,6 +215,12 @@ namespace BookOfFame
         internal float pageDrag_mousePos_target_x;
         internal float pageDrag_mousePos_start_x;
         internal float pageDrag_progress;
+
+        internal PlayableGraph anim_graph;
+        internal AnimationClipPlayable anim_playableClip;
+        internal float anim_openAmount;
+        internal bool anim_targetIsClosed;
+        internal bool anim_changeStateQueued;
     }
 
     [Serializable]
@@ -223,12 +229,13 @@ namespace BookOfFame
         internal Transform transform;
         public Transform leafParent_normal;
         public Transform leafParent_transcription;
+        public Transform leafParent_leftLeavesWhenClosed;
         public Animator animator;
         public Transform baseMeshSkeleton_root;
         public Transform transcriptionMeshSkeleton_root;
         internal Transform[] baseMeshSkeleton_transforms;
         internal Transform[] transcriptionMeshSkeleton_transforms;
-        public Transform cameraSocket;
+        public Transform cameraSocket;        
     }
 
     [Serializable]

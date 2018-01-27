@@ -14,9 +14,6 @@ using UnityEngine.Playables;
 ///     - Wait for all pages to complete their transition until they are at rest
 ///     - Parent the left page to the last joint of the book using a position and rotation offset
 ///         - Left leaf parent and right leaf parent? Change parent when crossing half-way point of animation
-/// - Page turn flicker on finish
-///     - Page at the end of right-to-left doesn't exactly match up with that start of left-to-right
-///         - Animation blending? Enable/disable early? Get isaac to fix the shit?
 public static partial class Methods
 {
     public static void Main_Initialize(ref GameState gameState, ref GameParams gameParams, SceneReferences sceneRefs)
@@ -38,10 +35,8 @@ public static partial class Methods
 
         #region // Init book
         gameState.book = sceneRefs.book_mono.data;
-
         Book book = gameState.book;
         book.worldRefs.transform = sceneRefs.book_mono.transform;
-
         gameState.book.firstEntry = new IIIF_EntryCoordinate() { isVerso = true, leafNumber = 81 };
         gameState.book.lastEntry = new IIIF_EntryCoordinate() { isVerso = false, leafNumber = 87 };
 
@@ -284,7 +279,6 @@ public static partial class Methods
         book.worldRefs.baseMeshSkeleton_transforms = book.worldRefs.baseMeshSkeleton_root.GetComponentsInChildren<Transform>();
         book.worldRefs.transcriptionMeshSkeleton_transforms = book.worldRefs.transcriptionMeshSkeleton_root.GetComponentsInChildren<Transform>();
 
-
         book.leaves_pool = new Stack<Book_Leaf>();
 
         #region // Create book leaves
@@ -298,6 +292,21 @@ public static partial class Methods
         Book_AddLeaf(book, gameParams.assetReferences, false);
         #endregion // Create book leaves
 
+        #region // Init animation graph
+        book.anim_graph = PlayableGraph.Create();
+        book.anim_graph.Play();
+        GraphVisualizerClient.Show(book.anim_graph, "Book");
+        AnimationPlayableOutput output = AnimationPlayableOutput.Create(book.anim_graph, "", book.worldRefs.animator);
+        book.anim_playableClip = AnimationClipPlayable.Create(book.anim_graph, book.closedToOpen);
+        book.anim_playableClip.SetDuration(book.closedToOpen.length);
+        book.anim_playableClip.SetTime(0);
+        output.SetSourcePlayable(book.anim_playableClip);
+        book.anim_openAmount = 0;
+        book.anim_targetIsClosed = true;
+        book.anim_playableClip.SetPlayState(PlayState.Paused);
+        #endregion // Init animation graph
+
+        Book_ParentLeftLeavesToCover(book);
         #endregion // Init book
 
         #region // Init user
@@ -310,7 +319,7 @@ public static partial class Methods
 
         gameState.user.agent.camera_control_locomotion.initialFoV = gameState.user.agent.camera_main.fieldOfView;
 
-        Methods.User_Enter_Mode_Locomotion(gameState.user, gameState.book, gameState.lookingGlass, false);
+        Methods.User_Enter_Mode_Locomotion(gameState.user, gameState.book, gameState.lookingGlass, true);
 
         gameState.user.agent.camera_control_locomotion.pitch_current = gameState.user.agent.camera_main.transform.eulerAngles.x;
         gameState.user.agent.camera_control_locomotion.yaw_current = gameState.user.agent.camera_main.transform.eulerAngles.y;
@@ -330,11 +339,13 @@ public static partial class Methods
         {
             Methods.User_Enter_Mode_Locomotion(gameState.user, gameState.book, gameState.lookingGlass);
         }
-        if ((gameState.uiEvents & UIEvents.NEXT_PAGE) != 0)
+        if ((gameState.uiEvents & UIEvents.NEXT_PAGE) != 0
+            && book.anim_openAmount == (book.anim_targetIsClosed ? 0 : 1))
         {
             Methods.Book_TurnPage(gameState.book, gameParams.assetReferences, gameParams, false);
         }
-        if ((gameState.uiEvents & UIEvents.PREV_PAGE) != 0)
+        if ((gameState.uiEvents & UIEvents.PREV_PAGE) != 0
+            && book.anim_openAmount == (book.anim_targetIsClosed ? 0 : 1))
         {
             Methods.Book_TurnPage(gameState.book, gameParams.assetReferences, gameParams, true);
         }
@@ -442,13 +453,49 @@ public static partial class Methods
         }
         #endregion // Image download job maintenance
 
+        #region // Book open/close
+        book.anim_playableClip.SetPlayState(PlayState.Paused);
+
+        // Start Transition
+        if (book.anim_changeStateQueued && book.leaves_active_normal.Count == 2)
+        {
+            book.anim_changeStateQueued = false;
+            book.anim_targetIsClosed = !book.anim_targetIsClosed;
+
+            if (book.anim_targetIsClosed)
+            {
+                Book_ParentLeftLeavesToCover(book);
+            }
+        }
+
+        // Continue transition
+        if (book.anim_openAmount != (book.anim_targetIsClosed ? 0 : 1) )
+        {
+            float speed = 1f / gameParams.bookopenTime;
+            book.anim_openAmount = Mathf.MoveTowards(book.anim_openAmount, book.anim_targetIsClosed ? 0 : 1, speed * Time.deltaTime);
+            book.anim_playableClip.SetTime(book.closedToOpen.length * book.anim_openAmount);
+            
+            // Detect finish transition
+            if (book.anim_openAmount == (book.anim_targetIsClosed ? 0 : 1))
+            {
+                if (!book.anim_targetIsClosed)
+                {
+                    Book_UnParentLeftLeavesFromCover(book);
+                }
+            }
+        }
+        #endregion // Book open/close
+
         #region // Page turning
 
         #region // Start page drag
         if (gameState.pageDragStartEvent.queued)
         {
             gameState.pageDragStartEvent.queued = false;
-            if (!gameState.lookingGlass.isActive && book.leaves_active_normal.Count == 2)
+            if (!gameState.lookingGlass.isActive 
+                && book.leaves_active_normal.Count == 2
+                && book.anim_openAmount == (book.anim_targetIsClosed ? 0 : 1)
+                )
             {
                 bool isLeftPage = gameState.pageDragStartEvent.mousePosition_viewport_x < gameState.pageDragStartEvent.panelCenterPosition_viewport_x;
                 bool nextLeafIsAvailable = isLeftPage ? Book_Can_Turn_Page_Previous(gameState.book) : Book_Can_Turn_Page_Next(gameState.book);
@@ -563,7 +610,7 @@ public static partial class Methods
 
         #region // Syncronize base book and transcription book
         // Cover
-        for (int i = 0; i < book.worldRefs.baseMeshSkeleton_transforms.Length; i++)
+        for (int i = 0; i < book.worldRefs.transcriptionMeshSkeleton_transforms.Length; i++)
         {
             book.worldRefs.transcriptionMeshSkeleton_transforms[i].localRotation = book.worldRefs.baseMeshSkeleton_transforms[i].localRotation;
             book.worldRefs.transcriptionMeshSkeleton_transforms[i].localPosition = book.worldRefs.baseMeshSkeleton_transforms[i].localPosition;
@@ -803,11 +850,11 @@ public static partial class Methods
         book.ui_viewMode.gameObject.SetActive(true);
         // Disable access UI
         book.ui_bookAccess.gameObject.SetActive(false);
-        // Trigger book animation
-        AnimationPlayableUtilities.PlayClip(book.worldRefs.animator, book.closedToOpen, out book.playableGraph);
+
+        book.anim_changeStateQueued = true;
     }
 
-    public static void User_Enter_Mode_Locomotion(User user, Book book, LookingGlass lookingGlass, bool playAnim = true)
+    public static void User_Enter_Mode_Locomotion(User user, Book book, LookingGlass lookingGlass, bool initial = false)
     {
         user.agent.isViewingBook = false;
         user.agent.cameras_root.SetParent(user.agent.cameraSocket, true);
@@ -820,12 +867,8 @@ public static partial class Methods
         lookingGlass.isActive = false;
         lookingGlass.gameObject.SetActive(false);
 
-
-        if (playAnim)
-            AnimationPlayableUtilities.PlayClip(book.worldRefs.animator, book.openToClosed, out book.playableGraph);
-
-
-        //immediately complete any transitioning pages
+        if(!initial)
+            book.anim_changeStateQueued = true;
     }
 
     public static void Book_TurnPage(Book book, AssetReferences assetRefs, GameParams gameParams, bool directionIsLeft)
@@ -904,6 +947,46 @@ public static partial class Methods
     public static bool Book_Can_Turn_Page_Next(Book book)
     {
         return book.leaves_active_normal[book.leaves_active_normal.Count - 1].leafNumber + 1 <= book.lastAllowedLeaf;
+    }
+
+    public static void Book_ParentLeftLeavesToCover(Book book)
+    {
+        // Send left side leaves to a temporary container so they move with the book cover
+        foreach (Book_Leaf leaf in book.leaves_active_normal)
+        {
+            if (leaf.animState_current == leaf.animState_leftToRight)
+            {
+                leaf.gameObject.transform.SetParent(book.worldRefs.leafParent_leftLeavesWhenClosed);
+                leaf.gameObject.transform.localPosition = Vector3.zero;
+                leaf.gameObject.transform.localRotation = Quaternion.identity;
+            }
+        }
+        foreach (Book_Leaf leaf in book.leaves_active_transcription)
+        {
+            if (leaf.animState_current == leaf.animState_leftToRight)
+            {
+                leaf.gameObject.transform.SetParent(book.worldRefs.leafParent_leftLeavesWhenClosed);
+                leaf.gameObject.transform.localPosition = Vector3.zero;
+                leaf.gameObject.transform.localRotation = Quaternion.identity;
+            }
+        }
+    }
+
+    public static void Book_UnParentLeftLeavesFromCover(Book book)
+    {
+        // Send left leaves temporarily stored in alternative container back to standard container
+        foreach (Book_Leaf leaf in book.leaves_active_normal)
+        {
+            leaf.gameObject.transform.SetParent(book.worldRefs.leafParent_normal);
+            leaf.gameObject.transform.localPosition = Vector3.zero;
+            leaf.gameObject.transform.localRotation = Quaternion.identity;
+        }
+        foreach (Book_Leaf leaf in book.leaves_active_transcription)
+        {
+            leaf.gameObject.transform.SetParent(book.worldRefs.leafParent_transcription);
+            leaf.gameObject.transform.localPosition = Vector3.zero;
+            leaf.gameObject.transform.localRotation = Quaternion.identity;
+        }
     }
 
     public static void Book_UpdatePageUI(Book book)
