@@ -165,7 +165,7 @@ public static partial class Methods
         #region // Get all transcription annotations
         // Load the transcription annotation manifest
         IIIF_AnnotationManifestFromJSON transcriptionManifest = new IIIF_AnnotationManifestFromJSON();
-        JsonUtility.FromJsonOverwrite(gameParams.annotationsSource.text, transcriptionManifest);
+        JsonUtility.FromJsonOverwrite(gameParams.assetReferences.annotationsSource.text, transcriptionManifest);
         Dictionary<IIIF_EntryCoordinate, List<IIIF_Transcription_Element>> transcriptionAnnotations = new Dictionary<IIIF_EntryCoordinate, List<IIIF_Transcription_Element>>();
 
         for (int ann = 0; ann < transcriptionManifest.resources.Length; ann++)
@@ -198,6 +198,13 @@ public static partial class Methods
             }
             numbers[3] = int.Parse(rectParamsString);
 
+            /// NOTE :: Hacky alignment fixes
+            // Convert y pos from top-down to bottom-up
+            numbers[1] = imageRequestParams.cropHeight - numbers[1];
+            numbers[1] += 100;
+            if(coord.isVerso)
+                numbers[0] -= 150;
+
             // Add this transcription element to the collection
             transcriptionAnnotations[coord].Add(
                     new IIIF_Transcription_Element()
@@ -206,13 +213,13 @@ public static partial class Methods
                         //boundingBox_normalizedInPageSpace = new Rect(numbers[0], numbers[1], numbers[2], numbers[3])
                         boundingBox_normalizedInPageSpace = new Rect(
                             (float)numbers[0] / imageRequestParams.cropWidth,
-                            // Convert y pos from top-down to bottom-up
-                            (float)(imageRequestParams.cropHeight - numbers[1] + 100) / imageRequestParams.cropHeight,
+                            (float)numbers[1] / imageRequestParams.cropHeight,
                             (float)numbers[2] / imageRequestParams.cropWidth,
                             (float)numbers[3] / imageRequestParams.cropHeight
                             )
                     }
                     );
+
         }
         #endregion // Get all transcription annotations
 
@@ -852,6 +859,11 @@ public static partial class Methods
         book.ui_bookAccess.gameObject.SetActive(false);
 
         book.anim_changeStateQueued = true;
+        user.agent.camera_control_bookViewing.zoom_target = 0;
+        user.agent.camera_control_bookViewing.zoom_current = 0;
+        user.agent.camera_main.fieldOfView = user.userParams.bookView_zoom_fov_max;
+        user.agent.camera_ui.fieldOfView = user.userParams.bookView_zoom_fov_max;
+        user.agent.camera_transcription.fieldOfView = user.userParams.bookView_zoom_fov_max;
     }
 
     public static void User_Enter_Mode_Locomotion(User user, Book book, LookingGlass lookingGlass, bool initial = false)

@@ -60,7 +60,6 @@ namespace BookOfFame
         public static string book_manifestURL = "http://www.e-codices.unifr.ch/metadata/iiif/fmb-cb-0048/manifest.json";
         public AssetReferences_so assetReferences_so;
         internal AssetReferences assetReferences;
-        public TextAsset annotationsSource;
         public float bookopenTime;
         public float pageTurnTime;
         public bool fetchNewManifest;
@@ -81,6 +80,7 @@ namespace BookOfFame
     public class AssetReferences
     {
         public User_Params_so userParams;
+        public TextAsset annotationsSource;
         public TranscriptionRenderer_mono transcription_rendererFab;
         public TranscriptionRenderer_Annotation_mono transcription_annotationFab;
         public ImageTestPage_mono imageTestPrefab;
