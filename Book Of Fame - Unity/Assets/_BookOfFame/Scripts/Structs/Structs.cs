@@ -74,6 +74,8 @@ namespace BookOfFame
         public Agent_mono agentObject;
         public LookingGlass_mono lookingGlass_mono;
         public VRInputModule inputModule;
+        public RectTransform controlsPanel;
+        public RectTransform creditsPanel;
     }
 
     [Serializable]

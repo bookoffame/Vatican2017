@@ -331,6 +331,9 @@ public static partial class Methods
         gameState.user.agent.camera_control_locomotion.pitch_current = gameState.user.agent.camera_main.transform.eulerAngles.x;
         gameState.user.agent.camera_control_locomotion.yaw_current = gameState.user.agent.camera_main.transform.eulerAngles.y;
         #endregion // Init user
+
+        gameState.sceneReferences.controlsPanel.gameObject.SetActive(true);
+        gameState.sceneReferences.creditsPanel.gameObject.SetActive(false);
     }    
 
     public static void Main_Update(ref GameState gameState, GameParams gameParams)
@@ -633,6 +636,12 @@ public static partial class Methods
         #region // User simulation
         User user = gameState.user;
         Agent agent = user.agent;
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            gameState.sceneReferences.controlsPanel.gameObject.SetActive(!gameState.sceneReferences.controlsPanel.gameObject.activeInHierarchy);
+            gameState.sceneReferences.creditsPanel.gameObject.SetActive(!gameState.sceneReferences.creditsPanel.gameObject.activeInHierarchy);
+        }
 
         #region // User Intent
         user.intent = User_Intent.emptyIntent;
