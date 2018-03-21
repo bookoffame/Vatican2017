@@ -332,8 +332,10 @@ public static partial class Methods
         gameState.user.agent.camera_control_locomotion.yaw_current = gameState.user.agent.camera_main.transform.eulerAngles.y;
         #endregion // Init user
 
-        gameState.sceneReferences.controlsPanel.gameObject.SetActive(true);
-        gameState.sceneReferences.creditsPanel.gameObject.SetActive(false);
+        gameState.showCredits = false;
+        gameState.showHelp = true;
+        gameState.sceneReferences.creditsPanel.gameObject.SetActive(gameState.showCredits);
+        gameState.sceneReferences.controlsPanel.gameObject.SetActive(gameState.showHelp && !gameState.showCredits);
     }    
 
     public static void Main_Update(ref GameState gameState, GameParams gameParams)
@@ -637,10 +639,19 @@ public static partial class Methods
         User user = gameState.user;
         Agent agent = user.agent;
 
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.BackQuote))
         {
-            gameState.sceneReferences.controlsPanel.gameObject.SetActive(!gameState.sceneReferences.controlsPanel.gameObject.activeInHierarchy);
-            gameState.sceneReferences.creditsPanel.gameObject.SetActive(!gameState.sceneReferences.creditsPanel.gameObject.activeInHierarchy);
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+            gameState.showCredits = !gameState.showCredits;
+            }
+            if (Input.GetKeyDown(KeyCode.BackQuote))
+            {
+                gameState.showHelp = !gameState.showHelp;
+            }
+            
+            gameState.sceneReferences.creditsPanel.gameObject.SetActive(gameState.showCredits);
+            gameState.sceneReferences.controlsPanel.gameObject.SetActive(gameState.showHelp && !gameState.showCredits);
         }
 
         #region // User Intent

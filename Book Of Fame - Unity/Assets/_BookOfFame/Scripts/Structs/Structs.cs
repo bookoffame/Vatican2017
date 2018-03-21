@@ -42,6 +42,8 @@ namespace BookOfFame
         internal UIEvents uiEvents;
         internal SceneReferences sceneReferences;
         internal PageDragStartEvent pageDragStartEvent;
+        internal bool showHelp;
+        internal bool showCredits;
     }
 
     public struct PageDragStartEvent
