@@ -40,9 +40,9 @@
 			{
 
 	#if defined(UNITY_REVERSED_Z)
-				return 0;
+				return (0,0,0,0);
     #else
-				return 1;
+				return (1,1,1,1);
 	#endif
 			}
 			ENDCG
